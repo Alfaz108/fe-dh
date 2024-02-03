@@ -45,7 +45,7 @@ const Register = () => {
           </div>
           <div className="text-center">
             <button type="submit" class="btn btn-primary">
-              Login
+              Register
             </button>
           </div>
         </form>
