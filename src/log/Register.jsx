@@ -2,7 +2,7 @@ import React from "react";
 
 const Register = () => {
   return (
-    <div>
+    <div className="d-flex justify-content-center">
       <div
         style={{
           width: "350px",

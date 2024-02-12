@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
-    <div className="">
+    <div className="d-flex justify-content-center">
       <div
         style={{
           width: "350px",

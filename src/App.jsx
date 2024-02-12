@@ -2,17 +2,18 @@ import { useState } from "react";
 import "./App.css";
 import Login from "./log/login";
 import Register from "./log/Register";
-import Coloum from "./Coloum/Coloum";
+import CardTable from "./Table/CardTable";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <div>
+      <div className="">
         {/* <Register></Register>
         <Login></Login> */}
-        <Coloum></Coloum>
+
+        <CardTable></CardTable>
       </div>
     </>
   );
