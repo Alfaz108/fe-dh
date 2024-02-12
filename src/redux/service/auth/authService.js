@@ -9,7 +9,16 @@ export const authService = apiService.injectEndpoints({
         body: postBody,
       }),
     }),
+
+    login: builder.mutation({
+      query: (postBody) => ({
+        url: "/auth/signin",
+        method: "POST",
+        body: postBody,
+      }),
+    }),
+    
   }),
 });
 
-export const {useRegisterMutation  } = authService; 
+export const {useRegisterMutation,useLoginMutation  } = authService; 

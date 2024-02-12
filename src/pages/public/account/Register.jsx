@@ -1,12 +1,12 @@
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Button, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useRegisterMutation } from "../../../redux/service/auth/authService";
 
-export const DEFAULT_LOGIN_VALUES = {
+export const DEFAULT_REGISTER_VALUES = {
   name: "",
   email: "",
   password: "",
@@ -39,7 +39,7 @@ const Register = () => {
     .required();
 
   const { handleSubmit, control, watch } = useForm({
-    defaultValues: DEFAULT_LOGIN_VALUES,
+    defaultValues: DEFAULT_REGISTER_VALUES,
     resolver: yupResolver(schemaResolver),
     mode: "all",
   });
@@ -50,9 +50,12 @@ const Register = () => {
       email: formData?.email,
       password: formData?.password,
     };
-    console.log(postBody);
     register(postBody);
   };
+
+  if (isSuccess) {
+    return <Navigate to="/auth/login" replace />;
+  }
 
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
