@@ -1,20 +1,11 @@
-import { useState } from "react";
-import "./App.css";
-import Login from "./log/login";
-import Register from "./log/Register";
-import CardTable from "./Table/CardTable";
+import { RouterProvider } from "react-router-dom";
+import { route } from "./routes/index";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-      <div className="">
-        {/* <Register></Register>
-        <Login></Login> */}
-
-        <CardTable></CardTable>
-      </div>
+      <RouterProvider router={route} />
     </>
   );
 }
