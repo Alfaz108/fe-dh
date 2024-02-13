@@ -1,15 +1,14 @@
 import React from "react";
 import "../../App.css";
 import ReactDOM from "react-dom"; // Import ReactDOM
-import { Sidenav, Nav, Toggle, IconButton } from "rsuite";
+import { Sidenav, Nav, IconButton, AvatarGroup, Avatar } from "rsuite";
 import DashboardIcon from "@rsuite/icons/legacy/Dashboard";
 import GroupIcon from "@rsuite/icons/legacy/Group";
 import MagicIcon from "@rsuite/icons/legacy/Magic";
 import GearCircleIcon from "@rsuite/icons/legacy/GearCircle";
 import GearIcon from "@rsuite/icons/Gear";
-import SpinnerIcon from "@rsuite/icons/legacy/Spinner";
-// import AlignJustifyIcon from "@rsuite/icons/legacy/AlignJustify";
 import ArrowLeftIcon from "@rsuite/icons/ArrowLeft";
+import logo from "../../assets/logo/dharosh_Logo.png";
 
 const MenuBar = () => {
   const [expanded, setExpanded] = React.useState(true);
@@ -23,12 +22,28 @@ const MenuBar = () => {
     <div>
       <div>
         <div className="d-flex bg-body-tertiary p-2  align-items-center justify-content-between">
-          <div className="">
-            <IconButton
-              onClick={menuButton}
-              icon={<ArrowLeftIcon style={{ fontSize: "2em" }} />}
-            />
+          <div className="d-flex align-items-center">
+            <span className="w-100">
+              <AvatarGroup spacing={6}>
+                <Avatar className="img-fluid" src={logo} alt="@superman66" />
+              </AvatarGroup>
+            </span>
+            <span
+              style={{
+                paddingLeft: "12px",
+                paddingRight: "12px",
+              }}
+              className="fs-4 fw-bolder text-dark">
+              DHAROSH
+            </span>
+            <span>
+              <IconButton
+                onClick={menuButton}
+                icon={<ArrowLeftIcon style={{ fontSize: "2em" }} />}
+              />
+            </span>
           </div>
+
           <div className="icon-example-list pe-2">
             <GearIcon spin style={{ fontSize: "1.5em" }} />
           </div>
