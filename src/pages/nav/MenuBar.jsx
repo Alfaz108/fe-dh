@@ -13,7 +13,6 @@ import logo from "../../assets/logo/dharosh_Logo.png";
 const MenuBar = () => {
   const [expanded, setExpanded] = React.useState(true);
   const [activeKey, setActiveKey] = React.useState("1");
-
   const menuButton = () => {
     setExpanded((prevExpanded) => !prevExpanded);
   };
@@ -21,38 +20,44 @@ const MenuBar = () => {
   return (
     <div>
       <div>
-        <div className="d-flex bg-body-tertiary p-2  align-items-center justify-content-between">
-          <div className="d-flex align-items-center">
-            <span className="w-100">
-              <AvatarGroup spacing={6}>
-                <Avatar className="img-fluid" src={logo} alt="@superman66" />
-              </AvatarGroup>
-            </span>
-            <span
-              style={{
-                paddingLeft: "12px",
-                paddingRight: "12px",
-              }}
-              className="fs-4 fw-bolder text-dark">
-              DHAROSH
-            </span>
-            <span>
-              <IconButton
-                onClick={menuButton}
-                icon={<ArrowLeftIcon style={{ fontSize: "2em" }} />}
-              />
-            </span>
-          </div>
-
+        {/* top bar  */}
+        <div className="d-flex bg-body-tertiary p-3  align-items-center justify-content-end">
           <div className="icon-example-list pe-2">
             <GearIcon spin style={{ fontSize: "1.5em" }} />
           </div>
         </div>
 
-        <div style={{ width: 240 }}>
+        {/* sidebar  */}
+        <div
+          style={{
+            width: 240,
+            height: "100vh",
+            position: "fixed",
+            top: 0,
+            zIndex: 999,
+          }}>
           <Sidenav expanded={expanded} defaultOpenKeys={["3", "4"]}>
             <Sidenav.Body>
-              <Nav activeKey={activeKey} onSelect={setActiveKey}>
+              <Nav
+                style={{
+                  position: "relative",
+                }}
+                activeKey={activeKey}
+                onSelect={setActiveKey}>
+                <span
+                  style={{
+                    position: "absolute",
+                    top: "10px",
+                    right: "-40px",
+                    zIndex: 1000,
+                  }}>
+                  <IconButton
+                    className="border"
+                    onClick={menuButton}
+                    icon={<ArrowLeftIcon style={{ fontSize: "1em" }} />}
+                  />
+                </span>
+                <Nav.Item className="fw-bolder fs-5">DHAROSH </Nav.Item>
                 <Nav.Item eventKey="1" icon={<DashboardIcon />}>
                   Dashboard
                 </Nav.Item>
