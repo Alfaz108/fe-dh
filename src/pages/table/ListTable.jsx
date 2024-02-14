@@ -1,23 +1,40 @@
 import { Table, Pagination } from "rsuite";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../../App.css";
 // import { mockUsers } from "./mock";
 
-// const defaultData = mockUsers(100);
+// const data1 = mockUsers(100);
 
 const ListTable = () => {
+  const [data1, setData1] = useState(null);
   const { Column, HeaderCell, Cell } = Table;
-  const [limit, setLimit] = React.useState(10);
   const [page, setPage] = React.useState(1);
+  const [limit, setLimit] = React.useState(10);
+
+  console.log(data1);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://jsonplaceholder.typicode.com/users"
+        );
+        const json = await response.json();
+        setData1(json);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [data1]);
 
   const handleChangeLimit = (dataKey) => {
     setPage(1);
     setLimit(dataKey);
   };
 
-  const defaultData = ["maruf", "masum", "arif"];
-
-  const data = defaultData.filter((v, i) => {
+  const data = data1.filter((v, i) => {
     const start = limit * (page - 1);
     const end = start + limit;
     return i >= start && i < end;
@@ -32,22 +49,30 @@ const ListTable = () => {
         </Column>
 
         <Column width={100} fixed>
-          <HeaderCell>First Name</HeaderCell>
-          <Cell dataKey="firstName" />
+          <HeaderCell>Name</HeaderCell>
+          <Cell dataKey="name" />
         </Column>
 
         <Column width={100}>
-          <HeaderCell>Last Name</HeaderCell>
-          <Cell dataKey="lastName" />
+          <HeaderCell>User Name</HeaderCell>
+          <Cell dataKey="username" />
         </Column>
 
         <Column width={200}>
-          <HeaderCell>City</HeaderCell>
-          <Cell dataKey="city" />
+          <HeaderCell>Phone</HeaderCell>
+          <Cell dataKey="phone" />
         </Column>
         <Column width={200} flexGrow={1}>
           <HeaderCell>Email</HeaderCell>
           <Cell dataKey="email" />
+        </Column>
+        <Column width={200} flexGrow={1}>
+          <HeaderCell>Website</HeaderCell>
+          <Cell dataKey="website" />
+        </Column>
+        <Column width={200} flexGrow={1}>
+          <HeaderCell>Zip Code</HeaderCell>
+          <Cell dataKey="address.zipcode" />
         </Column>
       </Table>
       <div style={{ padding: 20 }}>
@@ -61,7 +86,7 @@ const ListTable = () => {
           maxButtons={5}
           size="xs"
           layout={["total", "-", "limit", "|", "pager", "skip"]}
-          total={defaultData.length}
+          total={data1.length}
           limitOptions={[10, 30, 50]}
           limit={limit}
           activePage={page}
@@ -72,7 +97,5 @@ const ListTable = () => {
     </div>
   );
 };
-
-// ReactDOM.render(<App />, document.getElementById('root'));
 
 export default ListTable;

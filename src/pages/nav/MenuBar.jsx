@@ -1,13 +1,14 @@
 import React from "react";
 import "../../App.css";
 import ReactDOM from "react-dom"; // Import ReactDOM
-import { Sidenav, Nav, IconButton, AvatarGroup, Avatar } from "rsuite";
+import { Sidenav, Nav, IconButton, AvatarGroup, Avatar, Badge } from "rsuite";
 import DashboardIcon from "@rsuite/icons/legacy/Dashboard";
 import GroupIcon from "@rsuite/icons/legacy/Group";
 import MagicIcon from "@rsuite/icons/legacy/Magic";
 import GearCircleIcon from "@rsuite/icons/legacy/GearCircle";
 import GearIcon from "@rsuite/icons/Gear";
-import ArrowLeftIcon from "@rsuite/icons/ArrowLeft";
+import MenuIcon from "@rsuite/icons/Menu";
+import SentToUserIcon from "@rsuite/icons/SentToUser";
 import logo from "../../assets/logo/dharosh_Logo.png";
 
 const MenuBar = () => {
@@ -21,14 +22,36 @@ const MenuBar = () => {
     <div>
       <div>
         {/* top bar  */}
-        <div className="d-flex bg-body-tertiary p-3  align-items-center justify-content-end">
-          <div className="icon-example-list pe-2">
-            <GearIcon spin style={{ fontSize: "1.5em" }} />
+        <div className="d-flex bg-body-tertiary border  align-items-center justify-content-end">
+          <div className="icon-example-list pe-2 ">
+            <div className="d-flex p-1 align-items-center justify-content-center ">
+              <div className="pt-2 pe-2 d-flex align-items-center">
+                {" "}
+                <span>
+                  {" "}
+                  <Badge color="blue">
+                    <Avatar
+                      size="xs"
+                      circle
+                      src="https://avatars.githubusercontent.com/u/12592949"
+                      alt="@superman66"
+                    />
+                  </Badge>
+                </span>
+                <span className=" pb-2 ps-2 pe-3 fw-bolder text-info">
+                  Admin
+                </span>
+              </div>
+              <div>
+                <GearIcon spin style={{ fontSize: "1.3em" }} />
+              </div>
+            </div>
           </div>
         </div>
 
         {/* sidebar  */}
         <div
+          className=""
           style={{
             width: 240,
             height: "100vh",
@@ -37,7 +60,7 @@ const MenuBar = () => {
             zIndex: 999,
           }}>
           <Sidenav expanded={expanded} defaultOpenKeys={["3", "4"]}>
-            <Sidenav.Body>
+            <Sidenav.Body className="border">
               <Nav
                 style={{
                   position: "relative",
@@ -47,17 +70,18 @@ const MenuBar = () => {
                 <span
                   style={{
                     position: "absolute",
-                    top: "10px",
+                    top: "5px",
                     right: "-40px",
                     zIndex: 1000,
                   }}>
                   <IconButton
-                    className="border"
                     onClick={menuButton}
-                    icon={<ArrowLeftIcon style={{ fontSize: "1em" }} />}
+                    icon={<MenuIcon style={{ fontSize: "1em" }} />}
                   />
                 </span>
-                <Nav.Item className="fw-bolder fs-5">DHAROSH </Nav.Item>
+                <Nav.Item icon={<SentToUserIcon />} className="fw-bolder  fs-5">
+                  DHAROSH
+                </Nav.Item>
                 <Nav.Item eventKey="1" icon={<DashboardIcon />}>
                   Dashboard
                 </Nav.Item>
