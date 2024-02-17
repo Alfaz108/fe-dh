@@ -11,8 +11,8 @@ const Show = () => {
   const [expanded, setExpanded] = React.useState(true);
   const [activeKey, setActiveKey] = React.useState("1");
   return (
-    <div>
-      <div className="d-flex bg-black bg-white">
+    <div >
+      <div className="d-flex bg-black bg-white ">
         <div style={{}}>
           <div style={{}}>
             <Sidenav expanded={expanded} defaultOpenKeys={["3", "4"]}>
@@ -78,6 +78,6 @@ const Show = () => {
   );
 };
 
-// ReactDOM.render(<App />, document.getElementById('root'));
+
 
 export default Show;

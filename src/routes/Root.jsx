@@ -1,8 +1,10 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import DefaultLayout from "../layouts/DefaultLayout";
 
 const Root = () => {
-  return <Outlet />;
+  return <>
+  <DefaultLayout/>
+  </>;
 };
 
 export default Root;

@@ -1,12 +1,12 @@
 import { Card, Col, Row, Table, Button } from "react-bootstrap";
 
-const Dashboard = () => {
+const User = () => {
   return (
     <Row>
       <Col xs={12}>
         <Card>
           <Card.Body>
-           <h1>Dashboard</h1>
+            <h1>User</h1>
           </Card.Body>
         </Card>
       </Col>
@@ -14,4 +14,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default User;

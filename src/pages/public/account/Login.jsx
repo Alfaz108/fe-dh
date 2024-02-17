@@ -14,7 +14,8 @@ export const DEFAULT_LOGIN_VALUES = {
 const Login = () => {
   const naviagte = useNavigate();
   const [login, { data, isLoading }] = useLoginMutation();
-  console.log(data);
+
+  
   const schemaResolver = yup
     .object()
     .shape({

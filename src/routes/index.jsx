@@ -5,6 +5,7 @@ import Login from "../pages/public/account/Login";
 import Register from "../pages/public/account/Register";
 import Dashboard from "../pages/private/dashboard";
 import Root from "./Root";
+import User from "../pages/private/user";
 
 export const route = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ export const route = createBrowserRouter([
       {
         path: "/",
         element: <Dashboard />,
+      },
+      {
+        path: "/user",
+        element: <User />,
       },
     ],
   },

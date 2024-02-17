@@ -6,13 +6,7 @@ import Show from "./pages/dashboard/Sow";
 
 function App() {
   return (
-    <>
-      {/* <RouterProvider router={route} /> */}
-      {/* <MenuBar></MenuBar> */}
-      {/* <ListTable></ListTable> */}
-
-      <Show></Show>
-    </>
+       <RouterProvider router={route} />
   );
 }
 
