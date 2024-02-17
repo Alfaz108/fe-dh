@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Sidenav, Nav } from "rsuite";
 import { Link } from "react-router-dom"; // Import Link
 import MENU_ITEMS from "../constants/menu";
-import DashboardIcon from "@rsuite/icons/legacy/Dashboard";
 
 const LeftSidebar = ({ expanded, activeKey, setActiveKey }) => {
   const renderMenuItem = (menuItem) => {
