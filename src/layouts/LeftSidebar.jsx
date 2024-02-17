@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { Sidenav, Nav } from "rsuite";
 import { Link } from "react-router-dom"; // Import Link
 import MENU_ITEMS from "../constants/menu";
+import DashboardIcon from "@rsuite/icons/legacy/Dashboard";
 
 const LeftSidebar = ({ expanded, activeKey, setActiveKey }) => {
   const renderMenuItem = (menuItem) => {
+    console.log(menuItem?.icon);
     if (menuItem.children) {
       return (
         <Nav.Menu
@@ -20,7 +22,7 @@ const LeftSidebar = ({ expanded, activeKey, setActiveKey }) => {
         <Nav.Item
           key={menuItem.key}
           eventKey={menuItem.key}
-          icon={menuItem.icon}
+          icon={menuItem?.icon && <menuItem.icon />}
           as={Link}
           to={menuItem.url}
         >
