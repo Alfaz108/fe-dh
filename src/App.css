@@ -1,7 +1,17 @@
 @import "rsuite/dist/rsuite.css";
 
 #root {
- 
-  margin: 0 auto;
- 
+  margin: 0px;
 }
+
+/* .hover:hover {
+  background-color: none;
+  display: inline;
+  background-color: #e5e5eb;
+} */
+
+/* .menu {
+  width: 200px;
+  display: hidden;
+  background-color: none;
+} */

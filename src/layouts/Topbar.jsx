@@ -2,13 +2,14 @@ import React from "react";
 import { Avatar, Badge } from "rsuite";
 import GearIcon from "@rsuite/icons/Gear";
 
-
 const Topbar = () => {
   return (
     <div>
-      <div className="d-flex bg-body-tertiary border  align-items-center justify-content-end">
-        <div className="icon-example-list pe-2 ">
-          <div className="d-flex p-1 align-items-center justify-content-center ">
+      <div
+        style={{ backgroundColor: "#E5E5EA" }}
+        className="d-flex bg-body-tertiary border align-items-center justify-content-end">
+        <div className="icon-example-list">
+          <div className="d-flex p-1 align-items-center justify-content-center">
             <div className="pt-2 pe-2 d-flex align-items-center">
               {" "}
               <span>
