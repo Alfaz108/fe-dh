@@ -15,8 +15,6 @@ const MENU_ITEMS = () => {
       label: "Dashboard",
       icon: DashboardIcon,
       url: "/",
-      backgroundColor: "#304FFE",
-      color: "white",
     },
 
     {
