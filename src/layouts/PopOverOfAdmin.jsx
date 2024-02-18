@@ -7,10 +7,6 @@ const MenuPopover = React.forwardRef(({ onSelect, ...rest }, ref) => (
       <Dropdown.Item eventKey={1}>New File</Dropdown.Item>
       <Dropdown.Item eventKey={2}>New File with Current</Dropdown.Item>
       <Dropdown.Item eventKey={3}>Download As...</Dropdown.Item>
-      {/* <Dropdown.Item eventKey={4}>Export PDF</Dropdown.Item>
-      <Dropdown.Item eventKey={5}>Export HTML</Dropdown.Item>
-      <Dropdown.Item eventKey={6}>Settings</Dropdown.Item>
-      <Dropdown.Item eventKey={7}>About</Dropdown.Item> */}
     </Dropdown.Menu>
   </Popover>
 ));
