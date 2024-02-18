@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import "./../App.css";
 import { Sidenav, Nav, List } from "rsuite";
-import { Link } from "react-router-dom"; // Import Link
+import { Link } from "react-router-dom";
 import MENU_ITEMS from "../constants/menu";
-import Dashboard from "@rsuite/icons/legacy/Dashboard";
 
 const LeftSidebar = ({ expanded, activeKey, setActiveKey }) => {
   const renderMenuItem = (menuItem) => {
-    console.log(menuItem?.icon);
     if (menuItem.children) {
       return (
         <Nav.Menu
@@ -15,7 +13,8 @@ const LeftSidebar = ({ expanded, activeKey, setActiveKey }) => {
           key={menuItem.key}
           eventKey={menuItem.key}
           title={menuItem.label}
-          icon={menuItem?.icon && <menuItem.icon />}>
+          icon={menuItem?.icon && <menuItem.icon />}
+        >
           {menuItem.children.map((child) => renderMenuItem(child))}
         </Nav.Menu>
       );
@@ -28,7 +27,8 @@ const LeftSidebar = ({ expanded, activeKey, setActiveKey }) => {
           eventKey={menuItem.key}
           icon={menuItem?.icon && <menuItem.icon />}
           as={Link}
-          to={menuItem.url}>
+          to={menuItem.url}
+        >
           {menuItem.label}
         </Nav.Item>
       );

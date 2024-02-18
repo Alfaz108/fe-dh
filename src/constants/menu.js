@@ -2,13 +2,12 @@ import DashboardIcon from "@rsuite/icons/legacy/Dashboard";
 import GroupIcon from "@rsuite/icons/legacy/Group";
 import MagicIcon from "@rsuite/icons/legacy/Magic";
 import GearCircleIcon from "@rsuite/icons/legacy/GearCircle";
-import image from "../assets/logo/logo.png";
 
 const MENU_ITEMS = () => {
   return [
     {
       label: "DHAROSH",
-      icon: MagicIcon,
+      // icon: image,
       url: "/",
     },
     {

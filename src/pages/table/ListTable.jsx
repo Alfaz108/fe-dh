@@ -1,9 +1,6 @@
 import { Table, Pagination } from "rsuite";
 import React, { useEffect, useState } from "react";
 import "../../App.css";
-// import { mockUsers } from "./mock";
-
-// const data1 = mockUsers(100);
 
 const ListTable = () => {
   const [data1, setData1] = useState(null);
@@ -34,7 +31,7 @@ const ListTable = () => {
     setLimit(dataKey);
   };
 
-  const data = data1.filter((v, i) => {
+  const data = data1?.filter((v, i) => {
     const start = limit * (page - 1);
     const end = start + limit;
     return i >= start && i < end;
@@ -86,7 +83,7 @@ const ListTable = () => {
           maxButtons={5}
           size="xs"
           layout={["total", "-", "limit", "|", "pager", "skip"]}
-          total={data1.length}
+          total={data1?.length}
           limitOptions={[10, 30, 50]}
           limit={limit}
           activePage={page}

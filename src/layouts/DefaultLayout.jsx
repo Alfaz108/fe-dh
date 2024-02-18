@@ -5,7 +5,6 @@ import LeftSidebar from "./LeftSidebar";
 import Topbar from "./Topbar";
 import { Outlet } from "react-router-dom";
 import MenuIcon from "@rsuite/icons/Menu";
-import { Padding } from "@mui/icons-material";
 
 const DefaultLayout = () => {
   const [expanded, setExpanded] = React.useState(true);
@@ -18,7 +17,8 @@ const DefaultLayout = () => {
     <div
       style={{
         overflowX: "hidden",
-      }}>
+      }}
+    >
       <div className="d-flex">
         <div>
           <div>
@@ -40,7 +40,8 @@ const DefaultLayout = () => {
                 fontSize: "20px",
                 cursor: "pointer",
               }}
-              onClick={buttonFunction}></MenuIcon>
+              onClick={buttonFunction}
+            ></MenuIcon>
           </span>
           <div>
             <Topbar />
