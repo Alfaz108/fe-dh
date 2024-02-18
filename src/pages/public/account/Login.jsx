@@ -15,7 +15,6 @@ const Login = () => {
   const naviagte = useNavigate();
   const [login, { data, isLoading }] = useLoginMutation();
 
-  
   const schemaResolver = yup
     .object()
     .shape({

@@ -11,16 +11,16 @@ const Show = () => {
   const [expanded, setExpanded] = React.useState(true);
   const [activeKey, setActiveKey] = React.useState("1");
   return (
-    <div >
-      <div className="d-flex bg-black bg-white ">
+    <div
+      style={{
+        overflowX: "hidden",
+      }}>
+      <div className="d-flex bg-white">
         <div style={{}}>
           <div style={{}}>
             <Sidenav expanded={expanded} defaultOpenKeys={["3", "4"]}>
               <Sidenav.Body>
-                <Nav
-                  className="pe-5 me-3"
-                  activeKey={activeKey}
-                  onSelect={setActiveKey}>
+                <Nav className="" activeKey={activeKey} onSelect={setActiveKey}>
                   <Nav.Item eventKey="1" icon={<DashboardIcon />}>
                     Dashboard
                   </Nav.Item>
@@ -59,7 +59,9 @@ const Show = () => {
             </Sidenav>
           </div>
         </div>
-        <div style={{ position: "relative" }} className=" w-100">
+        <div
+          style={{ position: "relative", overflowX: "hidden" }}
+          className=" w-100">
           <span style={{ position: "absolute", top: "5px", left: "0px" }}>
             <Toggle
               onChange={setExpanded}
@@ -77,7 +79,5 @@ const Show = () => {
     </div>
   );
 };
-
-
 
 export default Show;

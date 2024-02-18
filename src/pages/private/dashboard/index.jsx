@@ -1,14 +1,13 @@
 import { Card, Col, Row, Table, Button } from "react-bootstrap";
+import Analysis from "./Analysis";
 
 const Dashboard = () => {
   return (
     <Row>
-      <Col xs={12}>
-        <Card>
-          <Card.Body>
-           <h1>Dashboard</h1>
-          </Card.Body>
-        </Card>
+      <Col xs={24}>
+        <div>
+          <Analysis></Analysis>
+        </div>
       </Col>
     </Row>
   );

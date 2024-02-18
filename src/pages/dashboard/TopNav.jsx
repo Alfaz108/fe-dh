@@ -5,7 +5,10 @@ import { Container, Content, Header } from "rsuite";
 
 const TopNav = () => {
   return (
-    <div>
+    <div
+      style={{
+        overflowX: "hidden",
+      }}>
       <div className="d-flex bg-body-tertiary border  align-items-center justify-content-end">
         <div className="icon-example-list pe-2 ">
           <div className="d-flex p-1 align-items-center justify-content-center ">
