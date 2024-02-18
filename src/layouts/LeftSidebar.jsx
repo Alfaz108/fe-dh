@@ -21,7 +21,11 @@ const LeftSidebar = ({ expanded, activeKey, setActiveKey }) => {
     } else {
       return (
         <Nav.Item
-          style={{ width: "250px" }}
+          style={{
+            width: "250px",
+            backgroundColor: `${menuItem.backgroundColor}`,
+            color: `${menuItem.color}`,
+          }}
           hover-none
           key={menuItem.key}
           eventKey={menuItem.key}
