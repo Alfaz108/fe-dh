@@ -34,10 +34,10 @@ const DefaultLayout = () => {
             <MenuIcon
               style={{
                 position: "absolute",
-                top: "12px",
+                top: "14px",
                 left: "7px",
                 width: "30px",
-                fontSize: "20px",
+                fontSize: "18px",
                 cursor: "pointer",
               }}
               onClick={buttonFunction}></MenuIcon>
