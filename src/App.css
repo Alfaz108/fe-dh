@@ -2,8 +2,12 @@
 
 #root {
   margin: 0px;
+  background-color: #f3f3f8;
 }
 
+.sdp {
+  --theme-color: #8b5cf6 !important; /* violet color */
+}
 /* .hover:hover {
   background-color: none;
   display: inline;
@@ -15,3 +19,7 @@
   display: hidden;
   background-color: none;
 } */
+
+/* .max-width {
+  width: 100% !important;
+}                    */

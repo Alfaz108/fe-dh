@@ -1,15 +1,18 @@
-import { Card, Col, Row, Table, Button } from "react-bootstrap";
-import Analysis from "./Analysis";
+import { Col, Row } from "react-bootstrap";
+import LayoutOfDashboard from "./Analysis/LayoutOfDashboard";
 
 const Dashboard = () => {
   return (
-    <Row>
-      <Col xs={24}>
-        <div>
-          <Analysis></Analysis>
-        </div>
-      </Col>
-    </Row>
+    <div>
+      <Row className="m-1">
+        <Col xs={24}>
+          <div>
+            {/* <Analysis></Analysis> */}
+            <LayoutOfDashboard></LayoutOfDashboard>
+          </div>
+        </Col>
+      </Row>
+    </div>
   );
 };
 

@@ -14,21 +14,25 @@ const DefaultLayout = () => {
     setExpanded((prevExpanded) => !prevExpanded);
   };
   return (
+    // full dashboard here =============================================
+
     <div
       style={{
         overflowX: "hidden",
-      }}
-    >
+      }}>
       <div className="d-flex">
+        {/* sidebar start here ========================================== */}
         <div>
           <div>
             <LeftSidebar
               expanded={expanded}
               activeKey={activeKey}
               setActiveKey={setActiveKey}
+              style={{ backgroundColor: "#FFFFFF !important" }}
             />
           </div>
         </div>
+        {/* sidebar s button on/off====================================== */}
         <div style={{ position: "relative" }} className="w-100">
           <span>
             <MenuIcon
@@ -40,10 +44,10 @@ const DefaultLayout = () => {
                 fontSize: "18px",
                 cursor: "pointer",
               }}
-              onClick={buttonFunction}
-            ></MenuIcon>
+              onClick={buttonFunction}></MenuIcon>
           </span>
           <div>
+            {/* topbar and ouplet page here =========================== */}
             <Topbar />
             <Outlet />
           </div>

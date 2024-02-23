@@ -6,14 +6,15 @@ const Topbar = () => {
   return (
     <div>
       <div
-        style={{ backgroundColor: "#E5E5EA" }}
-        className="d-flex bg-body-tertiary border align-items-center justify-content-end"
-      >
+        style={{ backgroundColor: "#f3f3f8" }}
+        className="d-flex align-items-center justify-content-end">
         <div className="icon-example-list">
           <div className="d-flex p-1 align-items-center justify-content-center">
+            {/* setting icon========================== */}
             <div className="me-3">
               <GearIcon spin style={{ fontSize: "1.3em", cursor: "pointer" }} />
             </div>
+            {/* avater / photo icon ========================= */}
             <div className="pt-2 pe-2 d-flex align-items-center">
               <span>
                 <Badge color="blue">

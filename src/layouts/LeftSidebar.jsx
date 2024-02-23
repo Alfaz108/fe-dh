@@ -13,8 +13,7 @@ const LeftSidebar = ({ expanded, activeKey, setActiveKey }) => {
           key={menuItem.key}
           eventKey={menuItem.key}
           title={menuItem.label}
-          icon={menuItem?.icon && <menuItem.icon />}
-        >
+          icon={menuItem?.icon && <menuItem.icon />}>
           {menuItem.children.map((child) => renderMenuItem(child))}
         </Nav.Menu>
       );
@@ -23,16 +22,13 @@ const LeftSidebar = ({ expanded, activeKey, setActiveKey }) => {
         <Nav.Item
           style={{
             width: "250px",
-            backgroundColor: `${menuItem.backgroundColor}`,
-            color: `${menuItem.color}`,
           }}
           hover-none
           key={menuItem.key}
           eventKey={menuItem.key}
           icon={menuItem?.icon && <menuItem.icon />}
           as={Link}
-          to={menuItem.url}
-        >
+          to={menuItem.url}>
           {menuItem.label}
         </Nav.Item>
       );
@@ -40,8 +36,10 @@ const LeftSidebar = ({ expanded, activeKey, setActiveKey }) => {
   };
 
   return (
+    // add data pass by menuItem to renderMenuItem==============
+
     <Sidenav expanded={expanded} defaultOpenKeys={["3", "4"]}>
-      <Sidenav.Body>
+      <Sidenav.Body style={{ height: "120vh" }}>
         <Nav className="" activeKey={activeKey} onSelect={setActiveKey}>
           {MENU_ITEMS().map((menuItem) => renderMenuItem(menuItem))}
         </Nav>
