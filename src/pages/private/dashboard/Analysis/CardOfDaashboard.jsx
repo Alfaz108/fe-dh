@@ -4,8 +4,13 @@ import img from "./../../../../assets/logo/Typing.png";
 const CardOfDaashboard = () => {
   return (
     <div
-      style={{ height: "150px", position: "relative" }}
-      class="card mb-4 bg-primary">
+      style={{
+        height: "150px",
+        position: "relative",
+        border: "none",
+        borderRadius: "10px",
+      }}
+      class="  mb-4 bg-primary">
       <div class="row text-white">
         <div class="col-md-6">
           <div class="py-3 ps-2">

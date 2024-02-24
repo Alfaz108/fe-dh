@@ -40,8 +40,8 @@ const CalendarOfDashboard = () => {
   }
   return (
     <div
-      className="card border-none mb-3"
-      style={{ width: "100%", height: "350px" }}>
+      className="card mb-3"
+      style={{ width: "100%", height: "350px", border: "none" }}>
       <Calendar compact renderCell={renderCell} />{" "}
     </div>
   );

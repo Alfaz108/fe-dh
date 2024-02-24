@@ -11,7 +11,7 @@ const AnalysisOfDashboard = () => {
   return (
     <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
       <div class="col">
-        <div class="card">
+        <div style={{ border: "none" }} class="card">
           <div className="d-flex align-items-center justify-content-between">
             <div className="d-flex align-items-center p-2">
               <div className="display-4 px-3 fw-bold">3</div>
@@ -28,58 +28,52 @@ const AnalysisOfDashboard = () => {
         </div>
       </div>
       <div class="col">
-        <div class="card">
-          <div class="card">
-            <div className="d-flex align-items-center justify-content-between">
-              <div className="d-flex align-items-center p-2">
-                <div className="display-4 px-3 fw-bold">1</div>
-                <div className="pt-3" style={{ lineHeight: "2px" }}>
-                  <p className="fw-bold fs-6">Senior UI</p>
-                  <p className="fw-bold fs-6">Designer</p>
-                  <p className="form-text">(0 Candidates)</p>
-                </div>
+        <div style={{ border: "none" }} class="card">
+          <div className="d-flex align-items-center justify-content-between">
+            <div className="d-flex align-items-center p-2">
+              <div className="display-4 px-3 fw-bold">1</div>
+              <div className="pt-3" style={{ lineHeight: "2px" }}>
+                <p className="fw-bold fs-6">Senior UI</p>
+                <p className="fw-bold fs-6">Designer</p>
+                <p className="form-text">(0 Candidates)</p>
               </div>
-              <div style={style}>
-                <Progress.Circle percent={70} strokeColor="red" />
-              </div>
+            </div>
+            <div style={style}>
+              <Progress.Circle percent={70} strokeColor="red" />
             </div>
           </div>
         </div>
       </div>
       <div class="col">
-        <div class="card">
-          <div class="card">
-            <div className="d-flex align-items-center justify-content-between">
-              <div className="d-flex align-items-center p-2">
-                <div className="display-4 px-3 fw-bold">9</div>
-                <div className="pt-3" style={{ lineHeight: "2px" }}>
-                  <p className="fw-bold fs-6">Node.js</p>
-                  <p className="fw-bold fs-6">Developers</p>
-                  <p className="form-text">(12 Candidates)</p>
-                </div>
+        <div style={{ border: "none" }} class="card">
+          <div className="d-flex align-items-center justify-content-between">
+            <div className="d-flex align-items-center p-2">
+              <div className="display-4 px-3 fw-bold">9</div>
+              <div className="pt-3" style={{ lineHeight: "2px" }}>
+                <p className="fw-bold fs-6">Node.js</p>
+                <p className="fw-bold fs-6">Developers</p>
+                <p className="form-text">(12 Candidates)</p>
               </div>
-              <div style={style}>
-                <Progress.Circle percent={80} strokeColor="gray" />
-              </div>
+            </div>
+            <div style={style}>
+              <Progress.Circle percent={80} strokeColor="gray" />
             </div>
           </div>
         </div>
       </div>
       <div class="col">
-        <div class="card">
-          <div class="card">
-            <div className="d-flex align-items-center justify-content-between">
-              <div className="d-flex align-items-center p-2">
-                <div className="display-4 px-3 fw-bold">2</div>
-                <div className="pt-3" style={{ lineHeight: "2px" }}>
-                  <p className="fw-bold fs-6">Marketing</p>
-                  <p className="fw-bold fs-6">Managers</p>
-                  <p className="form-text">(10 Candidates)</p>
-                </div>
+        <div style={{ border: "none" }} class="card">
+          <div className="d-flex align-items-center justify-content-between">
+            <div className="d-flex align-items-center p-2">
+              <div className="display-4 px-3 fw-bold">2</div>
+              <div className="pt-3" style={{ lineHeight: "2px" }}>
+                <p className="fw-bold fs-6">Marketing</p>
+                <p className="fw-bold fs-6">Managers</p>
+                <p className="form-text">(10 Candidates)</p>
               </div>
-              <div style={style}>
-                <Progress.Circle percent={50} strokeColor="#ffc107" />
-              </div>
+            </div>
+            <div style={style}>
+              <Progress.Circle percent={50} strokeColor="#ffc107" />
             </div>
           </div>
         </div>
