@@ -1,5 +1,6 @@
 import React from "react";
-import { Button, Table } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import { useTable } from "react-table";
 
 const CustomTable = (props) => {
   const data = props["data"] || [];
@@ -8,23 +9,8 @@ const CustomTable = (props) => {
   const addWithoutModal = props["addWithoutModal"];
   const addShowModal = props["addShowModal"];
   const tableInfo = props["tableInfo"] || {};
-
-  const renderCellValue = (row, accessor) => {
-    const accessors = accessor.split(".");
-    let value = row;
-    for (const acc of accessors) {
-      value = value?.[acc];
-      if (value === undefined) break;
-    }
-    return value;
-  };
-
-  const handleRowClick = (row) => {
-    if (!hideBtn) {
-      return;
-    }
-    addShowModal(row);
-  };
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable({ columns, data });
 
   return (
     <>
@@ -34,30 +20,35 @@ const CustomTable = (props) => {
           {`Add ${tableInfo?.addTitle}`}
         </Button>
       )}
-      <Table striped bordered hover className=" mt-5">
+      <table {...getTableProps()} className="table mt-5">
         <thead>
-          <tr>
-            {columns.map((column, index) => (
-              <th key={index}>{column.Header}</th>
-            ))}
-            {!hideBtn && <th>Action</th>}
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((row, rowIndex) => (
-            <tr key={rowIndex} onClick={() => handleRowClick(row)}>
-              {columns.map((column, colIndex) => (
-                <td key={colIndex}>{renderCellValue(row, column.accessor)}</td>
+          {headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => (
+                <th
+                  {...column.getHeaderProps()}
+                  className={column.classes}
+                  style={{ minWidth: column.minWidth, width: column.width }}
+                >
+                  {column.render("Header")}
+                </th>
               ))}
-              {!hideBtn && (
-                <td>
-                  <Button onClick={() => addShowModal(row)}>Edit</Button>
-                </td>
-              )}
             </tr>
           ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {rows?.map((row) => {
+            prepareRow(row);
+            return (
+              <tr {...row.getRowProps()}>
+                {row.cells.map((cell) => (
+                  <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                ))}
+              </tr>
+            );
+          })}
         </tbody>
-      </Table>
+      </table>
     </>
   );
 };

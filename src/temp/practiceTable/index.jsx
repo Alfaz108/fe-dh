@@ -1,26 +1,40 @@
 import React from "react";
-import {
-  Table,
-  Header,
-  HeaderRow,
-  Body,
-  Row,
-  HeaderCell,
-  Cell,
-} from "@table-library/react-table-library/table";
-
-import { useTheme } from "@table-library/react-table-library/theme";
-import { getTheme } from "@table-library/react-table-library/baseline";
-
-const key = "Composed Table";
+import { useTable } from "react-table";
 
 const CustomTable = ({ columns, data }) => {
-  const theme = useTheme(getTheme());
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable({ columns, data });
 
   return (
-    <Table data={data} theme={theme}>
-      {(tableList) => console.log(tableList)}
-    </Table>
+    <table {...getTableProps()} className="table">
+      <thead>
+        {headerGroups.map((headerGroup) => (
+          <tr {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map((column) => (
+              <th
+                {...column.getHeaderProps()}
+                className={column.classes}
+                style={{ minWidth: column.minWidth, width: column.width }}
+              >
+                {column.render("Header")}
+              </th>
+            ))}
+          </tr>
+        ))}
+      </thead>
+      <tbody {...getTableBodyProps()}>
+        {rows?.map((row) => {
+          prepareRow(row);
+          return (
+            <tr {...row.getRowProps()}>
+              {row.cells.map((cell) => (
+                <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+              ))}
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
   );
 };
 

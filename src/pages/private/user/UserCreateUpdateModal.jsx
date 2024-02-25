@@ -7,29 +7,24 @@ import * as yup from "yup";
 import genderOption from "../../../constants/static/gender";
 import roleOption from "../../../constants/static/roleOption";
 import statusOption from "../../../constants/static/statusOption";
-import { useUserCreateMutation } from "../../../redux/service/user/userService";
+import {
+  useUserCreateMutation,
+  useUserUpdateMutation,
+} from "../../../redux/service/user/userService";
 import { useEffect } from "react";
 
-export const DEFAULT_USER_VALUES = {
-  name: "",
-  email: "",
-  password: "",
-  role: "FREELANCER",
-  status: "PENDING",
-  address: "",
-  city: "",
-  dateOfBirth: "",
-  fax: "",
-  gender: "",
-  phoneNumber: "",
-  state: "",
-  zip: "",
-};
-
 //@ main component
-const UserCreateUpdate = ({ modal, setModal, toggle, user }) => {
-  console.log(user);
+const UserCreateUpdate = ({
+  modal,
+  setModal,
+  toggle,
+  defaultValues,
+  editData,
+}) => {
   const [userCreate, { isLoading, isSuccess }] = useUserCreateMutation();
+
+  const [userUpdate, { isLoading: updateLoad, isSuccess: updateSuccess }] =
+    useUserUpdateMutation();
 
   const schemaResolver = yup.object().shape({
     name: yup.string().required("Name is required"),
@@ -57,22 +52,47 @@ const UserCreateUpdate = ({ modal, setModal, toggle, user }) => {
 
   const methods = useForm({
     mode: "all",
-    defaultValues: DEFAULT_USER_VALUES,
+    defaultValues,
     resolver: yupResolver(schemaResolver),
   });
 
-  const { handleSubmit, control } = methods;
+  const { handleSubmit, control, reset } = methods;
 
   const onSubmit = (data) => {
     const postBody = data;
-    userCreate(postBody);
+    if (!editData) {
+      userCreate(postBody);
+    } else {
+      const trasferData = {
+        address: postBody?.address,
+        city: postBody?.city,
+        dateOfBirth: postBody?.dateOfBirth,
+        email: postBody?.email,
+        fax: postBody?.fax,
+        gender: postBody?.gender,
+        name: postBody?.name,
+        password: postBody?.password,
+        phoneNumber: postBody?.phoneNumber,
+        role: postBody?.role,
+        state: postBody?.state,
+        status: postBody?.status,
+        zip: postBody?.zip,
+      };
+      userUpdate({ postBody: trasferData, id: postBody?._id });
+    }
   };
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess || updateSuccess) {
       setModal(false);
     }
-  }, [isSuccess]);
+  }, [isSuccess, updateSuccess]);
+
+  useEffect(() => {
+    if (defaultValues) {
+      reset(defaultValues);
+    }
+  }, [JSON.stringify(defaultValues)]);
 
   return (
     <Card className={classNames("", { "d-none": !modal })}>
@@ -178,7 +198,9 @@ const UserCreateUpdate = ({ modal, setModal, toggle, user }) => {
                 <div className="row mt-3">
                   <div className="col">
                     <Form.Group>
-                      <Form.Label htmlFor="name">Name</Form.Label>
+                      <Form.Label htmlFor="dateOfBirth">
+                        Date Of Birth
+                      </Form.Label>
                       <Controller
                         name="dateOfBirth"
                         control={control}
@@ -411,7 +433,7 @@ const UserCreateUpdate = ({ modal, setModal, toggle, user }) => {
                 </div>
               </div>
               <div className="mt-3 text-end">
-                <Button type="submit">Register</Button>
+                <Button type="submit">Submit</Button>
               </div>
             </form>
           </Modal.Body>
