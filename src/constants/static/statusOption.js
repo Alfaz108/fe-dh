@@ -1,19 +1,15 @@
 const statusOption = [
   {
-    label: "APPROVED",
-    value: "APPROVED",
+    label: "ACTIVE",
+    value: "ACTIVE",
   },
   {
     label: "PENDING",
     value: "PENDING",
   },
   {
-    label: "BLOCK",
-    value: "BLOCK",
-  },
-  {
-    label: "DECLINE",
-    value: "DECLINE",
+    label: "INACTIVE",
+    value: "INACTIVE",
   },
 ];
 

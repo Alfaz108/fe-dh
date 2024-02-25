@@ -2,15 +2,10 @@ import DashboardIcon from "@rsuite/icons/legacy/Dashboard";
 import GroupIcon from "@rsuite/icons/legacy/Group";
 import MagicIcon from "@rsuite/icons/legacy/Magic";
 import GearCircleIcon from "@rsuite/icons/legacy/GearCircle";
-import SentToUserIcon from "@rsuite/icons/SentToUser";
+import AdminIcon from "@rsuite/icons/Admin";
 
 const MENU_ITEMS = () => {
   return [
-    {
-      label: "DHAROSH",
-      icon: SentToUserIcon,
-      url: "/",
-    },
     {
       key: "dashboard",
       label: "Dashboard",
@@ -40,12 +35,12 @@ const MENU_ITEMS = () => {
     {
       key: "users",
       label: "Users",
-      icon: MagicIcon,
+      icon: AdminIcon,
       url: "/user",
     },
 
     {
-      key: "users",
+      key: "text",
       label: "Product Setting",
       icon: GearCircleIcon,
       url: "/test",

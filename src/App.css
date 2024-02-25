@@ -6,20 +6,23 @@
 }
 
 .sdp {
-  --theme-color: #8b5cf6 !important; /* violet color */
+  --theme-color: #8b5cf6 !important;
 }
-/* .hover:hover {
-  background-color: none;
-  display: inline;
-  background-color: #e5e5eb;
-} */
 
-/* .menu {
-  width: 200px;
-  display: hidden;
-  background-color: none;
-} */
+/* scrollbar for left side bar */
+::-webkit-scrollbar {
+  width: 5px;
+}
 
-/* .max-width {
-  width: 100% !important;
-}                    */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d4d3d3;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

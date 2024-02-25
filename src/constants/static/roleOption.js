@@ -4,8 +4,16 @@ const roleOption = [
     value: "FREELANCER",
   },
   {
-    label: "OTHER_ROLE",
-    value: "OTHER_ROLE",
+    label: "ADMIN",
+    value: "ADMIN",
+  },
+  {
+    label: "SELLER",
+    value: "SELLER",
+  },
+  {
+    label: "BUYER",
+    value: "BUYER",
   },
 ];
 

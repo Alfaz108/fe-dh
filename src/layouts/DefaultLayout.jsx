@@ -13,44 +13,32 @@ const DefaultLayout = () => {
   const buttonFunction = () => {
     setExpanded((prevExpanded) => !prevExpanded);
   };
-  return (
-    // full dashboard here =============================================
 
-    <div
-      style={{
-        overflowX: "hidden",
-      }}>
-      <div className="d-flex">
-        {/* sidebar start here ========================================== */}
-        <div>
-          <div>
-            <LeftSidebar
-              expanded={expanded}
-              activeKey={activeKey}
-              setActiveKey={setActiveKey}
-              style={{ backgroundColor: "#FFFFFF !important" }}
-            />
-          </div>
-        </div>
-        {/* sidebar s button on/off====================================== */}
-        <div style={{ position: "relative" }} className="w-100">
-          <span>
-            <MenuIcon
-              style={{
-                position: "absolute",
-                top: "14px",
-                left: "7px",
-                width: "30px",
-                fontSize: "18px",
-                cursor: "pointer",
-              }}
-              onClick={buttonFunction}></MenuIcon>
+  return (
+    <div className="d-flex h-100">
+      <LeftSidebar
+        expanded={expanded}
+        activeKey={activeKey}
+        setActiveKey={setActiveKey}
+        style={{ backgroundColor: "#FFFFFF !important" }}
+      />
+      <div className="flex-grow-1 d-flex flex-column">
+        <div className="position-relative">
+          <span
+            style={{
+              position: "absolute",
+              top: "14px",
+              left: "7px",
+              cursor: "pointer",
+            }}
+            onClick={buttonFunction}
+          >
+            <MenuIcon style={{ width: "30px", fontSize: "18px" }} />
           </span>
-          <div>
-            {/* topbar and ouplet page here =========================== */}
-            <Topbar />
-            <Outlet />
-          </div>
+          <Topbar />
+        </div>
+        <div className="flex-grow-1 overflow-auto">
+          <Outlet />
         </div>
       </div>
     </div>
