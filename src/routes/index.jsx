@@ -6,6 +6,7 @@ import Register from "../pages/public/account/Register";
 import Dashboard from "../pages/private/dashboard";
 import Root from "./Root";
 import User from "../pages/private/user";
+import MyComponent from "../temp/practiceTable/Component";
 
 export const route = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ export const route = createBrowserRouter([
       {
         path: "/user",
         element: <User />,
+      },
+      {
+        path: "/test",
+        element: <MyComponent />,
       },
     ],
   },

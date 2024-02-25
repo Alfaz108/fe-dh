@@ -1,4 +1,3 @@
-// CustomTable.js
 import React from "react";
 import { Button, Table } from "react-bootstrap";
 
@@ -20,6 +19,13 @@ const CustomTable = (props) => {
     return value;
   };
 
+  const handleRowClick = (row) => {
+    if (!hideBtn) {
+      return;
+    }
+    addShowModal(row);
+  };
+
   return (
     <>
       {!addWithoutModal && !hideBtn && (
@@ -34,14 +40,20 @@ const CustomTable = (props) => {
             {columns.map((column, index) => (
               <th key={index}>{column.Header}</th>
             ))}
+            {!hideBtn && <th>Action</th>}
           </tr>
         </thead>
         <tbody>
           {data.map((row, rowIndex) => (
-            <tr key={rowIndex}>
+            <tr key={rowIndex} onClick={() => handleRowClick(row)}>
               {columns.map((column, colIndex) => (
                 <td key={colIndex}>{renderCellValue(row, column.accessor)}</td>
               ))}
+              {!hideBtn && (
+                <td>
+                  <Button onClick={() => addShowModal(row)}>Edit</Button>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

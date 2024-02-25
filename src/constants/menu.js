@@ -47,7 +47,7 @@ const MENU_ITEMS = () => {
       key: "users",
       label: "Product Setting",
       icon: GearCircleIcon,
-      url: "/user",
+      url: "/test",
     },
   ];
 };

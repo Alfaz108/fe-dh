@@ -6,12 +6,15 @@ import { useUserListQuery } from "../../../redux/service/user/userService";
 
 const User = () => {
   const [modal, setModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   const { data: user, isLoading, isError } = useUserListQuery();
 
-  const addShowModal = () => {
-    setModal(!modal);
+  const addShowModal = (rowData) => {
+    setSelectedUser(rowData);
+    setModal(true);
   };
+
   const toggle = () => {
     setModal(!modal);
   };

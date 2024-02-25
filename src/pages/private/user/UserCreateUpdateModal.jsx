@@ -27,7 +27,8 @@ export const DEFAULT_USER_VALUES = {
 };
 
 //@ main component
-const UserCreateUpdate = ({ modal, setModal, toggle }) => {
+const UserCreateUpdate = ({ modal, setModal, toggle, user }) => {
+  console.log(user);
   const [userCreate, { isLoading, isSuccess }] = useUserCreateMutation();
 
   const schemaResolver = yup.object().shape({
