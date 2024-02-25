@@ -8,8 +8,8 @@ import * as yup from "yup";
 import { useLoginMutation } from "../../../redux/service/auth/authService";
 
 export const DEFAULT_LOGIN_VALUES = {
-  email: "rashidul@gmail.com",
-  password: "12345678A@",
+  email: "rumongfafy@gmail.com",
+  password: "pass1234@",
 };
 const Login = () => {
   const naviagte = useNavigate();

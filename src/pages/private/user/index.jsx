@@ -2,42 +2,22 @@ import React, { useMemo, useState } from "react";
 import { Row, Col, Card } from "react-bootstrap";
 import CustomTable from "../../../components/app/table/index";
 import UserCreateUpdate from "./UserCreateUpdateModal";
+import { useUserListQuery } from "../../../redux/service/user/userService";
 
 const User = () => {
-  const data = [
-    {
-      id: 1,
-      name: "John Doe",
-      email: "john@example.com",
-      ab: {
-        age: "25",
-      },
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      email: "jane@example.com",
-      ab: {
-        age: "20",
-      },
-    },
-  ];
-
   const [modal, setModal] = useState(false);
+
+  const { data: user, isLoading, isError } = useUserListQuery();
 
   const addShowModal = () => {
     setModal(!modal);
   };
-
   const toggle = () => {
     setModal(!modal);
   };
+
   const columns = useMemo(
     () => [
-      {
-        Header: "ID",
-        accessor: "id",
-      },
       {
         Header: "Name",
         accessor: "name",
@@ -47,8 +27,12 @@ const User = () => {
         accessor: "email",
       },
       {
-        Header: "Age",
-        accessor: "ab.age",
+        Header: "Gender",
+        accessor: "gender",
+      },
+      {
+        Header: "Role",
+        accessor: "role",
       },
     ],
     []
@@ -62,7 +46,7 @@ const User = () => {
             <Card.Body>
               <CustomTable
                 columns={columns}
-                data={data}
+                data={user}
                 addShowModal={addShowModal}
                 tableInfo={{
                   addTitle: "User",
