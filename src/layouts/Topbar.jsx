@@ -7,7 +7,8 @@ const Topbar = () => {
     <div>
       <div
         style={{ backgroundColor: "#f3f3f8" }}
-        className="d-flex align-items-center justify-content-end">
+        className="d-flex align-items-center justify-content-end"
+      >
         <div className="icon-example-list">
           <div className="d-flex p-1 align-items-center justify-content-center">
             {/* setting icon========================== */}

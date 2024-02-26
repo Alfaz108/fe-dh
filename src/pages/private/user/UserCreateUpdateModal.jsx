@@ -1,5 +1,5 @@
 //@ External Lib Import
-import { Button, Card, Form, Modal } from "react-bootstrap";
+import { Button, Card, Form, Modal, Spinner } from "react-bootstrap";
 import classNames from "classnames";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -41,13 +41,13 @@ const UserCreateUpdate = ({
       .string()
       .typeError("invalid role")
       .required("role is required")
-      .oneOf(["FREELANCER", "OTHER_ROLE"]),
+      .oneOf(["FREELANCER", "ADMIN", "SELLER", "BUYER"]),
 
     status: yup
       .string()
       .typeError("invalid status")
       .required("status is required")
-      .oneOf(["PENDING", "DECLINE", "APPROVED", "BLOCK"]),
+      .oneOf(["PENDING", "INACTIVE", "ACTIVE"]),
   });
 
   const methods = useForm({
@@ -433,7 +433,12 @@ const UserCreateUpdate = ({
                 </div>
               </div>
               <div className="mt-3 text-end">
-                <Button type="submit">Submit</Button>
+                <Button type="submit" disabled={isLoading || updateLoad}>
+                  Submit{" "}
+                  {(isLoading || updateLoad) && (
+                    <Spinner animation="border" size="sm" />
+                  )}
+                </Button>
               </div>
             </form>
           </Modal.Body>
