@@ -9,7 +9,7 @@ import {
 } from "../../../redux/features/paginationReducer";
 import { defaultConfig } from "antd/es/theme/context";
 
-const Pagination = ({ sizePerPageList, backgroundColor }) => {
+const Pagination = ({ sizePerPageList }) => {
   /**
    * rtk query services & redux reducers
    */

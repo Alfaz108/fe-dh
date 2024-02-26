@@ -97,7 +97,7 @@ const User = () => {
   const columns = useMemo(
     () => [
       {
-        Header: "action",
+        Header: "Action",
         accessor: "action",
         classes: "table-action",
         Cell: ActionColumn,
@@ -109,38 +109,38 @@ const User = () => {
         classes: "table-user",
       },
       {
-        Header: "name",
+        Header: "Name",
         accessor: "name",
         Cell: ({ value }) => value || "n/a",
         classes: "table-user",
       },
       {
-        Header: "email",
+        Header: "Email",
         accessor: "email",
         Cell: ({ value }) => value || "n/a",
         classes: "table-user",
       },
       {
-        Header: "status",
-        accessor: "status",
-        Cell: ({ value }) => value || "n/a",
-        classes: "table-user",
-      },
-      {
-        Header: "role",
-        accessor: "role",
-        Cell: ({ value }) => value || "n/a",
-        classes: "table-user",
-      },
-      {
-        Header: "gender",
+        Header: "Gender",
         accessor: "gender",
         Cell: ({ value }) => value || "n/a",
         classes: "table-user",
       },
       {
-        Header: "address",
+        Header: "Address",
         accessor: "address",
+        Cell: ({ value }) => value || "n/a",
+        classes: "table-user",
+      },
+      {
+        Header: "Status",
+        accessor: "status",
+        Cell: ({ value }) => value || "n/a",
+        classes: "table-user",
+      },
+      {
+        Header: "Role",
+        accessor: "role",
         Cell: ({ value }) => value || "n/a",
         classes: "table-user",
       },

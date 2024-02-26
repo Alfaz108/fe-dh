@@ -76,7 +76,6 @@ const CustomTable = (props) => {
         <Pagination
           sizePerPageList={props["sizePerPageList"]}
           paginationInfo={pagination}
-          backgroundColor={backgroundColor}
         />
       )}
     </div>
