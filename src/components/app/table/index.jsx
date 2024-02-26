@@ -12,23 +12,40 @@ const CustomTable = (props) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data });
 
+  const backgroundColor = "#343a40";
+
   return (
-    <>
+    <div style={{ maxWidth: "100%", overflowX: "auto" }}>
       {!addWithoutModal && !hideBtn && (
-        <Button variant="primary" className="me-2" onClick={addShowModal}>
-          <i className="mdi mdi-plus-circle me-2"></i>{" "}
+        <Button
+          variant="primary"
+          className="me-2 mb-3"
+          onClick={addShowModal}
+          style={{ backgroundColor }}
+        >
+          <i className="mdi mdi-plus-circle me-2"></i>
           {`Add ${tableInfo?.addTitle}`}
         </Button>
       )}
-      <table {...getTableProps()} className="table mt-5">
-        <thead>
+      <table
+        {...getTableProps()}
+        className="table table-striped table-bordered"
+      >
+        <thead className="thead-dark">
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
                 <th
                   {...column.getHeaderProps()}
                   className={column.classes}
-                  style={{ minWidth: column.minWidth, width: column.width }}
+                  style={{
+                    minWidth: column.minWidth,
+                    width: column.width,
+                    backgroundColor,
+                    color: "white",
+                    padding: "10px",
+                    textAlign: "center",
+                  }}
                 >
                   {column.render("Header")}
                 </th>
@@ -37,19 +54,21 @@ const CustomTable = (props) => {
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {rows?.map((row) => {
+          {rows?.map((row, i) => {
             prepareRow(row);
             return (
-              <tr {...row.getRowProps()}>
+              <tr {...row.getRowProps()} className="table-light">
                 {row.cells.map((cell) => (
-                  <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                  <td {...cell.getCellProps()} style={{ textAlign: "center" }}>
+                    {cell.render("Cell")}
+                  </td>
                 ))}
               </tr>
             );
           })}
         </tbody>
       </table>
-    </>
+    </div>
   );
 };
 

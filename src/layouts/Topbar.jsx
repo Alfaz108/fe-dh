@@ -1,33 +1,69 @@
-import React from "react";
-import { Avatar, Badge } from "rsuite";
+import React, { useState } from "react";
+import { Badge } from "rsuite";
 import GearIcon from "@rsuite/icons/Gear";
+import Dropdown from "react-bootstrap/Dropdown";
+import { useNavigate } from "react-router-dom";
+import RumonImg from "../assets/image/Rumon.jpg";
 
 const Topbar = () => {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const handleDropdownToggle = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
+  const handleDropdownClose = () => {
+    setDropdownOpen(false);
+  };
+
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/auth/login");
+  };
+
   return (
     <div>
-      <div
-        style={{ backgroundColor: "#f3f3f8" }}
-        className="d-flex align-items-center justify-content-end"
-      >
+      <div className="d-flex align-items-center justify-content-end">
         <div className="icon-example-list">
           <div className="d-flex p-1 align-items-center justify-content-center">
-            {/* setting icon========================== */}
             <div className="me-3">
               <GearIcon spin style={{ fontSize: "1.3em", cursor: "pointer" }} />
             </div>
-            {/* avater / photo icon ========================= */}
             <div className="pt-2 pe-2 d-flex align-items-center">
-              <span>
+              <span onClick={handleDropdownToggle}>
                 <Badge color="blue">
-                  <Avatar
-                    size="sm"
-                    circle
-                    src="https://avatars.githubusercontent.com/u/12592949"
+                  <img
+                    src={RumonImg}
                     alt="@superman66"
+                    style={{
+                      width: "35px",
+                      height: "35px",
+                      borderRadius: "50%",
+                    }}
                   />
                 </Badge>
               </span>
-              <span className=" pb-2 ps-2 pe-3 fw-bolder text-info">Admin</span>
+              <Dropdown
+                show={dropdownOpen}
+                alignRight
+                onClose={handleDropdownClose}
+              >
+                <Dropdown.Toggle
+                  className="pb-2 ps-3 pe-4 text-info bg-white custom-toggle"
+                  onClick={handleDropdownToggle}
+                >
+                  Admin
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item>Profile</Dropdown.Item>
+                  <Dropdown.Item>
+                    <span className="mdi mdi-logout" onClick={handleLogout}>
+                      Logout
+                    </span>
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             </div>
           </div>
         </div>

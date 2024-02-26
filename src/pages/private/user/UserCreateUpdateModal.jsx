@@ -7,6 +7,9 @@ import * as yup from "yup";
 import genderOption from "../../../constants/static/gender";
 import roleOption from "../../../constants/static/roleOption";
 import statusOption from "../../../constants/static/statusOption";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 import {
   useUserCreateMutation,
   useUserUpdateMutation,
@@ -21,6 +24,7 @@ const UserCreateUpdate = ({
   defaultValues,
   editData,
 }) => {
+  console.log(defaultValues);
   const [userCreate, { isLoading, isSuccess }] = useUserCreateMutation();
 
   const [userUpdate, { isLoading: updateLoad, isSuccess: updateSuccess }] =
@@ -206,18 +210,21 @@ const UserCreateUpdate = ({
                         control={control}
                         render={({ field, fieldState: { error } }) => (
                           <>
-                            <Form.Control
+                            <DatePicker
                               {...field}
-                              type="date"
-                              placeholder="Enter your Date Of Birth"
-                              isInvalid={!!error}
-                              autoComplete="off"
+                              selected={field.value}
+                              onChange={(date) => field.onChange(date)}
+                              dateFormat="yyyy-MM-dd"
+                              placeholderText="Enter your Date Of Birth"
+                              className={`form-control ${
+                                error ? "is-invalid" : ""
+                              }`}
                             />
 
                             {error && (
-                              <Form.Control.Feedback type="invalid">
+                              <div className="invalid-feedback">
                                 {error.message}
-                              </Form.Control.Feedback>
+                              </div>
                             )}
                           </>
                         )}
