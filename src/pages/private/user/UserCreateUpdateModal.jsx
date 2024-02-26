@@ -210,21 +210,18 @@ const UserCreateUpdate = ({
                         control={control}
                         render={({ field, fieldState: { error } }) => (
                           <>
-                            <DatePicker
+                            <Form.Control
                               {...field}
-                              selected={field.value}
-                              onChange={(date) => field.onChange(date)}
-                              dateFormat="yyyy-MM-dd"
-                              placeholderText="Enter your Date Of Birth"
-                              className={`form-control ${
-                                error ? "is-invalid" : ""
-                              }`}
+                              type="date"
+                              placeholder="Enter your Date Of Birth"
+                              isInvalid={!!error}
+                              autoComplete="off"
                             />
 
                             {error && (
-                              <div className="invalid-feedback">
+                              <Form.Control.Feedback type="invalid">
                                 {error.message}
-                              </div>
+                              </Form.Control.Feedback>
                             )}
                           </>
                         )}

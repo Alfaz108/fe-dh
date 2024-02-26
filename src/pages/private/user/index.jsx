@@ -1,13 +1,16 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Card } from "react-bootstrap";
 import CustomTable from "../../../components/app/table/index";
 import UserCreateUpdate from "./UserCreateUpdateModal";
+import { handlePagination } from "../../../redux/features/paginationReducer";
 
 import {
   useUserDeleteMutation,
   useUserListQuery,
 } from "../../../redux/service/user/userService";
 import LoadingData from "../../../components/common/loadingData";
+import { useDispatch, useSelector } from "react-redux";
+import { getURL } from "../../../helpers/qs";
 
 export const DEFAULT_USER_VALUES = {
   name: "",
@@ -30,7 +33,33 @@ const User = () => {
   const [defaultValues, setDefaultValues] = useState(DEFAULT_USER_VALUES);
   const [editData, setEditData] = useState(false);
 
-  const { data: user, isLoading, isError } = useUserListQuery();
+  const dispatch = useDispatch();
+
+  const { totalPage, page, limit, totalItems } = useSelector(
+    (state) => state.pagination
+  );
+
+  const { userList, pagination, isLoading, isError } = useUserListQuery(
+    getURL(``),
+    {
+      selectFromResult: (data) => {
+        console.log(data);
+        return {
+          pagination: data?.data?.pagination,
+          userList: data?.data?.data,
+          isLoading: data?.isLoading,
+          isError: data?.isError,
+        };
+      },
+    }
+  );
+
+  useEffect(() => {
+    if (pagination && Object.keys(pagination).length > 0) {
+      dispatch(handlePagination(pagination));
+    }
+  }, [pagination]);
+
   const [userDelete] = useUserDeleteMutation();
 
   const addShowModal = () => {
@@ -118,6 +147,20 @@ const User = () => {
     ],
     []
   );
+  const sizePerPageList = [
+    {
+      text: "5",
+      value: 5,
+    },
+    {
+      text: "10",
+      value: 10,
+    },
+    {
+      text: "50",
+      value: 50,
+    },
+  ];
 
   if (isLoading) {
     return (
@@ -133,7 +176,10 @@ const User = () => {
         <Card.Body>
           <CustomTable
             columns={columns}
-            data={user}
+            data={userList}
+            pagination={pagination}
+            pageSize={5}
+            sizePerPageList={sizePerPageList}
             addShowModal={addShowModal}
             tableInfo={{
               addTitle: "User",

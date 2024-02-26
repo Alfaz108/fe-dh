@@ -40,7 +40,7 @@ const LoadingData = () => {
       <Spinner
         animation="border"
         role="status"
-        style={{ color: "blue" }}
+        style={{ color: "#343a40" }}
       ></Spinner>
     </div>
   );

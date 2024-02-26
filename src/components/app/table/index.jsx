@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 import { useTable } from "react-table";
+import Pagination from "./Pagination";
 
 const CustomTable = (props) => {
   const data = props["data"] || [];
@@ -9,6 +10,8 @@ const CustomTable = (props) => {
   const addWithoutModal = props["addWithoutModal"];
   const addShowModal = props["addShowModal"];
   const tableInfo = props["tableInfo"] || {};
+  const pagination = props["pagination"] || false;
+
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data });
 
@@ -68,6 +71,14 @@ const CustomTable = (props) => {
           })}
         </tbody>
       </table>
+
+      {pagination && (
+        <Pagination
+          sizePerPageList={props["sizePerPageList"]}
+          paginationInfo={pagination}
+          backgroundColor={backgroundColor}
+        />
+      )}
     </div>
   );
 };
