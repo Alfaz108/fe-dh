@@ -22,6 +22,7 @@ const LeftSidebar = ({ expanded, activeKey, setActiveKey }) => {
         <Nav.Item
           style={{
             width: "250px",
+            fontWeight: `${menuItem?.fontWeight}`,
           }}
           hover-none
           key={menuItem.key}
@@ -39,7 +40,7 @@ const LeftSidebar = ({ expanded, activeKey, setActiveKey }) => {
     // add data pass by menuItem to renderMenuItem==============
 
     <Sidenav expanded={expanded} defaultOpenKeys={["3", "4"]}>
-      <Sidenav.Body style={{ height: "143vh" }}>
+      <Sidenav.Body style={{ height: "100vh" }}>
         <Nav className="" activeKey={activeKey} onSelect={setActiveKey}>
           {MENU_ITEMS().map((menuItem) => renderMenuItem(menuItem))}
         </Nav>

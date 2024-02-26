@@ -10,6 +10,7 @@ const MENU_ITEMS = () => {
       label: "DHAROSH",
       icon: SentToUserIcon,
       url: "/",
+      fontWidth: "bolder",
     },
     {
       key: "dashboard",
