@@ -1,11 +1,8 @@
 const defaultConfig = {
   totalItems: 0,
-  limit: 10,
+  limit: 5,
   page: 1,
   totalPage: 0,
-  sortType: "dsc",
-  sortBy: "updatedAt",
-  search: "",
   delay: 500,
 };
 
