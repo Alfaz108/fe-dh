@@ -14,25 +14,6 @@ const MENU_ITEMS = () => {
     },
 
     {
-      key: "productsMenu",
-      label: "products",
-      icon: GroupIcon,
-      children: [
-        {
-          key: "products",
-          label: "product",
-          url: "/products",
-          parentKey: "productsMenu",
-        },
-        {
-          key: "productSettingMenu",
-          label: "products settings",
-          url: "/product/settings",
-          parentKey: "productsMenu",
-        },
-      ],
-    },
-    {
       key: "users",
       label: "Users",
       icon: AdminIcon,

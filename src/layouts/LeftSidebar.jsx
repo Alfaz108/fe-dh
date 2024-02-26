@@ -3,7 +3,7 @@ import "./../App.css";
 import { Sidenav, Nav } from "rsuite";
 import { Link } from "react-router-dom";
 import MENU_ITEMS from "../constants/menu";
-import logo from "../assets/logo/logo.png";
+import logo from "../assets/logo/logo2.png";
 
 const LeftSidebar = ({ expanded, activeKey, setActiveKey }) => {
   const renderMenuItem = (menuItem) => {
@@ -24,6 +24,7 @@ const LeftSidebar = ({ expanded, activeKey, setActiveKey }) => {
           style={{
             width: "250px",
             fontWeight: `${menuItem?.fontWeight}`,
+            backgroundColor: "#ffffff",
           }}
           hover-none
           key={menuItem.key}
@@ -45,26 +46,37 @@ const LeftSidebar = ({ expanded, activeKey, setActiveKey }) => {
         style={{ flex: "none" }}>
         <Sidenav.Header>
           <div
+            expanded={expanded}
             style={{
-              padding: "20px",
+              padding: "15px",
               fontSize: "20px",
               fontWeight: "bold",
-              color: "black",
               textAlign: "center",
               display: "flex",
               alignItems: "left",
               justifyContent: "left",
+              backgroundColor: "#ffffff",
             }}>
             <img
               src={logo}
               alt="Logo"
-              style={{ width: expanded ? "35px" : "35px", marginRight: "10px" }}
+              style={{
+                width: expanded ? "35px" : "35px",
+                marginRight: "10px",
+                marginLeft: "-5px",
+              }}
             />
-            {expanded && <span>DHAROSH</span>}
+            {expanded && <span className="text-primary">DHAROSH</span>}
           </div>
         </Sidenav.Header>
         <Sidenav.Body
-          style={{ height: "calc(100vh - 60px)", overflowY: "auto" }}>
+          style={{
+            height: "calc(100vh - 60px)",
+            overflowY: "auto",
+            backgroundColor: "#ffffff",
+            position: "sticky",
+            top: "0px",
+          }}>
           <Nav className="" activeKey={activeKey} onSelect={setActiveKey}>
             {MENU_ITEMS().map((menuItem) => renderMenuItem(menuItem))}
           </Nav>
