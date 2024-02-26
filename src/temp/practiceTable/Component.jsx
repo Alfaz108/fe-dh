@@ -1,12 +1,12 @@
 import React from "react";
 import { useUserListQuery } from "../../redux/service/user/userService";
 import Table from "./";
-
 import { Card, Col, Row } from "react-bootstrap";
 import CustomTable from "./";
 
 const Component = () => {
   const { data, isLoading, isError } = useUserListQuery();
+  console.log(data);
 
   const columns = React.useMemo(
     () => [

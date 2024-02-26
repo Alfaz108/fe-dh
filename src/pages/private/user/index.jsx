@@ -58,8 +58,7 @@ const User = () => {
         <span role="button" className="action-icon text-danger ms-2">
           <i
             className="mdi mdi-delete"
-            onClick={() => userDelete({ id: row?.original?._id })}
-          ></i>
+            onClick={() => userDelete({ id: row?.original?._id })}></i>
         </span>
       </>
     );

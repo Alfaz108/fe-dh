@@ -1,8 +1,8 @@
 import DashboardIcon from "@rsuite/icons/legacy/Dashboard";
 import GroupIcon from "@rsuite/icons/legacy/Group";
-import MagicIcon from "@rsuite/icons/legacy/Magic";
+import AppSelectIcon from "@rsuite/icons/AppSelect";
 import GearCircleIcon from "@rsuite/icons/legacy/GearCircle";
-import AdminIcon from "@rsuite/icons/Admin";
+import PeoplesIcon from "@rsuite/icons/Peoples";
 
 const MENU_ITEMS = () => {
   return [
@@ -16,8 +16,14 @@ const MENU_ITEMS = () => {
     {
       key: "users",
       label: "Users",
-      icon: AdminIcon,
+      icon: PeoplesIcon,
       url: "/user",
+    },
+    {
+      key: "category",
+      label: "Category",
+      icon: AppSelectIcon,
+      url: "/category",
     },
 
     {

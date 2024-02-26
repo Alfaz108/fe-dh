@@ -7,7 +7,6 @@ const Dashboard = () => {
       <Row className="m-1">
         <Col xs={24}>
           <div>
-            {/* <Analysis></Analysis> */}
             <LayoutOfDashboard></LayoutOfDashboard>
           </div>
         </Col>
