@@ -7,6 +7,9 @@ import * as yup from "yup";
 import genderOption from "../../../constants/static/gender";
 import roleOption from "../../../constants/static/roleOption";
 import statusOption from "../../../constants/static/statusOption";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 import {
   useUserCreateMutation,
   useUserUpdateMutation,
@@ -21,7 +24,10 @@ const UserCreateUpdate = ({
   defaultValues,
   editData,
 }) => {
+  console.log(defaultValues);
   const [userCreate, { isLoading, isSuccess }] = useUserCreateMutation();
+
+  console.log(userCreate);
 
   const [userUpdate, { isLoading: updateLoad, isSuccess: updateSuccess }] =
     useUserUpdateMutation();
@@ -355,18 +361,29 @@ const UserCreateUpdate = ({
                       />
                     </Form.Group>
                   </div>
-                  <div className="col">
+                  <div className="col-4">
                     <Form.Group>
-                      <Form.Label htmlFor="city">City</Form.Label>
+                      <Form.Label htmlFor="status">Status</Form.Label>
                       <Controller
-                        name="city"
+                        name="status"
                         control={control}
-                        render={({ field }) => (
-                          <Form.Control
-                            {...field}
-                            type="text"
-                            placeholder="Enter your city"
-                          />
+                        render={({ field, fieldState: { error } }) => (
+                          <>
+                            <Form.Select {...field} isInvalid={!!error}>
+                              <option value="">Select Status</option>
+                              {statusOption.map((type) => (
+                                <option key={type.value} value={type.value}>
+                                  {type.label}
+                                </option>
+                              ))}
+                            </Form.Select>
+
+                            {error && (
+                              <Form.Control.Feedback type="invalid">
+                                {error.message}
+                              </Form.Control.Feedback>
+                            )}
+                          </>
                         )}
                       />
                     </Form.Group>
@@ -385,33 +402,6 @@ const UserCreateUpdate = ({
                             <Form.Select {...field} isInvalid={!!error}>
                               <option value="">Select Role</option>
                               {roleOption.map((type) => (
-                                <option key={type.value} value={type.value}>
-                                  {type.label}
-                                </option>
-                              ))}
-                            </Form.Select>
-
-                            {error && (
-                              <Form.Control.Feedback type="invalid">
-                                {error.message}
-                              </Form.Control.Feedback>
-                            )}
-                          </>
-                        )}
-                      />
-                    </Form.Group>
-                  </div>
-                  <div className="col-4">
-                    <Form.Group>
-                      <Form.Label htmlFor="status">Status</Form.Label>
-                      <Controller
-                        name="status"
-                        control={control}
-                        render={({ field, fieldState: { error } }) => (
-                          <>
-                            <Form.Select {...field} isInvalid={!!error}>
-                              <option value="">Select Status</option>
-                              {statusOption.map((type) => (
                                 <option key={type.value} value={type.value}>
                                   {type.label}
                                 </option>

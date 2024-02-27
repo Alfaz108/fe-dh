@@ -3,11 +3,11 @@ import { apiService } from "../../api/apiService";
 export const userService = apiService.injectEndpoints({
   endpoints: (builder) => ({
     userList: builder.query({
-      query: () => ({
-        url: `users`,
+      query: (url) => ({
+        url: `users${url}`,
         method: "GET",
       }),
-      transformResponse: ({ data }) => data || [],
+      transformResponse: (data) => data || [],
     }),
 
     userCreate: builder.mutation({

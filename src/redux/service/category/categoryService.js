@@ -2,17 +2,16 @@ import { apiService } from "../../api/apiService";
 
 export const categoryService = apiService.injectEndpoints({
   endpoints: (builder) => ({
-    userList: builder.query({
-      query: () => ({
-        url: `users`,
+    categoryLIst: builder.query({
+      query: (url) => ({
+        url: `categories${url}`,
         method: "GET",
       }),
-      transformResponse: ({ data }) => data || [],
+      transformResponse: (data) => data || [],
     }),
-
-    userCreate: builder.mutation({
+    categoryCreate: builder.mutation({
       query: (postBody) => ({
-        url: `users`,
+        url: `categories`,
         method: "POST",
         body: postBody,
       }),
@@ -24,9 +23,9 @@ export const categoryService = apiService.injectEndpoints({
         } catch (error) {}
       },
     }),
-    userUpdate: builder.mutation({
+    categoryUpdate: builder.mutation({
       query: ({ id, postBody }) => ({
-        url: `users/${id}`,
+        url: `categories/${id}`,
         method: "PATCH",
         body: postBody,
       }),
@@ -37,9 +36,9 @@ export const categoryService = apiService.injectEndpoints({
           .catch(({ error }) => {});
       },
     }),
-    userDelete: builder.mutation({
+    categoryDelete: builder.mutation({
       query: ({ id }) => ({
-        url: `users/${id}`,
+        url: `categories/${id}`,
         method: "DELETE",
       }),
       onQueryStarted({ id }, { dispatch, queryFulfilled }) {
@@ -52,8 +51,8 @@ export const categoryService = apiService.injectEndpoints({
   }),
 });
 export const {
-  useUserCreateMutation,
-  useUserListQuery,
-  useUserUpdateMutation,
-  useUserDeleteMutation,
+  useCategoryLIstQuery,
+  useCategoryCreateMutation,
+  useCategoryUpdateMutation,
+  useCategoryDeleteMutation,
 } = categoryService;

@@ -46,3 +46,25 @@ export default LoadingData;
 // };
 
 // export default LoadingData;
+
+// import React from "react";
+// import { Spinner } from "react-bootstrap";
+
+// const LoadingData = () => {
+//   return (
+//     <div
+//       style={{
+//         display: "flex",
+//         justifyContent: "center",
+//         alignItems: "center",
+//         height: "100vh",
+//       }}>
+//       <Spinner
+//         animation="border"
+//         role="status"
+//         style={{ color: "#343a40" }}></Spinner>
+//     </div>
+//   );
+// };
+
+// export default LoadingData;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
@@ -6,34 +6,85 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-const CategoryCreateUpdateModal = () => {
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+import {
+  useCategoryCreateMutation,
+  useCategoryUpdateMutation,
+} from "../../../redux/service/category/categoryService";
 
+const CategoryCreateUpdateModal = ({
+  modal,
+  setModal,
+  editData,
+  toggle,
+  defaultValues,
+}) => {
+  const [categoryCreate, { isLoading, isSuccess }] =
+    useCategoryCreateMutation();
+
+  const [categoryUpdate, { isLoading: updateLoad, isSuccess: updateSuccess }] =
+    useCategoryUpdateMutation();
   const schema = yup
     .object({
       name: yup.string().required("Name is required"),
-      active: yup.boolean().required(),
-      type: yup.string().required(),
+      active: yup.boolean().required("Active is required"),
+      type: yup.string().required("Type is required"),
     })
     .required();
 
   const {
     register,
     handleSubmit,
+    reset,
+    control,
     formState: { errors },
   } = useForm({
+    mode: "all",
+    defaultValues,
     resolver: yupResolver(schema),
   });
-  const onSubmit = (data) => console.log(data);
+
+  const onSubmit = (data) => {
+    const postBody = data;
+    if (!editData) {
+      categoryCreate(postBody);
+    }
+    // console.log(data);
+    const transferData = {
+      // address: postBody?.address,
+      // city: postBody?.city,
+      // dateOfBirth: postBody?.dateOfBirth,
+      // email: postBody?.email,
+      // fax: postBody?.fax,
+      // gender: postBody?.gender,
+      // name: postBody?.name,
+      // password: postBody?.password,
+      // phoneNumber: postBody?.phoneNumber,
+      // role: postBody?.role,
+      // state: postBody?.state,
+      // status: postBody?.status,
+      // zip: postBody?.zip,
+      name: postBody?.name,
+      active: postBody?.active,
+      type: postBody?.type,
+    };
+    categoryUpdate({ postBody: transferData, id: postBody?._id });
+  };
+
+  useEffect(() => {
+    if (isSuccess || updateSuccess) {
+      setModal(false);
+    }
+  }, [isSuccess || updateSuccess]);
+
+  useEffect(() => {
+    if (defaultValues) {
+      reset(defaultValues);
+    }
+  }, [JSON.stringify(defaultValues)]);
+
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button>
-
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={modal} onHide={toggle}>
         <Modal.Header closeButton>
           <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>
@@ -51,28 +102,29 @@ const CategoryCreateUpdateModal = () => {
                 </Form.Group>
               </div>
               <div className="my-2">
-                <Form.Group md="4" controlId="validationCustom01">
-                  <Form.Label>Active</Form.Label>
-                  <Form.Control {...register("active")} />
-                  <Form.Control.Feedback>
-                    {" "}
-                    {errors.active?.message}
-                  </Form.Control.Feedback>
-                </Form.Group>
+                <Form.Label>Type</Form.Label>
+                <Form.Select {...register("action")} aria-label="Action">
+                  {/* <option>Type</option> */}
+                  <option value="true">True</option>
+                  <option value="false">False</option>
+                </Form.Select>
               </div>
               <div className="my-2">
-                <Form.Group md="4" controlId="validationCustom01">
-                  <Form.Label>Type</Form.Label>
-                  <Form.Control {...register("type")} />
-                  <Form.Control.Feedback>
-                    {" "}
-                    {errors.type?.message}
-                  </Form.Control.Feedback>
-                </Form.Group>
+                <Form.Label>Type</Form.Label>
+                <Form.Select
+                  {...register("type")}
+                  aria-label="Default select example">
+                  {/* <option>Type</option> */}
+                  <option value="TICKET">TICKET</option>
+                  <option value="BID">BID</option>
+                  <option value="INVOICE">INVOICE</option>
+                </Form.Select>
               </div>
             </div>
             <div className="text-end">
-              <input className="btn btn-primary" type="submit"></input>
+              <Button variant="primary" type="submit">
+                Submit
+              </Button>
             </div>
           </form>
         </Modal.Body>
