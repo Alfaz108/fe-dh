@@ -15,12 +15,14 @@ const DefaultLayout = () => {
   };
 
   return (
-    <div className="d-flex h-100">
+    <div className="d-flex">
       <LeftSidebar
         expanded={expanded}
         activeKey={activeKey}
         setActiveKey={setActiveKey}
-        style={{ backgroundColor: "#FFFFFF !important" }}
+        style={{
+          backgroundColor: "#FFFFFF !important",
+        }}
       />
       <div className="flex-grow-1 d-flex flex-column">
         <div className="position-relative">
@@ -31,8 +33,7 @@ const DefaultLayout = () => {
               left: "7px",
               cursor: "pointer",
             }}
-            onClick={buttonFunction}
-          >
+            onClick={buttonFunction}>
             <MenuIcon style={{ width: "30px", fontSize: "18px" }} />
           </span>
           <Topbar />

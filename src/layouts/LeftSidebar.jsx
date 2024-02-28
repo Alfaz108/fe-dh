@@ -74,8 +74,6 @@ const LeftSidebar = ({ expanded, activeKey, setActiveKey }) => {
             height: "calc(100vh - 60px)",
             overflowY: "auto",
             backgroundColor: "#ffffff",
-            position: "sticky",
-            top: "0px",
           }}>
           <Nav className="" activeKey={activeKey} onSelect={setActiveKey}>
             {MENU_ITEMS().map((menuItem) => renderMenuItem(menuItem))}

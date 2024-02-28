@@ -2,14 +2,17 @@ import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import typeOption from "../../../constants/static/typeOption";
+
 import * as yup from "yup";
 
 import {
   useCategoryCreateMutation,
   useCategoryUpdateMutation,
 } from "../../../redux/service/category/categoryService";
+import { InputGroup, Spinner } from "react-bootstrap";
 
 const CategoryCreateUpdateModal = ({
   modal,
@@ -23,52 +26,60 @@ const CategoryCreateUpdateModal = ({
 
   const [categoryUpdate, { isLoading: updateLoad, isSuccess: updateSuccess }] =
     useCategoryUpdateMutation();
-  const schema = yup
-    .object({
-      name: yup.string().required("Name is required"),
-      active: yup.boolean().required("Active is required"),
-      type: yup.string().required("Type is required"),
-    })
-    .required();
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    control,
-    formState: { errors },
-  } = useForm({
-    mode: "all",
-    defaultValues,
-    resolver: yupResolver(schema),
+  const schemaResolver = yup.object().shape({
+    name: yup.string().required("Name is required"),
+    type: yup.string().required("Type is required"),
+    active: yup.boolean().required("Action is required"),
   });
 
+  const methods = useForm({
+    mode: "all",
+    defaultValues,
+    resolver: yupResolver(schemaResolver),
+  });
+  const { handleSubmit, control, reset } = methods;
   const onSubmit = (data) => {
     const postBody = data;
+    // categoryCreate(postBody);
     if (!editData) {
       categoryCreate(postBody);
+    } else {
+      const transferData = {
+        name: postBody?.name,
+        type: postBody?.type,
+        active: postBody?.active,
+      };
+      categoryUpdate({ postBody: transferData, id: postBody?._id });
     }
-    // console.log(data);
-    const transferData = {
-      // address: postBody?.address,
-      // city: postBody?.city,
-      // dateOfBirth: postBody?.dateOfBirth,
-      // email: postBody?.email,
-      // fax: postBody?.fax,
-      // gender: postBody?.gender,
-      // name: postBody?.name,
-      // password: postBody?.password,
-      // phoneNumber: postBody?.phoneNumber,
-      // role: postBody?.role,
-      // state: postBody?.state,
-      // status: postBody?.status,
-      // zip: postBody?.zip,
-      name: postBody?.name,
-      active: postBody?.active,
-      type: postBody?.type,
-    };
-    categoryUpdate({ postBody: transferData, id: postBody?._id });
+    console.log(data);
   };
+
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   reset,
+  //   control,
+  //   formState: { errors },
+  // } = useForm({
+  //   mode: "all",
+  //   defaultValues,
+  //   resolver: yupResolver(schema),
+  // });
+
+  // const onSubmit = (data) => {
+  //   const postBody = data;
+  //   if (!editData) {
+  //     categoryCreate(postBody);
+  //   }
+  //   // console.log(data);
+  //   const transferData = {
+  //     name: postBody?.name,
+  //     active: postBody?.active,
+  //     type: postBody?.type,
+  //   };
+  //   categoryUpdate({ postBody: transferData, id: postBody?._id });
+  // };
 
   useEffect(() => {
     if (isSuccess || updateSuccess) {
@@ -92,38 +103,90 @@ const CategoryCreateUpdateModal = ({
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>
               <div className="my-2">
-                <Form.Group md="4" controlId="validationCustom01">
-                  <Form.Label>Name</Form.Label>
-                  <Form.Control {...register("name")} />
-                  <Form.Control.Feedback>
-                    {" "}
-                    {errors.name?.message}
-                  </Form.Control.Feedback>
+                <Form.Group>
+                  <Form.Label htmlFor="name">Name</Form.Label>
+                  <Controller
+                    name="name"
+                    control={control}
+                    render={({ field, fieldState: { error } }) => (
+                      <>
+                        <Form.Control
+                          {...field}
+                          type="text"
+                          placeholder="Enter your name"
+                          isInvalid={!!error}
+                          autoComplete="off"
+                        />
+
+                        {error && (
+                          <Form.Control.Feedback type="invalid">
+                            {error.message}
+                          </Form.Control.Feedback>
+                        )}
+                      </>
+                    )}
+                  />
                 </Form.Group>
               </div>
               <div className="my-2">
-                <Form.Label>Type</Form.Label>
-                <Form.Select {...register("action")} aria-label="Action">
-                  {/* <option>Type</option> */}
-                  <option value="true">True</option>
-                  <option value="false">False</option>
-                </Form.Select>
+                <Form.Group>
+                  <Form.Label htmlFor="role">Active</Form.Label>
+                  <Controller
+                    name="active"
+                    control={control}
+                    type="boolean"
+                    render={({ field, fieldState: { error } }) => (
+                      <>
+                        <InputGroup.Checkbox
+                          {...field}
+                          aria-label="Checkbox for following text input"
+                        />
+
+                        {error && (
+                          <Form.Control.Feedback type="invalid">
+                            {error.message}
+                          </Form.Control.Feedback>
+                        )}
+                      </>
+                    )}
+                  />
+                </Form.Group>
               </div>
               <div className="my-2">
-                <Form.Label>Type</Form.Label>
-                <Form.Select
-                  {...register("type")}
-                  aria-label="Default select example">
-                  {/* <option>Type</option> */}
-                  <option value="TICKET">TICKET</option>
-                  <option value="BID">BID</option>
-                  <option value="INVOICE">INVOICE</option>
-                </Form.Select>
+                <Form.Group>
+                  <Form.Label htmlFor="role">Type</Form.Label>
+                  <Controller
+                    name="type"
+                    type="text"
+                    control={control}
+                    render={({ field, fieldState: { error } }) => (
+                      <>
+                        <Form.Select {...field} isInvalid={!!error}>
+                          <option value="">Select Type</option>
+                          {typeOption.map((type) => (
+                            <option key={type.value} value={type.value}>
+                              {type.label}
+                            </option>
+                          ))}
+                        </Form.Select>
+
+                        {error && (
+                          <Form.Control.Feedback type="invalid">
+                            {error.message}
+                          </Form.Control.Feedback>
+                        )}
+                      </>
+                    )}
+                  />
+                </Form.Group>
               </div>
             </div>
-            <div className="text-end">
-              <Button variant="primary" type="submit">
-                Submit
+            <div className="mt-3 text-end">
+              <Button type="submit" disabled={isLoading || updateLoad}>
+                Submit{" "}
+                {(isLoading || updateLoad) && (
+                  <Spinner animation="border" size="sm" />
+                )}
               </Button>
             </div>
           </form>

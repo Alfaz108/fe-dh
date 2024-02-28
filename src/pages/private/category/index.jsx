@@ -13,7 +13,7 @@ import { Card } from "react-bootstrap";
 
 export const DEFAULT_CATEGORY_VALUES = {
   name: "",
-  active: "true",
+  active: "false",
   type: "",
 };
 

@@ -8,6 +8,7 @@ import Root from "./Root";
 import User from "../pages/private/user";
 import MyComponent from "../temp/practiceTable/Component";
 import Category from "../pages/private/category";
+import Invoice from "../pages/private/invoice";
 
 export const route = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ export const route = createBrowserRouter([
       {
         path: "/category",
         element: <Category />,
+      },
+      {
+        path: "/invoice",
+        element: <Invoice />,
       },
       {
         path: "/test",

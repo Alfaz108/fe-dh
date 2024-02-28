@@ -27,8 +27,6 @@ const UserCreateUpdate = ({
   console.log(defaultValues);
   const [userCreate, { isLoading, isSuccess }] = useUserCreateMutation();
 
-  console.log(userCreate);
-
   const [userUpdate, { isLoading: updateLoad, isSuccess: updateSuccess }] =
     useUserUpdateMutation();
 

@@ -12,3 +12,5 @@ const typeOption = [
     value: "INVOICE",
   },
 ];
+
+export default typeOption;
