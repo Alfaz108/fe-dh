@@ -14,7 +14,7 @@ const DefaultLayout = () => {
   };
 
   return (
-    <div className="d-flex">
+    <div style={{ overflowX: "hidden" }} className="d-flex">
       {/* Fixed Left Sidebar */}
       <div style={{ position: "fixed" }}>
         <LeftSidebar
@@ -66,9 +66,8 @@ const DefaultLayout = () => {
 
         {/* Content Area with Scrolling */}
         <div
-          className="flex-grow-1 overflow-auto"
+          className="flex-grow-1"
           style={{
-            marginTop: "60px",
             marginLeft: expanded ? "250px" : "50px",
             transition: "margin-left 0.3s",
           }}>

@@ -40,7 +40,7 @@ const LeftSidebar = ({ expanded, activeKey, setActiveKey }) => {
   };
 
   return (
-    <div style={{ display: "flex", height: "100vh" }}>
+    <div style={{ display: "flex" }}>
       <Sidenav
         expanded={expanded}
         defaultOpenKeys={["3", "4"]}
@@ -72,8 +72,7 @@ const LeftSidebar = ({ expanded, activeKey, setActiveKey }) => {
         </Sidenav.Header>
         <Sidenav.Body
           style={{
-            height: "calc(100vh - 60px)",
-            overflowY: "auto",
+            // height: "calc(100vh - 60px)",
             backgroundColor: "#ffffff",
           }}>
           <Nav className="" activeKey={activeKey} onSelect={setActiveKey}>

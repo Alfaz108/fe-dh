@@ -56,6 +56,110 @@ const InvoiceCreateUpdate = ({ modal, setModal, toggle }) => {
                   />
                 </Form.Group>
               </div>
+              <div className="my-2">
+                <Form.Group>
+                  <Form.Label htmlFor="name">Name</Form.Label>
+                  <Controller
+                    name="name"
+                    control={control}
+                    render={({ field, fieldState: { error } }) => (
+                      <>
+                        <Form.Control
+                          {...field}
+                          type="text"
+                          placeholder="Enter your name"
+                          isInvalid={!!error}
+                          autoComplete="off"
+                        />
+
+                        {error && (
+                          <Form.Control.Feedback type="invalid">
+                            {error.message}
+                          </Form.Control.Feedback>
+                        )}
+                      </>
+                    )}
+                  />
+                </Form.Group>
+              </div>
+              <div className="my-2">
+                <Form.Group>
+                  <Form.Label htmlFor="name">Name</Form.Label>
+                  <Controller
+                    name="name"
+                    control={control}
+                    render={({ field, fieldState: { error } }) => (
+                      <>
+                        <Form.Control
+                          {...field}
+                          type="text"
+                          placeholder="Enter your name"
+                          isInvalid={!!error}
+                          autoComplete="off"
+                        />
+
+                        {error && (
+                          <Form.Control.Feedback type="invalid">
+                            {error.message}
+                          </Form.Control.Feedback>
+                        )}
+                      </>
+                    )}
+                  />
+                </Form.Group>
+              </div>
+              <div className="my-2">
+                <Form.Group>
+                  <Form.Label htmlFor="name">Name</Form.Label>
+                  <Controller
+                    name="name"
+                    control={control}
+                    render={({ field, fieldState: { error } }) => (
+                      <>
+                        <Form.Control
+                          {...field}
+                          type="text"
+                          placeholder="Enter your name"
+                          isInvalid={!!error}
+                          autoComplete="off"
+                        />
+
+                        {error && (
+                          <Form.Control.Feedback type="invalid">
+                            {error.message}
+                          </Form.Control.Feedback>
+                        )}
+                      </>
+                    )}
+                  />
+                </Form.Group>
+              </div>
+              <div className="my-2">
+                <Form.Group>
+                  <Form.Label htmlFor="name">Name</Form.Label>
+                  <Controller
+                    name="name"
+                    control={control}
+                    render={({ field, fieldState: { error } }) => (
+                      <>
+                        <Form.Control
+                          {...field}
+                          type="text"
+                          placeholder="Enter your name"
+                          isInvalid={!!error}
+                          autoComplete="off"
+                        />
+
+                        {error && (
+                          <Form.Control.Feedback type="invalid">
+                            {error.message}
+                          </Form.Control.Feedback>
+                        )}
+                      </>
+                    )}
+                  />
+                </Form.Group>
+              </div>
             </div>
             <Button type="submit">
               Submit{" "}

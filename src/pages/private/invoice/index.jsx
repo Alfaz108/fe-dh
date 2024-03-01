@@ -4,6 +4,15 @@ import CustomTable from "../../../components/app/table";
 import { useInvoiceListQuery } from "../../../redux/service/invoice/invoiceService";
 import { getURL } from "../../../helpers/qs";
 
+export const DEFAULT_CATEGORY_VALUES = {
+  categoryId: new Date(Math.floor() * 10),
+  invoiceNumber: "false",
+  price: "",
+  grandTotal: "",
+  amountDue: "",
+  status: "",
+};
+
 const Invoice = () => {
   const [modal, setModal] = useState(false);
 

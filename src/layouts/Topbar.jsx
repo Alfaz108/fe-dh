@@ -23,7 +23,7 @@ const Topbar = () => {
   };
 
   return (
-    <div>
+    <div className="w-100">
       <div className="d-flex align-items-center justify-content-end">
         <div className="icon-example-list">
           <div className="d-flex p-1 align-items-center justify-content-center">
@@ -38,7 +38,6 @@ const Topbar = () => {
                     alt="@superman66"
                     style={{
                       width: "35px",
-                      height: "35px",
                       borderRadius: "50%",
                     }}
                   />
@@ -47,12 +46,10 @@ const Topbar = () => {
               <Dropdown
                 show={dropdownOpen}
                 alignRight
-                onClose={handleDropdownClose}
-              >
+                onClose={handleDropdownClose}>
                 <Dropdown.Toggle
-                  className="pb-2 ps-3 pe-4 text-info bg-white custom-toggle"
-                  onClick={handleDropdownToggle}
-                >
+                  className="pb-2 ms-2 pe-4 text-info bg-white custom-toggle"
+                  onClick={handleDropdownToggle}>
                   Admin
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
