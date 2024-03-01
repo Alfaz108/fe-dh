@@ -9,6 +9,10 @@ import User from "../pages/private/user";
 import MyComponent from "../temp/practiceTable/Component";
 import Category from "../pages/private/category";
 import Invoice from "../pages/private/invoice";
+import Bids from "../pages/private/bids";
+import Ticket from "../pages/private/tickets";
+import Report from "../pages/private/reports";
+import Profile from "../pages/private/profile/Profile";
 
 export const route = createBrowserRouter([
   {
@@ -36,8 +40,16 @@ export const route = createBrowserRouter([
         element: <Invoice />,
       },
       {
-        path: "/test",
-        element: <MyComponent />,
+        path: "/bids",
+        element: <Bids />,
+      },
+      {
+        path: "/tickets",
+        element: <Ticket />,
+      },
+      {
+        path: "/reports",
+        element: <Report />,
       },
     ],
   },

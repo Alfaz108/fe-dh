@@ -55,32 +55,6 @@ const CategoryCreateUpdateModal = ({
     console.log(data);
   };
 
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   reset,
-  //   control,
-  //   formState: { errors },
-  // } = useForm({
-  //   mode: "all",
-  //   defaultValues,
-  //   resolver: yupResolver(schema),
-  // });
-
-  // const onSubmit = (data) => {
-  //   const postBody = data;
-  //   if (!editData) {
-  //     categoryCreate(postBody);
-  //   }
-  //   // console.log(data);
-  //   const transferData = {
-  //     name: postBody?.name,
-  //     active: postBody?.active,
-  //     type: postBody?.type,
-  //   };
-  //   categoryUpdate({ postBody: transferData, id: postBody?._id });
-  // };
-
   useEffect(() => {
     if (isSuccess || updateSuccess) {
       setModal(false);

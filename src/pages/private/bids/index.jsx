@@ -1,40 +1,21 @@
 import React, { useMemo, useState } from "react";
-import InvoiceCreateUpdate from "./InvoiceCreateUpdate";
 import CustomTable from "../../../components/app/table";
-import { useInvoiceListQuery } from "../../../redux/service/invoice/invoiceService";
-import { getURL } from "../../../helpers/qs";
+import BidsCreateUpdate from "./BidsCreateUpdate";
 
-const Invoice = () => {
+const Bids = () => {
   const [modal, setModal] = useState(false);
 
-  // get url from redux ===========
-  const { invoiceList, isLoading, isError } = useInvoiceListQuery(getURL(``), {
-    selectFromResult: (data) => {
-      return {
-        invoiceList: data?.data?.data,
-        isLoading: data?.isLoading,
-        isError: data?.isError,
-      };
-    },
-  });
-
-  // show modal when button will click ======
   const addShowModal = () => {
     setModal(true);
   };
 
-  // modal toggle when click button =======
   const toggle = () => {
     setModal(!modal);
   };
 
-  // dynamic add modal button from custom column ==
   const ActionColumn = ({ row }) => {
     console.log(row);
-    toggle();
   };
-
-  // column show on display ====
   const columns = useMemo(
     () => [
       {
@@ -73,26 +54,20 @@ const Invoice = () => {
     ],
     []
   );
-
   return (
     <div className="card p-2">
       <div>
         <CustomTable
           columns={columns}
-          data={invoiceList}
           addShowModal={addShowModal}
           tableInfo={{
-            addTitle: "Invoice",
+            addTitle: "Bids",
           }}
         />
-        <InvoiceCreateUpdate
-          modal={modal}
-          setModal={setModal}
-          toggle={toggle}
-        />
+        <BidsCreateUpdate modal={modal} setModal={setModal} toggle={toggle} />
       </div>
     </div>
   );
 };
 
-export default Invoice;
+export default Bids;

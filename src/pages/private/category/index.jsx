@@ -144,7 +144,7 @@ const Category = () => {
     );
   } else {
     return (
-      <div className="card">
+      <div className="card m-2">
         <div className="p-3">
           <CustomTable
             columns={columns}

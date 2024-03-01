@@ -11,7 +11,7 @@ import Application from "./Application";
 const LayoutOfDashboard = () => {
   return (
     <div>
-      <Row>
+      <Row style={{ overflow: "scroll" }}>
         <Col xs={12} md={7}>
           <CardOfDaashboard></CardOfDaashboard>
           <HireOfDashboard></HireOfDashboard>

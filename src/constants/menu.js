@@ -54,13 +54,6 @@ const MENU_ITEMS = () => {
       icon: DocPassIcon,
       url: "/reports",
     },
-
-    {
-      key: "text",
-      label: "Product Setting",
-      icon: GearCircleIcon,
-      url: "/test",
-    },
   ];
 };
 

@@ -171,7 +171,7 @@ const User = () => {
     );
   } else {
     return (
-      <Card className="h-100">
+      <Card className="h-100 m-2">
         <Card.Body>
           <CustomTable
             columns={columns}

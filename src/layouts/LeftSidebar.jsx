@@ -4,6 +4,7 @@ import { Sidenav, Nav } from "rsuite";
 import { Link } from "react-router-dom";
 import MENU_ITEMS from "../constants/menu";
 import logo from "../assets/logo/logo2.png";
+import img from "../assets/logo/think.png";
 
 const LeftSidebar = ({ expanded, activeKey, setActiveKey }) => {
   const renderMenuItem = (menuItem) => {
@@ -78,6 +79,15 @@ const LeftSidebar = ({ expanded, activeKey, setActiveKey }) => {
           <Nav className="" activeKey={activeKey} onSelect={setActiveKey}>
             {MENU_ITEMS().map((menuItem) => renderMenuItem(menuItem))}
           </Nav>
+
+          <div style={{ width: "200px" }} className="w-75 d-block">
+            <img
+              style={{ width: "250px", marginRight: "-50px" }}
+              className="img-fluid"
+              src={img}
+              alt=""
+            />
+          </div>
         </Sidenav.Body>
       </Sidenav>
       <div style={{ flex: "1", overflowY: "auto" }}></div>
