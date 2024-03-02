@@ -5,8 +5,8 @@ import { useInvoiceListQuery } from "../../../redux/service/invoice/invoiceServi
 import { getURL } from "../../../helpers/qs";
 
 export const DEFAULT_CATEGORY_VALUES = {
-  categoryId: new Date(Math.floor() * 10),
-  invoiceNumber: "false",
+  categoryId: Math.floor(Math.random() * new Date().getTime() * 10),
+  invoiceNumber: "INV-2023-001",
   price: "",
   grandTotal: "",
   amountDue: "",

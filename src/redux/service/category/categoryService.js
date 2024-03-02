@@ -1,3 +1,4 @@
+import { convertDropdownToArrayList } from "../../../helpers/convertDropdownToArrayList";
 import { apiService } from "../../api/apiService";
 
 export const categoryService = apiService.injectEndpoints({
@@ -8,6 +9,14 @@ export const categoryService = apiService.injectEndpoints({
         method: "GET",
       }),
       transformResponse: (data) => data || [],
+    }),
+
+    categoryDropdown: builder.query({
+      query: () => ({
+        url: `categories`,
+        method: "GET",
+      }),
+      transformResponse: (data) => convertDropdownToArrayList(data?.data) || [],
     }),
     categoryCreate: builder.mutation({
       query: (postBody) => ({
@@ -55,4 +64,5 @@ export const {
   useCategoryCreateMutation,
   useCategoryUpdateMutation,
   useCategoryDeleteMutation,
+  useCategoryDropdownQuery,
 } = categoryService;

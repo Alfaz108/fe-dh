@@ -9,6 +9,20 @@ export const invoiceService = apiService.injectEndpoints({
       }),
       transformResponse: (data) => data || [],
     }),
+    invoiceCreate: builder.mutation({
+      query: (postBody) => ({
+        url: `invoices`,
+        method: "POST",
+        body: postBody,
+      }),
+      async onQueryStarted({ postBody }, { dispatch, queryFulfilled }) {
+        try {
+          const {
+            data: { data, message },
+          } = await queryFulfilled;
+        } catch (error) {}
+      },
+    }),
   }),
 });
-export const { useInvoiceListQuery } = invoiceService;
+export const { useInvoiceListQuery, useInvoiceCreateMutation } = invoiceService;

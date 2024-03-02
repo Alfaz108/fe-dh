@@ -30,7 +30,7 @@ const DefaultLayout = () => {
         />
       </div>
 
-      <div className="flex-grow-1 d-flex flex-column">
+      <div className="flex-grow-1 d-flex flex-column dashBoardBackgroundColor">
         {/* Fixed Topbar */}
         <div
           style={{
