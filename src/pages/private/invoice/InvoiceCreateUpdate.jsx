@@ -1,5 +1,4 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
 import { Form, Spinner } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
@@ -12,6 +11,9 @@ import {
   useCategoryDropdownQuery,
   useCategoryLIstQuery,
 } from "../../../redux/service/category/categoryService";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 const InvoiceCreateUpdate = ({ modal, setModal, toggle }) => {
   const [invoiceCreate, { isLoading, isSuccess }] = useInvoiceCreateMutation();
 
@@ -21,31 +23,42 @@ const InvoiceCreateUpdate = ({ modal, setModal, toggle }) => {
     price: yup.number().required("Price is required"),
     grandTotal: yup.number().required("Grand Total applied is required"),
     amountDue: yup.number().required("Amount Due is required"),
+    discount: yup.number().required("Number is required"),
+    dateOfCreation: yup.date().required("Date Of Creation is required"),
+    dateSent: yup.date().required("Date Sent is required"),
+    Status: yup.string().required("Status is required"),
+    number: yup.number().required("Tax is required"),
+    brief: yup.string().required("Brief is required"),
   });
 
   const methods = useForm({
     mode: "all",
-    // defaultValues,
     resolver: yupResolver(schemaResolver),
   });
-  const { handleSubmit, control, reset } = methods;
+
+  const { handleSubmit, control, reset, setValue } = methods;
   const { data: categoryOptionList } = useCategoryDropdownQuery();
 
-  console.log(categoryOptionList);
-
   const onSubmit = (data) => {
-    let invoiceNumber = "INV-2023-001";
     const postBody = {
-      categoryId: data.categoryId,
-      invoiceNumber: invoiceNumber,
-      ...data,
+      categoryId: data.dateDue.categoryId,
+      invoiceNumber: data.invoiceNumber,
+      price: data.price,
+      grandTotal: data.grandTotal,
+      amountDue: data.amountDue,
+      discount: data.discount,
+      dateOfCreation: data.dateOfCreation,
+      dateSent: data.dateSent,
+      Status: data.Status,
+      number: data.number,
+      brief: data.brief,
     };
+
     invoiceCreate(postBody);
 
     console.log(postBody);
-
-    // console.log(postBody);
   };
+
   return (
     <>
       <Modal size="lg" show={modal} onHide={toggle}>
@@ -58,7 +71,9 @@ const InvoiceCreateUpdate = ({ modal, setModal, toggle }) => {
               <div class="row g-2">
                 <div class="col">
                   <Form.Group>
-                    <Form.Label htmlFor="name">Invoice Number</Form.Label>
+                    <Form.Label htmlFor="invoiceNumber">
+                      Invoice Number
+                    </Form.Label>
                     <Controller
                       name="invoiceNumber"
                       control={control}
@@ -117,7 +132,7 @@ const InvoiceCreateUpdate = ({ modal, setModal, toggle }) => {
                 <div className="col">
                   {" "}
                   <Form.Group>
-                    <Form.Label htmlFor="name">Price</Form.Label>
+                    <Form.Label htmlFor="price">Price</Form.Label>
                     <Controller
                       name="price"
                       control={control}
@@ -144,7 +159,7 @@ const InvoiceCreateUpdate = ({ modal, setModal, toggle }) => {
                 <div className="col">
                   {" "}
                   <Form.Group>
-                    <Form.Label htmlFor="name">Grand Total</Form.Label>
+                    <Form.Label htmlFor="grandTotal">Grand Total</Form.Label>
                     <Controller
                       name="grandTotal"
                       control={control}
@@ -173,7 +188,7 @@ const InvoiceCreateUpdate = ({ modal, setModal, toggle }) => {
               <div className="row g-2">
                 <div className="col">
                   <Form.Group>
-                    <Form.Label htmlFor="name">Amount Due</Form.Label>
+                    <Form.Label htmlFor="amountDue">Amount Due</Form.Label>
                     <Controller
                       name="amountDue"
                       control={control}
@@ -197,9 +212,11 @@ const InvoiceCreateUpdate = ({ modal, setModal, toggle }) => {
                     />
                   </Form.Group>
                 </div>
-                <div className="col">
+                {/* <div className="col-">
                   <Form.Group>
-                    <Form.Label htmlFor="name">Date Of Creation</Form.Label>
+                    <Form.Label htmlFor="dateOfCreation">
+                      Date Of Creation
+                    </Form.Label>
                     <Controller
                       name="dateOfCreation"
                       control={control}
@@ -222,13 +239,75 @@ const InvoiceCreateUpdate = ({ modal, setModal, toggle }) => {
                       )}
                     />
                   </Form.Group>
+                </div> */}
+                <div className="col">
+                  <Form.Group>
+                    <Form.Label htmlFor="dateOfCreation">
+                      Date Of Birth
+                    </Form.Label>
+                    <Controller
+                      name="dateOfCreation"
+                      control={control}
+                      render={({ field, fieldState: { error } }) => (
+                        <div>
+                          <DatePicker
+                            className="form-control w-100"
+                            selected={field.value}
+                            onChange={(date) =>
+                              setValue("dateOfCreation", date)
+                            }
+                            timeInputLabel="Time:"
+                            dateFormat="yyyy-MM-dd HH:mm:ss"
+                            showTimeInput
+                            placeholderText="Enter your Date and Time"
+                            isInvalid={!!error}
+                          />
+
+                          {error && (
+                            <Form.Control.Feedback type="invalid">
+                              {error.message}
+                            </Form.Control.Feedback>
+                          )}
+                        </div>
+                      )}
+                    />
+                  </Form.Group>
+                </div>
+                <div className="col">
+                  <Form.Group>
+                    <Form.Label htmlFor="dateSent">Date Sent</Form.Label>
+                    <Controller
+                      name="dateSent"
+                      control={control}
+                      render={({ field, fieldState: { error } }) => (
+                        <div>
+                          <DatePicker
+                            className="form-control"
+                            selected={field.value}
+                            onChange={(date) => setValue("dateSent", date)}
+                            timeInputLabel="Time:"
+                            dateFormat="yyyy-MM-dd HH:mm:ss"
+                            showTimeInput
+                            placeholderText="Enter your Date and Time"
+                            isInvalid={!!error}
+                          />
+
+                          {error && (
+                            <Form.Control.Feedback type="invalid">
+                              {error.message}
+                            </Form.Control.Feedback>
+                          )}
+                        </div>
+                      )}
+                    />
+                  </Form.Group>
                 </div>
               </div>
 
               <div className="row g-2">
-                <div className="col">
+                {/* <div className="col">
                   <Form.Group>
-                    <Form.Label htmlFor="name">Date Sent</Form.Label>
+                    <Form.Label htmlFor="dateSent">Date Sent</Form.Label>
                     <Controller
                       name="dateSent"
                       control={control}
@@ -251,10 +330,37 @@ const InvoiceCreateUpdate = ({ modal, setModal, toggle }) => {
                       )}
                     />
                   </Form.Group>
+                </div> */}
+                <div className="col-6">
+                  <Form.Group>
+                    <Form.Label htmlFor="Status">Status</Form.Label>
+                    <Controller
+                      name="Status"
+                      control={control}
+                      render={({ field, fieldState: { error } }) => (
+                        <>
+                          <Form.Select {...field} isInvalid={!!error}>
+                            <option value="">Select category</option>
+                            {statusOfInvoice?.map((type) => (
+                              <option key={type.value} value={type.value}>
+                                {type.label}
+                              </option>
+                            ))}
+                          </Form.Select>
+
+                          {error && (
+                            <Form.Control.Feedback type="invalid">
+                              {error.message}
+                            </Form.Control.Feedback>
+                          )}
+                        </>
+                      )}
+                    />
+                  </Form.Group>
                 </div>
                 <div className="col">
                   <Form.Group>
-                    <Form.Label htmlFor="name">Tax</Form.Label>
+                    <Form.Label htmlFor="number">Tax</Form.Label>
                     <Controller
                       name="number"
                       control={control}
@@ -282,7 +388,7 @@ const InvoiceCreateUpdate = ({ modal, setModal, toggle }) => {
               <div className="row g-2">
                 <div className="col">
                   <Form.Group>
-                    <Form.Label htmlFor="name">Discount</Form.Label>
+                    <Form.Label htmlFor="discount">Discount</Form.Label>
                     <Controller
                       name="discount"
                       control={control}
@@ -308,7 +414,7 @@ const InvoiceCreateUpdate = ({ modal, setModal, toggle }) => {
                 </div>
                 <div className="col">
                   <Form.Group>
-                    <Form.Label htmlFor="name">Brief</Form.Label>
+                    <Form.Label htmlFor="brief">Brief</Form.Label>
                     <Controller
                       name="brief"
                       control={control}
@@ -333,42 +439,11 @@ const InvoiceCreateUpdate = ({ modal, setModal, toggle }) => {
                   </Form.Group>
                 </div>
               </div>
-              <div className="row g-2">
-                <div className="col-6">
-                  <Form.Group>
-                    <Form.Label htmlFor="name">Status</Form.Label>
-                    <Controller
-                      name="Status"
-                      control={control}
-                      render={({ field, fieldState: { error } }) => (
-                        <>
-                          <Form.Select {...field} isInvalid={!!error}>
-                            <option value="">Select category</option>
-                            {statusOfInvoice?.map((type) => (
-                              <option key={type.value} value={type.value}>
-                                {type.label}
-                              </option>
-                            ))}
-                          </Form.Select>
-
-                          {error && (
-                            <Form.Control.Feedback type="invalid">
-                              {error.message}
-                            </Form.Control.Feedback>
-                          )}
-                        </>
-                      )}
-                    />
-                  </Form.Group>
-                </div>
-              </div>
             </div>
             <div className="text-end">
               <Button className="mt-2 text-end" type="submit">
-                Submit{" "}
-                {/* {(isLoading || updateLoad) && (
-                <Spinner animation="border" size="sm" />
-              )} */}
+                Submit
+                {/* {isLoading && <Spinner animation="border" size="sm" />} */}
               </Button>
             </div>
           </Form>
