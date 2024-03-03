@@ -25,142 +25,332 @@ const BidsCreateUpdate = ({ modal, setModal, toggle }) => {
 
   return (
     <>
-      <Modal show={modal} onHide={toggle}>
+      <Modal size="lg" show={modal} onHide={toggle}>
         <Modal.Header closeButton>
           <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <div>
-              <div className="my-2">
-                <Form.Group>
-                  <Form.Label htmlFor="name">Name</Form.Label>
-                  <Controller
-                    name="name"
-                    control={control}
-                    render={({ field, fieldState: { error } }) => (
-                      <>
-                        <Form.Control
-                          {...field}
-                          type="text"
-                          placeholder="Enter your name"
-                          isInvalid={!!error}
-                          autoComplete="off"
-                        />
+              <div class="row  g-2">
+                <div className="col">
+                  <Form.Group>
+                    <Form.Label htmlFor="name">Name</Form.Label>
+                    <Controller
+                      name="name"
+                      control={control}
+                      render={({ field, fieldState: { error } }) => (
+                        <>
+                          <Form.Control
+                            {...field}
+                            type="text"
+                            placeholder="Enter your name"
+                            isInvalid={!!error}
+                            autoComplete="off"
+                          />
 
-                        {error && (
-                          <Form.Control.Feedback type="invalid">
-                            {error.message}
-                          </Form.Control.Feedback>
-                        )}
-                      </>
-                    )}
-                  />
-                </Form.Group>
+                          {error && (
+                            <Form.Control.Feedback type="invalid">
+                              {error.message}
+                            </Form.Control.Feedback>
+                          )}
+                        </>
+                      )}
+                    />
+                  </Form.Group>
+                </div>
+                <div className="col">
+                  <Form.Group>
+                    <Form.Label htmlFor="name">Name</Form.Label>
+                    <Controller
+                      name="name"
+                      control={control}
+                      render={({ field, fieldState: { error } }) => (
+                        <>
+                          <Form.Control
+                            {...field}
+                            type="text"
+                            placeholder="Enter your name"
+                            isInvalid={!!error}
+                            autoComplete="off"
+                          />
+
+                          {error && (
+                            <Form.Control.Feedback type="invalid">
+                              {error.message}
+                            </Form.Control.Feedback>
+                          )}
+                        </>
+                      )}
+                    />
+                  </Form.Group>
+                </div>
+                <div className="col">
+                  <Form.Group>
+                    <Form.Label htmlFor="name">Name</Form.Label>
+                    <Controller
+                      name="name"
+                      control={control}
+                      render={({ field, fieldState: { error } }) => (
+                        <>
+                          <Form.Control
+                            {...field}
+                            type="text"
+                            placeholder="Enter your name"
+                            isInvalid={!!error}
+                            autoComplete="off"
+                          />
+
+                          {error && (
+                            <Form.Control.Feedback type="invalid">
+                              {error.message}
+                            </Form.Control.Feedback>
+                          )}
+                        </>
+                      )}
+                    />
+                  </Form.Group>
+                </div>
               </div>
-              <div className="my-2">
-                <Form.Group>
-                  <Form.Label htmlFor="name">Name</Form.Label>
-                  <Controller
-                    name="name"
-                    control={control}
-                    render={({ field, fieldState: { error } }) => (
-                      <>
-                        <Form.Control
-                          {...field}
-                          type="text"
-                          placeholder="Enter your name"
-                          isInvalid={!!error}
-                          autoComplete="off"
-                        />
+              <div class="row  g-2">
+                <div className="col">
+                  <Form.Group>
+                    <Form.Label htmlFor="name">Name</Form.Label>
+                    <Controller
+                      name="name"
+                      control={control}
+                      render={({ field, fieldState: { error } }) => (
+                        <>
+                          <Form.Control
+                            {...field}
+                            type="text"
+                            placeholder="Enter your name"
+                            isInvalid={!!error}
+                            autoComplete="off"
+                          />
 
-                        {error && (
-                          <Form.Control.Feedback type="invalid">
-                            {error.message}
-                          </Form.Control.Feedback>
-                        )}
-                      </>
-                    )}
-                  />
-                </Form.Group>
+                          {error && (
+                            <Form.Control.Feedback type="invalid">
+                              {error.message}
+                            </Form.Control.Feedback>
+                          )}
+                        </>
+                      )}
+                    />
+                  </Form.Group>
+                </div>
+                <div className="col">
+                  <Form.Group>
+                    <Form.Label htmlFor="name">Name</Form.Label>
+                    <Controller
+                      name="name"
+                      control={control}
+                      render={({ field, fieldState: { error } }) => (
+                        <>
+                          <Form.Control
+                            {...field}
+                            type="text"
+                            placeholder="Enter your name"
+                            isInvalid={!!error}
+                            autoComplete="off"
+                          />
+
+                          {error && (
+                            <Form.Control.Feedback type="invalid">
+                              {error.message}
+                            </Form.Control.Feedback>
+                          )}
+                        </>
+                      )}
+                    />
+                  </Form.Group>
+                </div>
+                <div className="col">
+                  <Form.Group>
+                    <Form.Label htmlFor="name">Name</Form.Label>
+                    <Controller
+                      name="name"
+                      control={control}
+                      render={({ field, fieldState: { error } }) => (
+                        <>
+                          <Form.Control
+                            {...field}
+                            type="text"
+                            placeholder="Enter your name"
+                            isInvalid={!!error}
+                            autoComplete="off"
+                          />
+
+                          {error && (
+                            <Form.Control.Feedback type="invalid">
+                              {error.message}
+                            </Form.Control.Feedback>
+                          )}
+                        </>
+                      )}
+                    />
+                  </Form.Group>
+                </div>
               </div>
-              <div className="my-2">
-                <Form.Group>
-                  <Form.Label htmlFor="name">Name</Form.Label>
-                  <Controller
-                    name="name"
-                    control={control}
-                    render={({ field, fieldState: { error } }) => (
-                      <>
-                        <Form.Control
-                          {...field}
-                          type="text"
-                          placeholder="Enter your name"
-                          isInvalid={!!error}
-                          autoComplete="off"
-                        />
+              <div class="row  g-2">
+                <div className="col">
+                  <Form.Group>
+                    <Form.Label htmlFor="name">Name</Form.Label>
+                    <Controller
+                      name="name"
+                      control={control}
+                      render={({ field, fieldState: { error } }) => (
+                        <>
+                          <Form.Control
+                            {...field}
+                            type="text"
+                            placeholder="Enter your name"
+                            isInvalid={!!error}
+                            autoComplete="off"
+                          />
 
-                        {error && (
-                          <Form.Control.Feedback type="invalid">
-                            {error.message}
-                          </Form.Control.Feedback>
-                        )}
-                      </>
-                    )}
-                  />
-                </Form.Group>
+                          {error && (
+                            <Form.Control.Feedback type="invalid">
+                              {error.message}
+                            </Form.Control.Feedback>
+                          )}
+                        </>
+                      )}
+                    />
+                  </Form.Group>
+                </div>
+                <div className="col">
+                  <Form.Group>
+                    <Form.Label htmlFor="name">Name</Form.Label>
+                    <Controller
+                      name="name"
+                      control={control}
+                      render={({ field, fieldState: { error } }) => (
+                        <>
+                          <Form.Control
+                            {...field}
+                            type="text"
+                            placeholder="Enter your name"
+                            isInvalid={!!error}
+                            autoComplete="off"
+                          />
+
+                          {error && (
+                            <Form.Control.Feedback type="invalid">
+                              {error.message}
+                            </Form.Control.Feedback>
+                          )}
+                        </>
+                      )}
+                    />
+                  </Form.Group>
+                </div>
+                <div className="col">
+                  <Form.Group>
+                    <Form.Label htmlFor="name">Name</Form.Label>
+                    <Controller
+                      name="name"
+                      control={control}
+                      render={({ field, fieldState: { error } }) => (
+                        <>
+                          <Form.Control
+                            {...field}
+                            type="text"
+                            placeholder="Enter your name"
+                            isInvalid={!!error}
+                            autoComplete="off"
+                          />
+
+                          {error && (
+                            <Form.Control.Feedback type="invalid">
+                              {error.message}
+                            </Form.Control.Feedback>
+                          )}
+                        </>
+                      )}
+                    />
+                  </Form.Group>
+                </div>
               </div>
-              <div className="my-2">
-                <Form.Group>
-                  <Form.Label htmlFor="name">Name</Form.Label>
-                  <Controller
-                    name="name"
-                    control={control}
-                    render={({ field, fieldState: { error } }) => (
-                      <>
-                        <Form.Control
-                          {...field}
-                          type="text"
-                          placeholder="Enter your name"
-                          isInvalid={!!error}
-                          autoComplete="off"
-                        />
+              <div class="row  g-2">
+                <div className="col">
+                  <Form.Group>
+                    <Form.Label htmlFor="name">Name</Form.Label>
+                    <Controller
+                      name="name"
+                      control={control}
+                      render={({ field, fieldState: { error } }) => (
+                        <>
+                          <Form.Control
+                            {...field}
+                            type="text"
+                            placeholder="Enter your name"
+                            isInvalid={!!error}
+                            autoComplete="off"
+                          />
 
-                        {error && (
-                          <Form.Control.Feedback type="invalid">
-                            {error.message}
-                          </Form.Control.Feedback>
-                        )}
-                      </>
-                    )}
-                  />
-                </Form.Group>
-              </div>
-              <div className="my-2">
-                <Form.Group>
-                  <Form.Label htmlFor="name">Name</Form.Label>
-                  <Controller
-                    name="name"
-                    control={control}
-                    render={({ field, fieldState: { error } }) => (
-                      <>
-                        <Form.Control
-                          {...field}
-                          type="text"
-                          placeholder="Enter your name"
-                          isInvalid={!!error}
-                          autoComplete="off"
-                        />
+                          {error && (
+                            <Form.Control.Feedback type="invalid">
+                              {error.message}
+                            </Form.Control.Feedback>
+                          )}
+                        </>
+                      )}
+                    />
+                  </Form.Group>
+                </div>
+                <div className="col">
+                  <Form.Group>
+                    <Form.Label htmlFor="name">Name</Form.Label>
+                    <Controller
+                      name="name"
+                      control={control}
+                      render={({ field, fieldState: { error } }) => (
+                        <>
+                          <Form.Control
+                            {...field}
+                            type="text"
+                            placeholder="Enter your name"
+                            isInvalid={!!error}
+                            autoComplete="off"
+                          />
 
-                        {error && (
-                          <Form.Control.Feedback type="invalid">
-                            {error.message}
-                          </Form.Control.Feedback>
-                        )}
-                      </>
-                    )}
-                  />
-                </Form.Group>
+                          {error && (
+                            <Form.Control.Feedback type="invalid">
+                              {error.message}
+                            </Form.Control.Feedback>
+                          )}
+                        </>
+                      )}
+                    />
+                  </Form.Group>
+                </div>
+                <div className="col">
+                  <Form.Group>
+                    <Form.Label htmlFor="name">Name</Form.Label>
+                    <Controller
+                      name="name"
+                      control={control}
+                      render={({ field, fieldState: { error } }) => (
+                        <>
+                          <Form.Control
+                            {...field}
+                            type="text"
+                            placeholder="Enter your name"
+                            isInvalid={!!error}
+                            autoComplete="off"
+                          />
+
+                          {error && (
+                            <Form.Control.Feedback type="invalid">
+                              {error.message}
+                            </Form.Control.Feedback>
+                          )}
+                        </>
+                      )}
+                    />
+                  </Form.Group>
+                </div>
               </div>
             </div>
             <Button type="submit">Submit </Button>

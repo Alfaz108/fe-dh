@@ -15,7 +15,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const InvoiceCreateUpdate = ({ modal, setModal, toggle }) => {
-  const [invoiceCreate, { isLoading, isSuccess }] = useInvoiceCreateMutation();
+  const [invoiceCreate, { isLoading, isSuccess, updateLoad }] =
+    useInvoiceCreateMutation();
 
   const schemaResolver = yup.object().shape({
     categoryId: yup.string().required("Category Id is required"),
@@ -38,10 +39,49 @@ const InvoiceCreateUpdate = ({ modal, setModal, toggle }) => {
 
   const { handleSubmit, control, reset, setValue } = methods;
   const { data: categoryOptionList } = useCategoryDropdownQuery();
+  // const onSubmit = async (data) => {
 
-  const onSubmit = (data) => {
+  //   const postBody = {
+  //     categoryId: data.categoryId,
+  //     invoiceNumber: data.invoiceNumber,
+  //     price: data.price,
+  //     grandTotal: data.grandTotal,
+  //     amountDue: data.amountDue,
+  //     discount: data.discount,
+  //     dateOfCreation: data.dateOfCreation,
+  //     dateSent: data.dateSent,
+  //     Status: data.Status,
+  //     number: data.number,
+  //     brief: data.brief,
+  //   };
+
+  //   // Check if dateDue is a string and convert it to a Date object
+  //   if (typeof data.dateDue === "string") {
+  //     postBody.dateDue = new Date(data.dateDue);
+  //   } else {
+  //     postBody.dateDue = data.dateDue;
+  //   }
+
+  //   try {
+  //     const response = await invoiceCreate(postBody);
+
+  //     if (response.statusCode === 201) {
+  //       // Handle successful creation, e.g., show a success message or close the modal
+  //       console.log("Invoice created successfully");
+  //       toggle(); // Assuming toggle is a function to close the modal
+  //     } else {
+  //       // Handle other status codes or errors
+  //       console.error("Error creating invoice:", response.message);
+  //     }
+  //   } catch (error) {
+  //     // Handle any network or unexpected errors
+  //     console.error("An unexpected error occurred:", error);
+  //   }
+  // };
+
+  const onSubmit = async (data) => {
     const postBody = {
-      categoryId: data.dateDue.categoryId,
+      categoryId: data.categoryId,
       invoiceNumber: data.invoiceNumber,
       price: data.price,
       grandTotal: data.grandTotal,
@@ -54,9 +94,28 @@ const InvoiceCreateUpdate = ({ modal, setModal, toggle }) => {
       brief: data.brief,
     };
 
-    invoiceCreate(postBody);
+    // Check if dateDue is a string and convert it to a Date object
+    if (typeof data.dateDue === "string") {
+      postBody.dateDue = new Date(data.dateDue);
+    } else {
+      postBody.dateDue = data.dateDue;
+    }
 
-    console.log(postBody);
+    try {
+      const response = await invoiceCreate(postBody);
+
+      if (response.statusCode === 201) {
+        // Handle successful creation, e.g., show a success message or close the modal
+        console.log("Invoice created successfully");
+        toggle(); // Assuming toggle is a function to close the modal
+      } else {
+        // Handle other status codes or errors
+        console.error("Error creating invoice:", response.message);
+      }
+    } catch (error) {
+      // Handle any network or unexpected errors
+      console.error("An unexpected error occurred:", error);
+    }
   };
 
   return (
@@ -126,9 +185,6 @@ const InvoiceCreateUpdate = ({ modal, setModal, toggle }) => {
                     />
                   </Form.Group>
                 </div>
-              </div>
-
-              <div className="row g-2">
                 <div className="col">
                   {" "}
                   <Form.Group>
@@ -156,6 +212,9 @@ const InvoiceCreateUpdate = ({ modal, setModal, toggle }) => {
                     />
                   </Form.Group>
                 </div>
+              </div>
+
+              <div className="row g-2">
                 <div className="col">
                   {" "}
                   <Form.Group>
@@ -183,9 +242,114 @@ const InvoiceCreateUpdate = ({ modal, setModal, toggle }) => {
                     />
                   </Form.Group>
                 </div>
+                <div className="col">
+                  <Form.Group>
+                    <Form.Label htmlFor="Status">Status</Form.Label>
+                    <Controller
+                      name="Status"
+                      control={control}
+                      render={({ field, fieldState: { error } }) => (
+                        <>
+                          <Form.Select {...field} isInvalid={!!error}>
+                            <option value="">Select category</option>
+                            {statusOfInvoice?.map((type) => (
+                              <option key={type.value} value={type.value}>
+                                {type.label}
+                              </option>
+                            ))}
+                          </Form.Select>
+
+                          {error && (
+                            <Form.Control.Feedback type="invalid">
+                              {error.message}
+                            </Form.Control.Feedback>
+                          )}
+                        </>
+                      )}
+                    />
+                  </Form.Group>
+                </div>
+                <div className="col">
+                  <Form.Group>
+                    <Form.Label htmlFor="number">Tax</Form.Label>
+                    <Controller
+                      name="number"
+                      control={control}
+                      render={({ field, fieldState: { error } }) => (
+                        <>
+                          <Form.Control
+                            {...field}
+                            type="number"
+                            placeholder="Enter your name"
+                            isInvalid={!!error}
+                            autoComplete="off"
+                          />
+
+                          {error && (
+                            <Form.Control.Feedback type="invalid">
+                              {error.message}
+                            </Form.Control.Feedback>
+                          )}
+                        </>
+                      )}
+                    />
+                  </Form.Group>
+                </div>
               </div>
 
               <div className="row g-2">
+                <div className="col">
+                  <Form.Group>
+                    <Form.Label htmlFor="discount">Discount</Form.Label>
+                    <Controller
+                      name="discount"
+                      control={control}
+                      render={({ field, fieldState: { error } }) => (
+                        <>
+                          <Form.Control
+                            {...field}
+                            type="number"
+                            placeholder="Enter your name"
+                            isInvalid={!!error}
+                            autoComplete="off"
+                          />
+
+                          {error && (
+                            <Form.Control.Feedback type="invalid">
+                              {error.message}
+                            </Form.Control.Feedback>
+                          )}
+                        </>
+                      )}
+                    />
+                  </Form.Group>
+                </div>
+                <div className="col">
+                  <Form.Group>
+                    <Form.Label htmlFor="brief">Brief</Form.Label>
+                    <Controller
+                      name="brief"
+                      control={control}
+                      render={({ field, fieldState: { error } }) => (
+                        <>
+                          <Form.Control
+                            {...field}
+                            type="text"
+                            placeholder="Enter your name"
+                            isInvalid={!!error}
+                            autoComplete="off"
+                          />
+
+                          {error && (
+                            <Form.Control.Feedback type="invalid">
+                              {error.message}
+                            </Form.Control.Feedback>
+                          )}
+                        </>
+                      )}
+                    />
+                  </Form.Group>
+                </div>
                 <div className="col">
                   <Form.Group>
                     <Form.Label htmlFor="amountDue">Amount Due</Form.Label>
@@ -212,6 +376,9 @@ const InvoiceCreateUpdate = ({ modal, setModal, toggle }) => {
                     />
                   </Form.Group>
                 </div>
+              </div>
+
+              <div className="row ">
                 {/* <div className="col-">
                   <Form.Group>
                     <Form.Label htmlFor="dateOfCreation">
@@ -240,6 +407,35 @@ const InvoiceCreateUpdate = ({ modal, setModal, toggle }) => {
                     />
                   </Form.Group>
                 </div> */}
+                <div className="col">
+                  <Form.Group>
+                    <Form.Label htmlFor="dateDue">Date Due</Form.Label>
+                    <Controller
+                      name="dateDue"
+                      control={control}
+                      render={({ field, fieldState: { error } }) => (
+                        <div>
+                          <DatePicker
+                            className="form-control"
+                            selected={field.value}
+                            onChange={(date) => setValue("dateDue", date)}
+                            timeInputLabel="Time:"
+                            dateFormat="yyyy-MM-dd HH:mm:ss"
+                            showTimeInput
+                            placeholderText="Enter your Date and Time"
+                            isInvalid={!!error}
+                          />
+
+                          {error && (
+                            <Form.Control.Feedback type="invalid">
+                              {error.message}
+                            </Form.Control.Feedback>
+                          )}
+                        </div>
+                      )}
+                    />
+                  </Form.Group>
+                </div>
                 <div className="col">
                   <Form.Group>
                     <Form.Label htmlFor="dateOfCreation">
@@ -303,147 +499,13 @@ const InvoiceCreateUpdate = ({ modal, setModal, toggle }) => {
                   </Form.Group>
                 </div>
               </div>
-
-              <div className="row g-2">
-                {/* <div className="col">
-                  <Form.Group>
-                    <Form.Label htmlFor="dateSent">Date Sent</Form.Label>
-                    <Controller
-                      name="dateSent"
-                      control={control}
-                      render={({ field, fieldState: { error } }) => (
-                        <>
-                          <Form.Control
-                            {...field}
-                            type="date"
-                            placeholder="Enter your name"
-                            isInvalid={!!error}
-                            autoComplete="off"
-                          />
-
-                          {error && (
-                            <Form.Control.Feedback type="invalid">
-                              {error.message}
-                            </Form.Control.Feedback>
-                          )}
-                        </>
-                      )}
-                    />
-                  </Form.Group>
-                </div> */}
-                <div className="col-6">
-                  <Form.Group>
-                    <Form.Label htmlFor="Status">Status</Form.Label>
-                    <Controller
-                      name="Status"
-                      control={control}
-                      render={({ field, fieldState: { error } }) => (
-                        <>
-                          <Form.Select {...field} isInvalid={!!error}>
-                            <option value="">Select category</option>
-                            {statusOfInvoice?.map((type) => (
-                              <option key={type.value} value={type.value}>
-                                {type.label}
-                              </option>
-                            ))}
-                          </Form.Select>
-
-                          {error && (
-                            <Form.Control.Feedback type="invalid">
-                              {error.message}
-                            </Form.Control.Feedback>
-                          )}
-                        </>
-                      )}
-                    />
-                  </Form.Group>
-                </div>
-                <div className="col">
-                  <Form.Group>
-                    <Form.Label htmlFor="number">Tax</Form.Label>
-                    <Controller
-                      name="number"
-                      control={control}
-                      render={({ field, fieldState: { error } }) => (
-                        <>
-                          <Form.Control
-                            {...field}
-                            type="number"
-                            placeholder="Enter your name"
-                            isInvalid={!!error}
-                            autoComplete="off"
-                          />
-
-                          {error && (
-                            <Form.Control.Feedback type="invalid">
-                              {error.message}
-                            </Form.Control.Feedback>
-                          )}
-                        </>
-                      )}
-                    />
-                  </Form.Group>
-                </div>
-              </div>
-              <div className="row g-2">
-                <div className="col">
-                  <Form.Group>
-                    <Form.Label htmlFor="discount">Discount</Form.Label>
-                    <Controller
-                      name="discount"
-                      control={control}
-                      render={({ field, fieldState: { error } }) => (
-                        <>
-                          <Form.Control
-                            {...field}
-                            type="number"
-                            placeholder="Enter your name"
-                            isInvalid={!!error}
-                            autoComplete="off"
-                          />
-
-                          {error && (
-                            <Form.Control.Feedback type="invalid">
-                              {error.message}
-                            </Form.Control.Feedback>
-                          )}
-                        </>
-                      )}
-                    />
-                  </Form.Group>
-                </div>
-                <div className="col">
-                  <Form.Group>
-                    <Form.Label htmlFor="brief">Brief</Form.Label>
-                    <Controller
-                      name="brief"
-                      control={control}
-                      render={({ field, fieldState: { error } }) => (
-                        <>
-                          <Form.Control
-                            {...field}
-                            type="text"
-                            placeholder="Enter your name"
-                            isInvalid={!!error}
-                            autoComplete="off"
-                          />
-
-                          {error && (
-                            <Form.Control.Feedback type="invalid">
-                              {error.message}
-                            </Form.Control.Feedback>
-                          )}
-                        </>
-                      )}
-                    />
-                  </Form.Group>
-                </div>
-              </div>
             </div>
-            <div className="text-end">
-              <Button className="mt-2 text-end" type="submit">
-                Submit
-                {/* {isLoading && <Spinner animation="border" size="sm" />} */}
+            <div className="text-end mt-2">
+              <Button type="submit" disabled={isLoading || updateLoad}>
+                Submit{" "}
+                {(isLoading || updateLoad) && (
+                  <Spinner animation="border" size="sm" />
+                )}
               </Button>
             </div>
           </Form>
