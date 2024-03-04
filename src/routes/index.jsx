@@ -11,6 +11,7 @@ import Bids from "../pages/private/bids";
 import Ticket from "../pages/private/tickets";
 import Report from "../pages/private/reports";
 import MyProfile from "../pages/private/profile";
+import CategoryInvoice from "../pages/private/category/CategoryInvoice";
 
 export const route = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ export const route = createBrowserRouter([
       {
         path: "/category",
         element: <Category />,
+      },
+      {
+        path: "/category/categoryInv",
+        element: <CategoryInvoice />,
       },
       {
         path: "/invoice",

@@ -39,45 +39,6 @@ const InvoiceCreateUpdate = ({ modal, setModal, toggle }) => {
 
   const { handleSubmit, control, reset, setValue } = methods;
   const { data: categoryOptionList } = useCategoryDropdownQuery();
-  // const onSubmit = async (data) => {
-
-  //   const postBody = {
-  //     categoryId: data.categoryId,
-  //     invoiceNumber: data.invoiceNumber,
-  //     price: data.price,
-  //     grandTotal: data.grandTotal,
-  //     amountDue: data.amountDue,
-  //     discount: data.discount,
-  //     dateOfCreation: data.dateOfCreation,
-  //     dateSent: data.dateSent,
-  //     Status: data.Status,
-  //     number: data.number,
-  //     brief: data.brief,
-  //   };
-
-  //   // Check if dateDue is a string and convert it to a Date object
-  //   if (typeof data.dateDue === "string") {
-  //     postBody.dateDue = new Date(data.dateDue);
-  //   } else {
-  //     postBody.dateDue = data.dateDue;
-  //   }
-
-  //   try {
-  //     const response = await invoiceCreate(postBody);
-
-  //     if (response.statusCode === 201) {
-  //       // Handle successful creation, e.g., show a success message or close the modal
-  //       console.log("Invoice created successfully");
-  //       toggle(); // Assuming toggle is a function to close the modal
-  //     } else {
-  //       // Handle other status codes or errors
-  //       console.error("Error creating invoice:", response.message);
-  //     }
-  //   } catch (error) {
-  //     // Handle any network or unexpected errors
-  //     console.error("An unexpected error occurred:", error);
-  //   }
-  // };
 
   const onSubmit = async (data) => {
     const postBody = {
@@ -379,34 +340,6 @@ const InvoiceCreateUpdate = ({ modal, setModal, toggle }) => {
               </div>
 
               <div className="row ">
-                {/* <div className="col-">
-                  <Form.Group>
-                    <Form.Label htmlFor="dateOfCreation">
-                      Date Of Creation
-                    </Form.Label>
-                    <Controller
-                      name="dateOfCreation"
-                      control={control}
-                      render={({ field, fieldState: { error } }) => (
-                        <>
-                          <Form.Control
-                            {...field}
-                            type="date"
-                            placeholder="Enter your name"
-                            isInvalid={!!error}
-                            autoComplete="off"
-                          />
-
-                          {error && (
-                            <Form.Control.Feedback type="invalid">
-                              {error.message}
-                            </Form.Control.Feedback>
-                          )}
-                        </>
-                      )}
-                    />
-                  </Form.Group>
-                </div> */}
                 <div className="col">
                   <Form.Group>
                     <Form.Label htmlFor="dateDue">Date Due</Form.Label>

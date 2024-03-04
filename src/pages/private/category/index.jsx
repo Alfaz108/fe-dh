@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { handlePagination } from "../../../redux/features/paginationReducer";
 import LoadingData from "../../../components/common/loadingData";
 import { Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export const DEFAULT_CATEGORY_VALUES = {
   name: "",
@@ -68,6 +69,11 @@ const Category = () => {
 
     return (
       <>
+        <span role="button" className="action-icon text-warning me-2">
+          <Link to="categoryInv">
+            <i className="mdi mdi-square-edit-outline" />
+          </Link>
+        </span>
         <span role="button" className="action-icon text-warning">
           <i className="mdi mdi-square-edit-outline" onClick={edit}></i>
         </span>
@@ -151,7 +157,7 @@ const Category = () => {
             data={categoryList}
             addShowModal={addShowModal}
             pagination={pagination}
-            pageSize={5}
+            pageSize={10}
             sizePerPageList={sizePerPageList}
             tableInfo={{
               addTitle: "Category",

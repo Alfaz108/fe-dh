@@ -1,9 +1,26 @@
 import React, { useMemo, useState } from "react";
 import CustomTable from "../../../components/app/table";
 import TicketsCreateUpdate from "./TicketsCreateUpdate";
+import { useTicketsListQuery } from "../../../redux/service/tickets/ticketsService";
+import { getURL } from "../../../helpers/qs";
 
 const Bids = () => {
   const [modal, setModal] = useState(false);
+
+  const { ticketsList, pagination, isLoading, isError } = useTicketsListQuery(
+    getURL(``),
+    {
+      selectFromResult: (data) => {
+        console.log(data);
+        return {
+          // pagination: data?.data?.pagination,
+          ticketsList: data?.data?.data,
+          isLoading: data?.isLoading,
+          isError: data?.isError,
+        };
+      },
+    }
+  );
 
   const addShowModal = () => {
     setModal(true);
@@ -59,6 +76,7 @@ const Bids = () => {
       <div>
         <CustomTable
           columns={columns}
+          data={ticketsList}
           addShowModal={addShowModal}
           tableInfo={{
             addTitle: "Bids",
