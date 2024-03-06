@@ -1,3 +1,4 @@
+import { convertDropdownToArrayList } from "../../../helpers/convertDropdownToArrayList";
 import { apiService } from "../../api/apiService";
 
 export const userService = apiService.injectEndpoints({
@@ -8,6 +9,14 @@ export const userService = apiService.injectEndpoints({
         method: "GET",
       }),
       transformResponse: (data) => data || [],
+    }),
+
+    userDropdown: builder.query({
+      query: () => ({
+        url: `users`,
+        method: "GET",
+      }),
+      transformResponse: (data) => convertDropdownToArrayList(data?.data) || [],
     }),
 
     userCreate: builder.mutation({
@@ -56,4 +65,5 @@ export const {
   useUserListQuery,
   useUserUpdateMutation,
   useUserDeleteMutation,
+  useUserDropdownQuery,
 } = userService;
