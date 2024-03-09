@@ -1,12 +1,17 @@
 import { createBrowserRouter } from "react-router-dom";
-
 import PrivateRoute from "./PrivateRoute";
 import Login from "../pages/public/account/Login";
 import Register from "../pages/public/account/Register";
 import Dashboard from "../pages/private/dashboard";
 import Root from "./Root";
 import User from "../pages/private/user";
-import MyComponent from "../temp/practiceTable/Component";
+import Category from "../pages/private/category";
+import Invoice from "../pages/private/invoice";
+import Bids from "../pages/private/bids";
+import Ticket from "../pages/private/tickets";
+import Report from "../pages/private/reports";
+import MyProfile from "../pages/private/profile";
+import CategoryInvoice from "../pages/private/category/CategoryInvoice";
 
 export const route = createBrowserRouter([
   {
@@ -26,8 +31,32 @@ export const route = createBrowserRouter([
         element: <User />,
       },
       {
-        path: "/test",
-        element: <MyComponent />,
+        path: "/category",
+        element: <Category />,
+      },
+      {
+        path: "/category/categoryInv",
+        element: <CategoryInvoice />,
+      },
+      {
+        path: "/invoice",
+        element: <Invoice />,
+      },
+      {
+        path: "/bids",
+        element: <Bids />,
+      },
+      {
+        path: "/tickets",
+        element: <Ticket />,
+      },
+      {
+        path: "/reports",
+        element: <Report />,
+      },
+      {
+        path: "/myProfile",
+        element: <MyProfile />,
       },
     ],
   },

@@ -1,36 +1,29 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Card } from "react-bootstrap";
-import CustomTable from "../../../components/app/table/index";
-import UserCreateUpdate from "./UserCreateUpdateModal";
-import { handlePagination } from "../../../redux/features/paginationReducer";
-
-import {
-  useUserDeleteMutation,
-  useUserListQuery,
-} from "../../../redux/service/user/userService";
-import LoadingData from "../../../components/common/loadingData";
-import { useDispatch, useSelector } from "react-redux";
+import InvoiceCreateUpdate from "./InvoiceCreateUpdate";
+import CustomTable from "../../../components/app/table";
+import { useInvoiceListQuery } from "../../../redux/service/invoice/invoiceService";
 import { getURL } from "../../../helpers/qs";
+import { useDispatch, useSelector } from "react-redux";
+import LoadingData from "../../../components/common/loadingData";
+import { Card } from "react-bootstrap";
 
-export const DEFAULT_USER_VALUES = {
-  name: "",
-  email: "",
-  password: "",
-  role: "FREELANCER",
-  status: "PENDING",
-  address: "",
-  city: "",
-  dateOfBirth: "",
-  fax: "",
-  gender: "",
-  phoneNumber: "",
-  state: "",
-  zip: "",
+export const DEFAULT_INVOICE_VALUES = {
+  categoryId: "",
+  invoiceNumber: "",
+  price: "",
+  grandTotal: "",
+  amountDue: "",
+  discount: "",
+  dateOfCreation: "",
+  dateSent: "",
+  Status: "",
+  number: "",
+  brief: "",
 };
 
-const User = () => {
+const Invoice = () => {
   const [modal, setModal] = useState(false);
-  const [defaultValues, setDefaultValues] = useState(DEFAULT_USER_VALUES);
+  const [defaultValues, setDefaultValues] = useState(DEFAULT_INVOICE_VALUES);
   const [editData, setEditData] = useState(false);
 
   const dispatch = useDispatch();
@@ -39,20 +32,22 @@ const User = () => {
     (state) => state.pagination
   );
 
-  const { userList, pagination, isLoading, isError } = useUserListQuery(
+  // get url from redux ===========
+
+  const { invoiceList, pagination, isLoading, isError } = useInvoiceListQuery(
     getURL(``),
     {
       selectFromResult: (data) => {
+        console.log(data);
         return {
-          pagination: data?.data?.pagination,
-          userList: data?.data?.data,
+          pagination: data?.pagination,
+          userList: data,
           isLoading: data?.isLoading,
           isError: data?.isError,
         };
       },
     }
   );
-  const [userDelete] = useUserDeleteMutation();
 
   useEffect(() => {
     if (pagination && Object.keys(pagination).length > 0) {
@@ -60,15 +55,18 @@ const User = () => {
     }
   }, [pagination]);
 
+  // show modal when button will click ======
   const addShowModal = () => {
-    setDefaultValues(DEFAULT_USER_VALUES);
+    setDefaultValues(DEFAULT_INVOICE_VALUES);
     setModal(true);
   };
 
+  // modal toggle when click button =======
   const toggle = () => {
     setModal(!modal);
   };
 
+  // dynamic add modal button from custom column ==
   const ActionColumn = ({ row }) => {
     const edit = () => {
       toggle();
@@ -91,6 +89,7 @@ const User = () => {
     );
   };
 
+  // column show on display ====
   const columns = useMemo(
     () => [
       {
@@ -112,38 +111,24 @@ const User = () => {
         classes: "table-user",
       },
       {
-        Header: "Email",
-        accessor: "email",
+        Header: "Type",
+        accessor: "type",
         Cell: ({ value }) => value || "n/a",
         classes: "table-user",
       },
       {
-        Header: "Gender",
-        accessor: "gender",
-        Cell: ({ value }) => value || "n/a",
-        classes: "table-user",
-      },
-      {
-        Header: "Address",
-        accessor: "address",
-        Cell: ({ value }) => value || "n/a",
-        classes: "table-user",
-      },
-      {
-        Header: "Status",
-        accessor: "status",
-        Cell: ({ value }) => value || "n/a",
-        classes: "table-user",
-      },
-      {
-        Header: "Role",
-        accessor: "role",
-        Cell: ({ value }) => value || "n/a",
+        Header: "Time",
+        accessor: "createdAt",
+        Cell: ({ value }) => {
+          const date = value ? new Date(value) : null;
+          return date ? date.toLocaleString() : "n/a";
+        },
         classes: "table-user",
       },
     ],
     []
   );
+
   const sizePerPageList = [
     {
       text: "5",
@@ -158,7 +143,6 @@ const User = () => {
       value: 50,
     },
   ];
-
   if (isLoading) {
     return (
       <Card>
@@ -169,31 +153,29 @@ const User = () => {
     );
   } else {
     return (
-      <Card className="h-100 m-2">
-        <Card.Body>
+      <div className="card p-2">
+        <div>
           <CustomTable
             columns={columns}
-            data={userList}
+            data={invoiceList}
+            addShowModal={addShowModal}
             pagination={pagination}
             pageSize={5}
             sizePerPageList={sizePerPageList}
-            addShowModal={addShowModal}
             tableInfo={{
-              addTitle: "User",
+              addTitle: "Invoice",
             }}
           />
-
-          <UserCreateUpdate
+          <InvoiceCreateUpdate
             modal={modal}
             setModal={setModal}
             toggle={toggle}
             defaultValues={defaultValues}
-            editData={editData}
           />
-        </Card.Body>
-      </Card>
+        </div>
+      </div>
     );
   }
 };
 
-export default User;
+export default Invoice;

@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { Badge } from "rsuite";
 import GearIcon from "@rsuite/icons/Gear";
 import Dropdown from "react-bootstrap/Dropdown";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import RumonImg from "../assets/image/Rumon.jpg";
+import MyProfile from "../pages/private/profile";
 
 const Topbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -23,8 +24,8 @@ const Topbar = () => {
   };
 
   return (
-    <div>
-      <div className="d-flex align-items-center justify-content-end">
+    <div className="w-100 ">
+      <div className="d-flex align-items-center justify-content-end ">
         <div className="icon-example-list">
           <div className="d-flex p-1 align-items-center justify-content-center">
             <div className="me-3">
@@ -38,7 +39,6 @@ const Topbar = () => {
                     alt="@superman66"
                     style={{
                       width: "35px",
-                      height: "35px",
                       borderRadius: "50%",
                     }}
                   />
@@ -47,16 +47,18 @@ const Topbar = () => {
               <Dropdown
                 show={dropdownOpen}
                 alignRight
-                onClose={handleDropdownClose}
-              >
+                onClose={handleDropdownClose}>
                 <Dropdown.Toggle
-                  className="pb-2 ps-3 pe-4 text-info bg-white custom-toggle"
-                  onClick={handleDropdownToggle}
-                >
+                  className=" pb-2 ms-2 pe-4 text-info bg-white custom-toggle"
+                  onClick={handleDropdownToggle}>
                   Admin
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <Dropdown.Item>Profile</Dropdown.Item>
+                  <Dropdown.Item>
+                    <Link to="MyProfile">
+                      Profile <span>&#8594;</span>
+                    </Link>
+                  </Dropdown.Item>
                   <Dropdown.Item>
                     <span className="mdi mdi-logout" onClick={handleLogout}>
                       Logout

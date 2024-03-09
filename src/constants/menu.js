@@ -1,9 +1,11 @@
 import DashboardIcon from "@rsuite/icons/legacy/Dashboard";
-import GroupIcon from "@rsuite/icons/legacy/Group";
-import MagicIcon from "@rsuite/icons/legacy/Magic";
+import DocPassIcon from "@rsuite/icons/DocPass";
+import ModelIcon from "@rsuite/icons/Model";
 import GearCircleIcon from "@rsuite/icons/legacy/GearCircle";
-import AdminIcon from "@rsuite/icons/Admin";
-
+import PeoplesIcon from "@rsuite/icons/Peoples";
+import DetailIcon from "@rsuite/icons/Detail";
+import UserInfoIcon from "@rsuite/icons/UserInfo";
+import TagAuthorizeIcon from "@rsuite/icons/TagAuthorize";
 const MENU_ITEMS = () => {
   return [
     {
@@ -14,36 +16,43 @@ const MENU_ITEMS = () => {
     },
 
     {
-      key: "productsMenu",
-      label: "products",
-      icon: GroupIcon,
-      children: [
-        {
-          key: "products",
-          label: "product",
-          url: "/products",
-          parentKey: "productsMenu",
-        },
-        {
-          key: "productSettingMenu",
-          label: "products settings",
-          url: "/product/settings",
-          parentKey: "productsMenu",
-        },
-      ],
-    },
-    {
       key: "users",
       label: "Users",
-      icon: AdminIcon,
+      icon: PeoplesIcon,
       url: "/user",
+    },
+    {
+      key: "category",
+      label: "Category",
+      icon: ModelIcon,
+      url: "/category",
     },
 
     {
-      key: "text",
-      label: "Product Setting",
-      icon: GearCircleIcon,
-      url: "/test",
+      key: "invoice",
+      label: "Invoice",
+      icon: DetailIcon,
+      url: "/invoice",
+    },
+
+    {
+      key: "bids",
+      label: "Bids",
+      icon: UserInfoIcon,
+      url: "/bids",
+    },
+    {
+      key: "tickets",
+      label: "Tickets",
+      icon: TagAuthorizeIcon,
+      url: "/tickets",
+    },
+
+    {
+      key: "reports",
+      label: "Reports",
+      icon: DocPassIcon,
+      url: "/reports",
     },
   ];
 };

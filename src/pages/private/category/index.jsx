@@ -1,67 +1,57 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Card } from "react-bootstrap";
-import CustomTable from "../../../components/app/table/index";
-import UserCreateUpdate from "./UserCreateUpdateModal";
-import { handlePagination } from "../../../redux/features/paginationReducer";
-
+import CategoryCreateUpdateModal from "./CategoryCreateUpdateModal";
+import CustomTable from "../../../components/app/table";
 import {
-  useUserDeleteMutation,
-  useUserListQuery,
-} from "../../../redux/service/user/userService";
-import LoadingData from "../../../components/common/loadingData";
-import { useDispatch, useSelector } from "react-redux";
+  useCategoryDeleteMutation,
+  useCategoryLIstQuery,
+} from "../../../redux/service/category/categoryService";
 import { getURL } from "../../../helpers/qs";
+import { useDispatch, useSelector } from "react-redux";
+import { handlePagination } from "../../../redux/features/paginationReducer";
+import LoadingData from "../../../components/common/loadingData";
+import { Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-export const DEFAULT_USER_VALUES = {
+export const DEFAULT_CATEGORY_VALUES = {
   name: "",
-  email: "",
-  password: "",
-  role: "FREELANCER",
-  status: "PENDING",
-  address: "",
-  city: "",
-  dateOfBirth: "",
-  fax: "",
-  gender: "",
-  phoneNumber: "",
-  state: "",
-  zip: "",
+  active: "false",
+  type: "",
 };
 
-const User = () => {
+const Category = () => {
   const [modal, setModal] = useState(false);
-  const [defaultValues, setDefaultValues] = useState(DEFAULT_USER_VALUES);
+  const [defaultValues, setDefaultValues] = useState(DEFAULT_CATEGORY_VALUES);
   const [editData, setEditData] = useState(false);
-
-  const dispatch = useDispatch();
 
   const { totalPage, page, limit, totalItems } = useSelector(
     (state) => state.pagination
   );
 
-  const { userList, pagination, isLoading, isError } = useUserListQuery(
+  const dispatch = useDispatch();
+  const { categoryList, pagination, isLoading, isError } = useCategoryLIstQuery(
     getURL(``),
     {
       selectFromResult: (data) => {
+        // console.log(data);
         return {
           pagination: data?.data?.pagination,
-          userList: data?.data?.data,
+          categoryList: data?.data?.data,
           isLoading: data?.isLoading,
           isError: data?.isError,
         };
       },
     }
   );
-  const [userDelete] = useUserDeleteMutation();
-
   useEffect(() => {
     if (pagination && Object.keys(pagination).length > 0) {
       dispatch(handlePagination(pagination));
     }
   }, [pagination]);
 
+  const [categoryDelete] = useCategoryDeleteMutation();
+
   const addShowModal = () => {
-    setDefaultValues(DEFAULT_USER_VALUES);
+    setDefaultValues(DEFAULT_CATEGORY_VALUES);
     setModal(true);
   };
 
@@ -70,6 +60,7 @@ const User = () => {
   };
 
   const ActionColumn = ({ row }) => {
+    console.log(row);
     const edit = () => {
       toggle();
       setDefaultValues(row?.original);
@@ -78,6 +69,11 @@ const User = () => {
 
     return (
       <>
+        <span role="button" className="action-icon text-warning me-2">
+          <Link to="categoryInv">
+            <i className="mdi mdi-square-edit-outline" />
+          </Link>
+        </span>
         <span role="button" className="action-icon text-warning">
           <i className="mdi mdi-square-edit-outline" onClick={edit}></i>
         </span>
@@ -85,12 +81,11 @@ const User = () => {
         <span role="button" className="action-icon text-danger ms-2">
           <i
             className="mdi mdi-delete"
-            onClick={() => userDelete({ id: row?.original?._id })}></i>
+            onClick={() => categoryDelete({ id: row?.original?._id })}></i>
         </span>
       </>
     );
   };
-
   const columns = useMemo(
     () => [
       {
@@ -112,38 +107,24 @@ const User = () => {
         classes: "table-user",
       },
       {
-        Header: "Email",
-        accessor: "email",
+        Header: "Type",
+        accessor: "type",
         Cell: ({ value }) => value || "n/a",
         classes: "table-user",
       },
       {
-        Header: "Gender",
-        accessor: "gender",
-        Cell: ({ value }) => value || "n/a",
-        classes: "table-user",
-      },
-      {
-        Header: "Address",
-        accessor: "address",
-        Cell: ({ value }) => value || "n/a",
-        classes: "table-user",
-      },
-      {
-        Header: "Status",
-        accessor: "status",
-        Cell: ({ value }) => value || "n/a",
-        classes: "table-user",
-      },
-      {
-        Header: "Role",
-        accessor: "role",
-        Cell: ({ value }) => value || "n/a",
+        Header: "Time",
+        accessor: "createdAt",
+        Cell: ({ value }) => {
+          const date = value ? new Date(value) : null;
+          return date ? date.toLocaleString() : "n/a";
+        },
         classes: "table-user",
       },
     ],
     []
   );
+
   const sizePerPageList = [
     {
       text: "5",
@@ -169,31 +150,30 @@ const User = () => {
     );
   } else {
     return (
-      <Card className="h-100 m-2">
-        <Card.Body>
+      <div className="card m-2">
+        <div className="p-3">
           <CustomTable
             columns={columns}
-            data={userList}
-            pagination={pagination}
-            pageSize={5}
-            sizePerPageList={sizePerPageList}
+            data={categoryList}
             addShowModal={addShowModal}
+            pagination={pagination}
+            pageSize={10}
+            sizePerPageList={sizePerPageList}
             tableInfo={{
-              addTitle: "User",
+              addTitle: "Category",
             }}
           />
-
-          <UserCreateUpdate
+          <CategoryCreateUpdateModal
             modal={modal}
             setModal={setModal}
             toggle={toggle}
             defaultValues={defaultValues}
             editData={editData}
           />
-        </Card.Body>
-      </Card>
+        </div>
+      </div>
     );
   }
 };
 
-export default User;
+export default Category;

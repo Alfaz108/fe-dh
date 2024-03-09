@@ -1,25 +1,16 @@
-import { convertDropdownToArrayList } from "../../../helpers/convertDropdownToArrayList";
 import { apiService } from "../../api/apiService";
 
-export const userService = apiService.injectEndpoints({
+export const ticketsService = apiService.injectEndpoints({
   endpoints: (builder) => ({
-    userList: builder.query({
+    ticketsList: builder.query({
       query: (url) => ({
-        url: `users${url}`,
+        url: `tickets${url}`,
         method: "GET",
       }),
       transformResponse: (data) => data || [],
     }),
 
-    userDropdown: builder.query({
-      query: () => ({
-        url: `users`,
-        method: "GET",
-      }),
-      transformResponse: (data) => convertDropdownToArrayList(data?.data) || [],
-    }),
-
-    userCreate: builder.mutation({
+    ticketsCreate: builder.mutation({
       query: (postBody) => ({
         url: `users`,
         method: "POST",
@@ -60,10 +51,4 @@ export const userService = apiService.injectEndpoints({
     }),
   }),
 });
-export const {
-  useUserCreateMutation,
-  useUserListQuery,
-  useUserUpdateMutation,
-  useUserDeleteMutation,
-  useUserDropdownQuery,
-} = userService;
+export const { useTicketsListQuery, useTicketsCreateMutation } = ticketsService;

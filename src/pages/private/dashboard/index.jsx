@@ -3,11 +3,10 @@ import LayoutOfDashboard from "./Analysis/LayoutOfDashboard";
 
 const Dashboard = () => {
   return (
-    <div>
-      <Row className="m-1">
-        <Col xs={24}>
-          <div>
-            {/* <Analysis></Analysis> */}
+    <div className="dashBoardBackgroundColor">
+      <Row className="">
+        <Col>
+          <div className="mx-3">
             <LayoutOfDashboard></LayoutOfDashboard>
           </div>
         </Col>

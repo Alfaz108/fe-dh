@@ -14,8 +14,7 @@ const CustomTable = ({ columns, data }) => {
               <th
                 {...column.getHeaderProps()}
                 className={column.classes}
-                style={{ minWidth: column.minWidth, width: column.width }}
-              >
+                style={{ minWidth: column.minWidth, width: column.width }}>
                 {column.render("Header")}
               </th>
             ))}

@@ -14,6 +14,7 @@ import {
   useUserCreateMutation,
   useUserUpdateMutation,
 } from "../../../redux/service/user/userService";
+
 import { useEffect } from "react";
 
 //@ main component
@@ -106,8 +107,7 @@ const UserCreateUpdate = ({
           onHide={toggle}
           backdrop="static"
           keyboard={false}
-          size="lg"
-        >
+          size="lg">
           <Modal.Header onHide={toggle} closeButton>
             <h4>User Add</h4>
           </Modal.Header>
@@ -116,8 +116,7 @@ const UserCreateUpdate = ({
             <form
               id="registerForm"
               onSubmit={handleSubmit(onSubmit)}
-              noValidate
-            >
+              noValidate>
               <div className="mb-3">
                 <div className="row">
                   <div className="col">
