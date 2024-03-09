@@ -43,7 +43,6 @@ const User = () => {
     getURL(``),
     {
       selectFromResult: (data) => {
-        console.log(data);
         return {
           pagination: data?.data?.pagination,
           userList: data?.data?.data,
@@ -53,14 +52,13 @@ const User = () => {
       },
     }
   );
+  const [userDelete] = useUserDeleteMutation();
 
   useEffect(() => {
     if (pagination && Object.keys(pagination).length > 0) {
       dispatch(handlePagination(pagination));
     }
   }, [pagination]);
-
-  const [userDelete] = useUserDeleteMutation();
 
   const addShowModal = () => {
     setDefaultValues(DEFAULT_USER_VALUES);

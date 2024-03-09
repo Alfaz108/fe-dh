@@ -1,6 +1,6 @@
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Spinner } from "react-bootstrap";
 import { Link, Navigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -175,7 +175,9 @@ const Register = () => {
             </Form.Group>
           </div>
           <div className="mt-3 text-end">
-            <Button type="submit">Register</Button>
+            <Button type="submit">
+              Register {isLoading && <Spinner animation="border" size="sm" />}
+            </Button>
           </div>
         </form>
 

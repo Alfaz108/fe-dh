@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Form } from "react-bootstrap";
+import { Form, Spinner } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
 import { Button } from "react-bootstrap";
@@ -108,7 +108,9 @@ const Login = () => {
             </Form.Group>
           </div>
           <div>
-            <Button type="submit">Login</Button>
+            <Button type="submit">
+              Login {isLoading && <Spinner animation="border" size="sm" />}
+            </Button>
           </div>
         </form>
 
