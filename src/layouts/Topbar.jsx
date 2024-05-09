@@ -4,7 +4,6 @@ import GearIcon from "@rsuite/icons/Gear";
 import Dropdown from "react-bootstrap/Dropdown";
 import { Link, useNavigate } from "react-router-dom";
 import RumonImg from "../assets/image/Rumon.jpg";
-import MyProfile from "../pages/private/profile";
 
 const Topbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -47,17 +46,19 @@ const Topbar = () => {
               <Dropdown
                 show={dropdownOpen}
                 alignRight
-                onClose={handleDropdownClose}>
+                onClose={handleDropdownClose}
+              >
                 <Dropdown.Toggle
                   className=" pb-2 ms-2 pe-4 text-info bg-white custom-toggle"
-                  onClick={handleDropdownToggle}>
+                  onClick={handleDropdownToggle}
+                >
                   Admin
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item>
-                    <Link to="MyProfile">
+                    {/* <Link to="MyProfile">
                       Profile <span>&#8594;</span>
-                    </Link>
+                    </Link> */}
                   </Dropdown.Item>
                   <Dropdown.Item>
                     <span className="mdi mdi-logout" onClick={handleLogout}>

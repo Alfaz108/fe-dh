@@ -8,8 +8,8 @@ import * as yup from "yup";
 import { useLoginMutation } from "../../../redux/service/auth/authService";
 
 export const DEFAULT_LOGIN_VALUES = {
-  email: "rumongfafy@gmail.com",
-  password: "pass1234@",
+  mobile: "01710303309",
+  password: "123456",
 };
 const Login = () => {
   const naviagte = useNavigate();
@@ -18,18 +18,14 @@ const Login = () => {
   const schemaResolver = yup
     .object()
     .shape({
-      email: yup
+      mobile: yup
         .string()
-        .email("Invalid email")
-        .required("Please enter your email"),
+        .required("Please enter your mobile number")
+        .matches(/^[0-9]{11}$/, "Invalid mobile number"),
       password: yup
         .string()
         .required("Please enter a password")
-        .min(8, "Password must be at least 8 characters")
-        .matches(
-          /^(?=.*[0-9])(?=.*[a-zA-Z])(?=\S+$).{6,20}$/,
-          "Password must contain at least 1 letter and 1 number"
-        ),
+        .min(6, "Password must be at least 6 characters"),
     })
     .required();
 
@@ -44,8 +40,8 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (data?.data?.access_token) {
-      localStorage.setItem("token", data?.data?.access_token);
+    if (data?.data?.token) {
+      localStorage.setItem("token", data?.data?.token);
       naviagte("/");
     }
   }, [data]);
@@ -57,16 +53,16 @@ const Login = () => {
         <form id="loginForm" onSubmit={handleSubmit(onSubmit)} noValidate>
           <div className="mb-3">
             <Form.Group>
-              <Form.Label htmlFor="email">Email address</Form.Label>
+              <Form.Label htmlFor="mobile">Email address</Form.Label>
               <Controller
-                name="email"
+                name="mobile"
                 control={control}
                 render={({ field, fieldState: { error } }) => (
                   <>
                     <Form.Control
                       {...field}
-                      type="email"
-                      placeholder="Enter your email"
+                      type="mobile"
+                      placeholder="Enter your mobile"
                       isInvalid={!!error}
                       autoComplete="off"
                     />

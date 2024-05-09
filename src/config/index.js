@@ -1,2 +1,1 @@
-export const baseURL = "https://testsdf-production.up.railway.app";
-export const apiPrefix = "/api/v1";
+export const baseURL = "https://be-mms-nestjs.onrender.com";

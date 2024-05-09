@@ -15,7 +15,8 @@ const LeftSidebar = ({ expanded, activeKey, setActiveKey }) => {
           key={menuItem.key}
           eventKey={menuItem.key}
           title={menuItem.label}
-          icon={menuItem?.icon && <menuItem.icon />}>
+          icon={menuItem?.icon && <menuItem.icon />}
+        >
           {menuItem.children.map((child) => renderMenuItem(child))}
         </Nav.Menu>
       );
@@ -32,7 +33,8 @@ const LeftSidebar = ({ expanded, activeKey, setActiveKey }) => {
           eventKey={menuItem.key}
           icon={menuItem?.icon && <menuItem.icon />}
           as={Link}
-          to={menuItem.url}>
+          to={menuItem.url}
+        >
           {menuItem.label}
         </Nav.Item>
       );
@@ -44,7 +46,8 @@ const LeftSidebar = ({ expanded, activeKey, setActiveKey }) => {
       <Sidenav
         expanded={expanded}
         defaultOpenKeys={["3", "4"]}
-        style={{ flex: "none" }}>
+        style={{ flex: "none" }}
+      >
         <Sidenav.Header>
           <div
             expanded={expanded}
@@ -57,7 +60,8 @@ const LeftSidebar = ({ expanded, activeKey, setActiveKey }) => {
               alignItems: "left",
               justifyContent: "left",
               backgroundColor: "#ffffff",
-            }}>
+            }}
+          >
             <img
               src={logo}
               alt="Logo"
@@ -74,7 +78,8 @@ const LeftSidebar = ({ expanded, activeKey, setActiveKey }) => {
           style={{
             // height: "calc(100vh - 60px)",
             backgroundColor: "#ffffff",
-          }}>
+          }}
+        >
           <Nav className="" activeKey={activeKey} onSelect={setActiveKey}>
             {MENU_ITEMS().map((menuItem) => renderMenuItem(menuItem))}
           </Nav>

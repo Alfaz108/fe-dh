@@ -39,13 +39,15 @@ const DefaultLayout = () => {
             top: 0,
             width: "100%",
             zIndex: 1000,
-          }}>
+          }}
+        >
           <div
             style={{
               position: "relative",
               marginLeft: expanded ? "250px" : "50px",
               transition: "margin-left 0.5s",
-            }}>
+            }}
+          >
             {/* Toggle Button */}
             <div
               style={{
@@ -55,7 +57,8 @@ const DefaultLayout = () => {
                 cursor: "pointer",
                 zIndex: 1,
               }}
-              onClick={buttonFunction}>
+              onClick={buttonFunction}
+            >
               <MenuIcon style={{ width: "30px", fontSize: "18px" }} />
             </div>
 
@@ -70,7 +73,8 @@ const DefaultLayout = () => {
           style={{
             marginLeft: expanded ? "250px" : "50px",
             transition: "margin-left 0.3s",
-          }}>
+          }}
+        >
           <Outlet />
         </div>
       </div>
