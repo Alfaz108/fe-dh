@@ -71,7 +71,7 @@ const LeftSidebar = ({ expanded, activeKey, setActiveKey }) => {
                 marginLeft: "-5px",
               }}
             />
-            {expanded && <span className="text-primary">DHAROSH</span>}
+            {expanded && <span className="text-primary">MEAL PREP LIST</span>}
           </div>
         </Sidenav.Header>
         <Sidenav.Body

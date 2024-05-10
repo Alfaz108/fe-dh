@@ -61,8 +61,6 @@ const DefaultLayout = () => {
             >
               <MenuIcon style={{ width: "30px", fontSize: "18px" }} />
             </div>
-
-            {/* Topbar */}
             <Topbar />
           </div>
         </div>

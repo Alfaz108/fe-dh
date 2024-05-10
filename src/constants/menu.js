@@ -1,10 +1,11 @@
 import DashboardIcon from "@rsuite/icons/legacy/Dashboard";
 import DocPassIcon from "@rsuite/icons/DocPass";
-import ModelIcon from "@rsuite/icons/Model";
-import GearCircleIcon from "@rsuite/icons/legacy/GearCircle";
-import PeoplesIcon from "@rsuite/icons/Peoples";
-import DetailIcon from "@rsuite/icons/Detail";
-import UserInfoIcon from "@rsuite/icons/UserInfo";
+import PeoplesCostomizeIcon from '@rsuite/icons/PeoplesCostomize';
+import MemberIcon from "@rsuite/icons/Peoples";
+import PeopleSpeakerIcon from '@rsuite/icons/PeopleSpeaker';
+import WaitIcon from '@rsuite/icons/Wait';
+import SentToUserIcon from '@rsuite/icons/SentToUser';
+
 import TagAuthorizeIcon from "@rsuite/icons/TagAuthorize";
 const MENU_ITEMS = () => {
   return [
@@ -16,36 +17,36 @@ const MENU_ITEMS = () => {
     },
 
     {
-      key: "users",
-      label: "Users",
-      icon: PeoplesIcon,
-      url: "/user",
+      key: "border",
+      label: "Border",
+      icon: SentToUserIcon,
+      url: "/border",
     },
     {
-      key: "category",
-      label: "Category",
-      icon: ModelIcon,
-      url: "/category",
-    },
-
-    {
-      key: "invoice",
-      label: "Invoice",
-      icon: DetailIcon,
-      url: "/invoice",
+      key: "bazar",
+      label: "Bazar",
+      icon: MemberIcon,
+      url: "/bazar",
     },
 
     {
-      key: "bids",
-      label: "Bids",
-      icon: UserInfoIcon,
-      url: "/bids",
+      key: "deposit",
+      label: "Deposit",
+      icon: PeopleSpeakerIcon,
+      url: "/deposit",
+    },
+
+    {
+      key: "meal",
+      label: "Meal",
+      icon: WaitIcon,
+      url: "/meal",
     },
     {
-      key: "tickets",
-      label: "Tickets",
-      icon: TagAuthorizeIcon,
-      url: "/tickets",
+      key: "summary",
+      label: "Summary",
+      icon: PeoplesCostomizeIcon,
+      url: "/summary",
     },
 
     {
