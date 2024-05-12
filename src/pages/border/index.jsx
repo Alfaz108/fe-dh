@@ -1,24 +1,57 @@
-import React, { useMemo, useState } from 'react';
-import { Card } from 'react-bootstrap';
-import CustomTable from '../../components/app/table';
-import BorderCreateUpdateModal from './BorderCreateUpdateModal';
+import React, { useMemo, useState } from "react";
+import { Card } from "react-bootstrap";
+import CustomTable from "../../components/app/table";
+import BorderCreateUpdateModal from "./BorderCreateUpdateModal";
+import { useGetBorderQuery } from "../../redux/service/auth/borderService";
+import LoadingData from "../../components/common/loadingData";
+
+export const DEFAULT_BORDER_VALUE = {
+  name: "",
+  mobile: "",
+  email: "",
+  roomNumber: "",
+  initialDepositAmount: "",
+  depositAmount: "",
+  mealQuantity: "",
+};
 
 const Border = () => {
   const [modal, setModal] = useState(false);
+  const [defaultValues, setDefaultValues] = useState(DEFAULT_BORDER_VALUE);
+  const [editData, setEditData] = useState(false);
+  // console.log(defaultValues);
 
-  const addShowModal = () =>{
-    setModal(true)
+  const { data, isLoading, isError, isSuccess } = useGetBorderQuery();
+  // console.log(data);
+
+  const addShowModal = () => {
+    setModal(true);
   };
 
-  const toggle = () =>{
-    setModal(!modal)
-  }
+  const toggle = () => {
+    setModal(!modal);
+  };
 
-    const ActionColumn = () =>{
- 
-    }
+  const ActionColumn = ({ row }) => {
+    const edit = () => {
+      setDefaultValues(row?.original);
+      setEditData(row?.original);
+      toggle();
+    };
+    return (
+      <>
+        <span role="button" className="action-icon text-primary">
+          <i className="mdi mdi-square-edit-outline" onClick={edit}></i>
+        </span>
 
-     const columns = useMemo(
+        <span role="button" className="action-icon text-warning">
+          <i className="mdi mdi-delete"></i>
+        </span>
+      </>
+    );
+  };
+
+  const columns = useMemo(
     () => [
       {
         Header: "Action",
@@ -45,14 +78,14 @@ const Border = () => {
         classes: "table-user",
       },
       {
-        Header: "Gender",
-        accessor: "gender",
+        Header: "Room Number",
+        accessor: "roomNumber",
         Cell: ({ value }) => value || "n/a",
         classes: "table-user",
       },
       {
-        Header: "Address",
-        accessor: "address",
+        Header: "Mobile",
+        accessor: "mobile",
         Cell: ({ value }) => value || "n/a",
         classes: "table-user",
       },
@@ -63,36 +96,52 @@ const Border = () => {
         classes: "table-user",
       },
       {
-        Header: "Role",
-        accessor: "role",
+        Header: "Meal",
+        accessor: "mealQuantity",
         Cell: ({ value }) => value || "n/a",
         classes: "table-user",
       },
     ],
     []
   );
+
+  if (isLoading) {
     return (
-        <div className='mx-2 border-none'>
-            <Card.Body>
-                <CustomTable
-                columns={columns}
-                addShowModal={addShowModal}
-                
-                />
-
-               <BorderCreateUpdateModal
-               
-               modal={modal}
-               setModal={setModal}
-               toggle={toggle}
-              //  addShowModal={addShowModal}
-               />
-         
-
-
-            </Card.Body>
-        </div>
+      <div>
+        <LoadingData />
+      </div>
     );
+  } else if (isError) {
+    return (
+      <div>
+        <h2>There is no data</h2>
+      </div>
+    );
+  } else {
+    return (
+      <div className="mx-2 border-none">
+        <Card.Body>
+          <CustomTable
+            columns={columns}
+            addShowModal={addShowModal}
+            data={data}
+            tableInfo={{
+              addTitle: "Border",
+            }}
+          />
+
+          <BorderCreateUpdateModal
+            modal={modal}
+            setModal={setModal}
+            toggle={toggle}
+            defaultValues={defaultValues}
+            editData={editData}
+            //  addShowModal={addShowModal}
+          />
+        </Card.Body>
+      </div>
+    );
+  }
 };
 
 export default Border;

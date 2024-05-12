@@ -53,7 +53,7 @@ const MENU_ITEMS = () => {
       key: "reports",
       label: "Reports",
       icon: DocPassIcon,
-      url: "/reports",
+      url: "/",
     },
   ];
 };
