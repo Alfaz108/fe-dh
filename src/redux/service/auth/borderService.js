@@ -27,9 +27,16 @@ export const borderService = apiService.injectEndpoints({
     updateBorder: builder.mutation({
       query: ({ id, postBody }) => ({
         url: `border/${id}`,
-        method: "PATCH",
+        method: "PUT",
         body: postBody,
       }),
+
+      onQueryStarted({ id, postBody }, { dispatch, queryFulfilled }) {
+        queryFulfilled;
+        queryFulfilled
+          .then(({ data: { data, message } }) => {})
+          .catch(({ error }) => {});
+      },
     }),
   }),
 });
