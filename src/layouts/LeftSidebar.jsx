@@ -66,12 +66,16 @@ const LeftSidebar = ({ expanded, activeKey, setActiveKey }) => {
               src={logo}
               alt="Logo"
               style={{
-                width: expanded ? "35px" : "35px",
-                marginRight: "10px",
-                marginLeft: "-5px",
+                width: expanded ? "45px" : "45px",
+                marginRight: "0px",
+                marginLeft: "-10px",
               }}
             />
-            {expanded && <span className="text-primary">MEAL PREP LIST</span>}
+            {expanded && (
+              <span style={{ color: "#343a40", marginTop: "5px" }}>
+                MEAL PREP LIST
+              </span>
+            )}
           </div>
         </Sidenav.Header>
         <Sidenav.Body

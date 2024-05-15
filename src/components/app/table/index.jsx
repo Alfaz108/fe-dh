@@ -34,7 +34,7 @@ const CustomTable = (props) => {
         {...getTableProps()}
         className="table table-striped table-bordered"
       >
-        <thead className="thead-dark">
+        <thead className="thead-primary">
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (

@@ -60,15 +60,13 @@ const BorderCreateUpdateModal = ({
   toggle,
   defaultValues,
   editData,
+  // header,
 }) => {
   const [createBorder, { isLoading, isSuccess }] = useCreateBorderMutation();
   const [updateBorder, { isLoading: updateLoad, isSuccess: updateSuccess }] =
     useUpdateBorderMutation();
-  console.log(editData);
 
-  useEffect(() => {
-    setModal(false);
-  }, []);
+  console.log(editData);
 
   const methods = useForm({
     mode: "all",
@@ -77,12 +75,6 @@ const BorderCreateUpdateModal = ({
   });
 
   const { handleSubmit, control, reset } = methods;
-
-  useEffect(() => {
-    if (defaultValues) {
-      reset(defaultValues);
-    }
-  }, [JSON.stringify(defaultValues)]);
 
   const onSubmit = (data) => {
     const createData = data;
@@ -105,6 +97,20 @@ const BorderCreateUpdateModal = ({
       updateBorder({ postBody: updateData, id: createData?._id });
     }
   };
+
+  useEffect(() => {
+    if (isSuccess || updateSuccess) {
+      setModal(false);
+      reset(defaultValues);
+    }
+  }, [isSuccess, updateSuccess]);
+
+  useEffect(() => {
+    if (defaultValues) {
+      reset(defaultValues);
+    }
+  }, [JSON.stringify(defaultValues)]);
+
   return (
     <div className={classNames("", { "d-none": !modal })}>
       <Modal
@@ -116,7 +122,7 @@ const BorderCreateUpdateModal = ({
         size="lg"
       >
         <Modal.Header onHide={toggle} closeButton>
-          <h4>Modal Header</h4>
+          <h4>{editData ? "Upadate Border" : "Add Border"}</h4>
         </Modal.Header>
         <Modal.Body>
           <FormProvider {...methods}>
@@ -156,8 +162,10 @@ const BorderCreateUpdateModal = ({
               </div>
 
               <div className="mt-3 text-end">
-                <Button type="submit" disabled={isLoading}>
-                  Submit {isLoading && <Spinner animation="border" size="sm" />}
+                <Button type="submit" disabled={isLoading || updateLoad}>
+                  Submit{" "}
+                  {isLoading ||
+                    (updateLoad && <Spinner animation="border" size="sm" />)}
                 </Button>
               </div>
             </form>

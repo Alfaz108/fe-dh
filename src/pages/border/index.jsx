@@ -2,8 +2,13 @@ import React, { useMemo, useState } from "react";
 import { Card } from "react-bootstrap";
 import CustomTable from "../../components/app/table";
 import BorderCreateUpdateModal from "./BorderCreateUpdateModal";
-import { useGetBorderQuery } from "../../redux/service/auth/borderService";
-import LoadingData from "../../components/common/loadingData";
+import {
+  useDeleteBorderMutation,
+  useGetBorderQuery,
+} from "../../redux/service/auth/borderService";
+import LoadingData from "../../components/common/LoadingData";
+import ErrorPage from "../../components/common/ErrorPage";
+import Swal from "sweetalert2";
 
 export const DEFAULT_BORDER_VALUE = {
   name: "",
@@ -21,7 +26,33 @@ const Border = () => {
   const [editData, setEditData] = useState(false);
   // console.log(defaultValues);
 
+  // GET DATA ===================
   const { data, isLoading, isError, isSuccess } = useGetBorderQuery();
+  // DELTE DATA ==================
+  const [deleteBorder] = useDeleteBorderMutation();
+
+  const deletHandler = ({ row }) => {
+    Swal.fire({
+      title: "Are you sure?",
+      // text: "You won't be able to revert this!",s
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+        deleteBorder({ id: row?.original._id });
+      }
+    });
+
+    console.log({ id: row?.original._id });
+  };
   // console.log(data);
 
   const addShowModal = () => {
@@ -31,6 +62,8 @@ const Border = () => {
   const toggle = () => {
     setModal(!modal);
   };
+
+  // let header = editData ? "Update Border" : "Add Border";
 
   const ActionColumn = ({ row }) => {
     const edit = () => {
@@ -44,8 +77,12 @@ const Border = () => {
           <i className="mdi mdi-square-edit-outline" onClick={edit}></i>
         </span>
 
-        <span role="button" className="action-icon text-warning">
-          <i className="mdi mdi-delete"></i>
+        <span role="button" className="action-icon text-dark">
+          <i
+            className="mdi mdi-delete"
+            // onClick={() => deleteBorder({ id: row?.original._id })}
+            onClick={() => deletHandler({ row })}
+          ></i>
         </span>
       </>
     );
@@ -114,7 +151,7 @@ const Border = () => {
   } else if (isError) {
     return (
       <div>
-        <h2>There is no data</h2>
+        <ErrorPage />
       </div>
     );
   } else {
@@ -136,6 +173,7 @@ const Border = () => {
             toggle={toggle}
             defaultValues={defaultValues}
             editData={editData}
+            // header={header}
             //  addShowModal={addShowModal}
           />
         </Card.Body>
