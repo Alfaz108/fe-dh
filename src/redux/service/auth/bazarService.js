@@ -1,13 +1,12 @@
 import { apiService } from "../../api/apiService";
-import toast, { Toaster } from "react-hot-toast";
 
-export const borderService = apiService.injectEndpoints({
+export const bazarService = apiService.injectEndpoints({
   endpoints: (builder) => ({
     // get data =================
-    getBorder: builder.query({
+    getBazar: builder.query({
       query: (postBody) => {
         return {
-          url: "border",
+          url: "bazar",
           method: "GET",
           body: postBody,
         };
@@ -16,9 +15,9 @@ export const borderService = apiService.injectEndpoints({
 
     // create data ==================
 
-    createBorder: builder.mutation({
+    createBazar: builder.mutation({
       query: (postBody) => ({
-        url: "border",
+        url: "bazar",
         method: "POST",
         body: postBody,
       }),
@@ -27,11 +26,9 @@ export const borderService = apiService.injectEndpoints({
         queryFulfilled
           .then(({ data }) => {
             // ToastMessage.successMessage(message);
-            toast.success("Data is created");
-
             dispatch(
               apiService.util.updateQueryData(
-                "getBorder",
+                "getBazar",
                 undefined,
                 (draft) => {
                   draft.unshift(data?.data?.border);
@@ -50,9 +47,9 @@ export const borderService = apiService.injectEndpoints({
     }),
     // update data ================
 
-    updateBorder: builder.mutation({
+    updateBazar: builder.mutation({
       query: ({ id, postBody }) => ({
-        url: `border/${id}`,
+        url: `bazar/${id}`,
         method: "PUT",
         body: postBody,
       }),
@@ -64,7 +61,7 @@ export const borderService = apiService.injectEndpoints({
             // console.log("maruf bellah", data?.data);
             dispatch(
               apiService.util.updateQueryData(
-                "getBorder",
+                "getBazar",
                 undefined,
                 (draft) => {
                   const findIndex = draft?.findIndex((item) => item._id === id);
@@ -79,9 +76,9 @@ export const borderService = apiService.injectEndpoints({
       },
     }),
 
-    deleteBorder: builder.mutation({
+    deleteBazar: builder.mutation({
       query: ({ id }) => ({
-        url: `border/${id}`,
+        url: `bazar/${id}`,
         method: "DELETE",
       }),
 
@@ -92,7 +89,7 @@ export const borderService = apiService.injectEndpoints({
             // console.log("maruf bellah", data?.data);
             dispatch(
               apiService.util.updateQueryData(
-                "getBorder",
+                "getBazar",
                 undefined,
                 (draft) => {
                   return (draft = draft.filter((item) => item._id !== id));
@@ -109,8 +106,7 @@ export const borderService = apiService.injectEndpoints({
 });
 
 export const {
-  useGetBorderQuery,
-  useCreateBorderMutation,
-  useUpdateBorderMutation,
-  useDeleteBorderMutation,
-} = borderService;
+  useCreateBazarMutation,
+  useGetBazarQuery,
+  useDeleteBazarMutation,
+} = bazarService;

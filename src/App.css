@@ -32,3 +32,8 @@
 .custom-toggle {
   border: none !important;
 }
+
+/* date range picker style */
+.rs-picker-popup {
+  z-index: 9999 !important;
+}

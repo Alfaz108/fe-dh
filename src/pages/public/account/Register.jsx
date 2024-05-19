@@ -174,7 +174,7 @@ const Register = () => {
               />
             </Form.Group>
           </div>
-          <div className="mt-3 text-end">
+          <div className="mt-3 text-start">
             <Button type="submit">
               Register {isLoading && <Spinner animation="border" size="sm" />}
             </Button>

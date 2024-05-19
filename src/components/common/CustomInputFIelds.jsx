@@ -20,8 +20,10 @@ const CustomInputFIelds = ({ borderForm }) => {
                     {...field}
                     type={item?.type}
                     placeholder={item?.placeholder}
-                    //   isInvalid={!!error}
                     autoComplete="off"
+                    className={
+                      error ? "form-control is-invalid" : "form-control"
+                    }
                   />
 
                   {error && (

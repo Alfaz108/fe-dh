@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { Card } from "react-bootstrap";
+import { Badge, Card } from "react-bootstrap";
 import CustomTable from "../../components/app/table";
 import BorderCreateUpdateModal from "./BorderCreateUpdateModal";
 import {
@@ -77,7 +77,7 @@ const Border = () => {
           <i className="mdi mdi-square-edit-outline" onClick={edit}></i>
         </span>
 
-        <span role="button" className="action-icon text-dark">
+        <span role="button" className="action-icon text-danger">
           <i
             className="mdi mdi-delete"
             // onClick={() => deleteBorder({ id: row?.original._id })}
@@ -129,7 +129,21 @@ const Border = () => {
       {
         Header: "Status",
         accessor: "status",
-        Cell: ({ value }) => value || "n/a",
+        Cell: ({ value }) => {
+          return (
+            <>
+              <Badge
+                style={{ fontSize: "9px" }}
+                pill
+                bg={value === "ACTIVE" ? "success" : "warning"}
+              >
+                {value}
+              </Badge>
+            </>
+          );
+        },
+
+        // value || "n/a",
         classes: "table-user",
       },
       {

@@ -47,8 +47,8 @@ const Login = () => {
   }, [data]);
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100">
-      <div className="border p-5 rounded shadow-lg text-center">
+    <div className="d-flex justify-content-center align-items-center  vh-100">
+      <div className="border p-5 rounded shadow-lg">
         <h3 className="pb-3">Login Page</h3>
         <form id="loginForm" onSubmit={handleSubmit(onSubmit)} noValidate>
           <div className="mb-3">

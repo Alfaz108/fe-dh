@@ -1,10 +1,15 @@
 import React, { useEffect } from "react";
-import { Button, Card, Form, Modal } from "react-bootstrap";
+import { Button, Card, Form, Modal, Spinner } from "react-bootstrap";
 import classNames from "classnames";
-import { Controller, FormProvider, useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { useGetBorderQuery } from "../../redux/service/auth/borderService";
+import { useCreateBazarMutation } from "../../redux/service/auth/bazarService";
 
 const bazarForm = [
   {
+    id: 1,
     name: "bazarDate",
     label: "Bazar Date",
     type: "date",
@@ -12,29 +17,66 @@ const bazarForm = [
     defaultValue: "value",
   },
   {
+    id: 2,
     name: "totalPrice",
     label: "Total Price",
     type: "number",
     placeholder: "Enter your number",
     defaultValue: "value",
   },
-  {
-    name: "border",
-    label: "Border",
-    type: "text",
-    placeholder: "Enter your number",
-    defaultValue: "value",
-  },
 ];
 
-const BazarCreatUpdateModal = ({ modal, setModal, toggle }) => {
-  const methods = useForm({});
+const BazarCreatUpdateModal = ({
+  modal,
+  setModal,
+  toggle,
+  editBazar,
+  defaultValues,
+}) => {
+  console.log(editBazar);
+  const schemaResolver = yup.object().shape({
+    bazarDate: yup.string().required("Date is required"),
+    totalPrice: yup
+      .number()
+      .required("Total Price is required")
+      .typeError("Total price must be number")
+      .min(0, "Must be gretar then 0"),
+    border: yup.string().required("Border is required"),
+  });
 
-  const { control } = methods;
+  const methods = useForm({
+    mode: "all",
+    defaultValues,
+    resolver: yupResolver(schemaResolver),
+  });
+
+  const { data: border, isLoading, isSuccess, isError } = useGetBorderQuery();
+  const { handleSubmit, control, reset } = methods;
+
+  const [
+    createBazar,
+    { isError: creatBazarError, isLoading: createBazarLoading },
+  ] = useCreateBazarMutation();
+
+  const onSubmit = (data) => {
+    const creatData = data;
+    createBazar(creatData);
+    console.log(data);
+  };
 
   useEffect(() => {
-    // setModal(true)
-  });
+    if (isSuccess) {
+      setModal(false);
+      reset(defaultValues);
+    }
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (defaultValues) {
+      reset(defaultValues);
+    }
+  }, [JSON.stringify(defaultValues)]);
+
   return (
     <div className={classNames("", { "d-none": !modal })}>
       <Modal
@@ -49,10 +91,10 @@ const BazarCreatUpdateModal = ({ modal, setModal, toggle }) => {
           <h4>Modal Bazar</h4>
         </Modal.Header>
         <Modal.Body>
-          <div className="row">
-            {bazarForm.map((item) => (
-              <div className="col-md-6">
-                <FormProvider {...methods}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="row">
+              {bazarForm.map((item) => (
+                <div key={item.id} className="col-md-6">
                   <Form.Group className="pb-3">
                     <Form.Label htmlFor={item.name}>{item.label}</Form.Label>
                     <Controller
@@ -64,8 +106,10 @@ const BazarCreatUpdateModal = ({ modal, setModal, toggle }) => {
                             {...field}
                             type={item.type}
                             placeholder={item.placeholder}
-                            //   isInvalid={!!error}
                             autoComplete="off"
+                            className={
+                              error ? "form-control is-invalid" : "form-control"
+                            }
                           />
 
                           {error && (
@@ -77,22 +121,45 @@ const BazarCreatUpdateModal = ({ modal, setModal, toggle }) => {
                       )}
                     />
                   </Form.Group>
-                </FormProvider>
-              </div>
-            ))}
+                </div>
+              ))}
 
-            <div className="mt-3 text-end">
-              <Button
-                type="submit"
-                // disabled={isLoading || updateLoad}
-              >
-                Submit{" "}
-                {/* {(isLoading || updateLoad) && (
-                    <Spinner animation="border" size="sm" />
-                  )} */}
-              </Button>
+              <span className="w-50">
+                <Form.Group>
+                  <Form.Label htmlFor="border">Border</Form.Label>
+                  <Controller
+                    name="border"
+                    control={control}
+                    render={({ field, fieldState: { error } }) => (
+                      <>
+                        <Form.Select {...field} isInvalid={!!error}>
+                          <option value="">Select Status</option>
+                          {border.map((type) => (
+                            <option key={type?._id} value={type?._id}>
+                              {type?.name}
+                            </option>
+                          ))}
+                        </Form.Select>
+
+                        {error && (
+                          <Form.Control.Feedback type="invalid">
+                            {error.message}
+                          </Form.Control.Feedback>
+                        )}
+                      </>
+                    )}
+                  />
+                </Form.Group>
+              </span>
+
+              <div className="mt-3 text-end">
+                <Button type="submit" disabled={isLoading}>
+                  Submit
+                  {isLoading && <Spinner animation="bazar" size="sm" />}
+                </Button>
+              </div>
             </div>
-          </div>
+          </form>
         </Modal.Body>
       </Modal>
     </div>

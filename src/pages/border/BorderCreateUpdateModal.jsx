@@ -51,7 +51,32 @@ const borderForm = [
 ];
 
 const schemaResolver = yup.object().shape({
-  email: yup.string().required("Email is required"),
+  name: yup.string().required("Name is required"),
+  mobile: yup
+    .string()
+    .required("Mobile number is required")
+    .min(11, "Mobile number must be at least 11 characters")
+    .max(11, "Mobile number must be at least 11 characters")
+    .matches(
+      /(^(\+8801|8801|01|008801))[1|3-9]{1}(\d){8}$/,
+      "Mobile number is not valid"
+    ),
+  email: yup
+    .string()
+    .required("Email is required")
+    .email("Email must be a valid e-mail"),
+  roomNumber: yup
+    .number()
+    .typeError("Room number must be a number")
+    .required("Room number is required")
+    .min(0, "Too little"),
+  initialDepositAmount: yup
+    .number()
+    .typeError("Initial Deposit Amount must be a number")
+    .required("Initial Deposit Amount is required")
+    .min(0, "Initial Deposit Amount must be greater than zero"),
+
+  status: yup.string().required("Status is required"),
 });
 
 const BorderCreateUpdateModal = ({
@@ -77,6 +102,7 @@ const BorderCreateUpdateModal = ({
   const { handleSubmit, control, reset } = methods;
 
   const onSubmit = (data) => {
+    console.log(data);
     const createData = data;
 
     if (!editData) {
@@ -129,8 +155,10 @@ const BorderCreateUpdateModal = ({
             <form onSubmit={handleSubmit(onSubmit)}>
               <div>
                 <div className="row">
-                  <CustomInputFIelds borderForm={borderForm} />
-
+                  <CustomInputFIelds
+                    control={control}
+                    borderForm={borderForm}
+                  />
                   <span className="w-50">
                     <Form.Group>
                       <Form.Label htmlFor="status">Status</Form.Label>
@@ -160,7 +188,6 @@ const BorderCreateUpdateModal = ({
                   </span>
                 </div>
               </div>
-
               <div className="mt-3 text-end">
                 <Button type="submit" disabled={isLoading || updateLoad}>
                   Submit{" "}

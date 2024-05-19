@@ -4,13 +4,14 @@ import { Sidenav, Nav } from "rsuite";
 import { Link } from "react-router-dom";
 import MENU_ITEMS from "../constants/menu";
 import logo from "../assets/logo/logo2.png";
-import img from "../assets/logo/think.png";
+import img from "../assets/image/error.svg";
 
 const LeftSidebar = ({ expanded, activeKey, setActiveKey }) => {
   const renderMenuItem = (menuItem) => {
     if (menuItem.children) {
       return (
         <Nav.Menu
+          style={{ height: "100vh" }}
           hover-none
           key={menuItem.key}
           eventKey={menuItem.key}
@@ -66,9 +67,11 @@ const LeftSidebar = ({ expanded, activeKey, setActiveKey }) => {
               src={logo}
               alt="Logo"
               style={{
-                width: expanded ? "45px" : "45px",
+                width: expanded ? "65px" : "65px",
                 marginRight: "0px",
-                marginLeft: "-10px",
+                marginLeft: "-20px",
+                marginBottom: "-20px",
+                marginTop: "-12px",
               }}
             />
             {expanded && (
@@ -88,10 +91,17 @@ const LeftSidebar = ({ expanded, activeKey, setActiveKey }) => {
             {MENU_ITEMS().map((menuItem) => renderMenuItem(menuItem))}
           </Nav>
 
-          <div style={{ width: "200px" }} className="w-75 d-block">
+          <div
+            style={{ width: "200px", marginTop: "100px" }}
+            className="w-75 d-block"
+          >
             <img
-              style={{ width: "250px", marginRight: "-50px" }}
-              className="img-fluid"
+              style={{
+                width: "auto",
+                marginRight: "-50px",
+                backgroundColor: "white",
+              }}
+              className="img-fluid pb-5"
               src={img}
               alt=""
             />
