@@ -1,32 +1,19 @@
-import React, { useMemo, useState } from 'react';
-import { Card } from 'react-bootstrap';
-import CustomTable from '../../components/app/table';
-import SummaryCreateUpdateModal from './SummaryCreateUpdateModal';
+import React, { useMemo, useState } from "react";
+import { Card } from "react-bootstrap";
+import CustomTable from "../../components/app/table";
+import { useGetSummaryQuery } from "../../redux/service/auth/summaryService";
+import LoadingData from "../../components/common/LoadingData";
+import ErrorPage from "../../components/common/ErrorPage";
+// import useGetSummaryQuery from "../../redux/service/auth/summaryService";
 
 const Summary = () => {
-    const [modal, setModal] = useState(false);
+  const [modal, setModal] = useState(false);
 
-    const addShowModal = () =>{
-        setModal(true)
-    }
+  const { data, isLoading, isError } = useGetSummaryQuery();
+  console.log(data);
 
-    const toggle = () =>{
-        setModal(!modal)
-    }
-
-    const ActionColumn = () =>{
-
-
-    }
-    
-    const columns = useMemo(
+  const columns = useMemo(
     () => [
-      {
-        Header: "Action",
-        accessor: "action",
-        classes: "table-action",
-        Cell: ActionColumn,
-      },
       {
         Header: "#",
         accessor: "sl",
@@ -34,61 +21,70 @@ const Summary = () => {
         classes: "table-user",
       },
       {
-        Header: "Name",
+        Header: "Border Name",
         accessor: "name",
         Cell: ({ value }) => value || "n/a",
         classes: "table-user",
       },
       {
-        Header: "Email",
-        accessor: "email",
+        Header: "Deposit Amount",
+        accessor: "depositAmount",
         Cell: ({ value }) => value || "n/a",
         classes: "table-user",
       },
       {
-        Header: "Gender",
-        accessor: "gender",
+        Header: "Meal Quantity",
+        accessor: "mealQuantity",
+        Cell: ({ value }) => value ?? 0,
+        classes: "table-user",
+      },
+      {
+        Header: "Meal Rate",
+        accessor: "mealRate",
+        Cell: ({ value }) => value ?? 0,
+        classes: "table-user",
+      },
+      {
+        Header: "Summary Amount",
+        accessor: "summaryAmount",
         Cell: ({ value }) => value || "n/a",
         classes: "table-user",
       },
       {
-        Header: "Address",
-        accessor: "address",
-        Cell: ({ value }) => value || "n/a",
-        classes: "table-user",
-      },
-      {
-        Header: "Status",
-        accessor: "status",
-        Cell: ({ value }) => value || "n/a",
-        classes: "table-user",
-      },
-      {
-        Header: "Role",
-        accessor: "role",
-        Cell: ({ value }) => value || "n/a",
+        Header: "Total Cost",
+        accessor: "totalCost",
+        Cell: ({ value }) => value ?? 0,
         classes: "table-user",
       },
     ],
     []
   );
-    return (
-        <div className='mx-2'>
-            <Card.Body>
-                <CustomTable 
-                columns={columns}
-                addShowModal={addShowModal}
-                
-                />
 
-                <SummaryCreateUpdateModal
-                    toggle={toggle}
-                    setModal={setModal}
-                    modal={modal}
-                />
-            </Card.Body>
-        </div>
+  if (isLoading) {
+    return (
+      <div>
+        <LoadingData />
+      </div>
     );
+  } else if (isError) {
+    return (
+      <div>
+        <ErrorPage />
+      </div>
+    );
+  } else {
+    return (
+      <div className="mx-2">
+        <Card.Body>
+          <CustomTable
+            data={data}
+            columns={columns}
+            // addShowModal={addShowModal}
+          />
+        </Card.Body>
+      </div>
+    );
+  }
 };
 
 export default Summary;

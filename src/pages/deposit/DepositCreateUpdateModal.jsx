@@ -1,38 +1,43 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import React from "react";
-import { Button, Form, Modal } from "react-bootstrap";
+import React, { useEffect } from "react";
+import { Button, Form, Modal, Spinner } from "react-bootstrap";
 import { Controller, useForm } from "react-hook-form";
 import { DatePicker, Stack } from "rsuite";
 import * as yup from "yup";
+import { useGetBorderQuery } from "../../redux/service/auth/borderService";
+import { useCreateDepositMutation } from "../../redux/service/auth/depositService";
 
 const depositForm = [
   {
-    name: "name",
-    label: "Name",
-    type: "text",
-    placeholder: "Enter your name",
+    name: "dipositDate",
+    label: "Diposit Date",
+    type: "date",
+    placeholder: "Enter your Diposit Date",
     defaultValue: "value",
   },
   {
-    name: "mobile",
-    label: "Mobile",
-    type: "tel",
-    placeholder: "Enter your number",
-    defaultValue: "value",
-  },
-  {
-    name: "email",
-    label: "Email",
-    type: "email",
-    placeholder: "Enter your email",
+    name: "depositAmount",
+    label: "Deposit Amount",
+    type: "number",
+    placeholder: "Enter your Deposit Amount",
     defaultValue: "value",
   },
 ];
 
 const DepositCreateUpdateModal = ({ toggle, modal, setModal }) => {
   const schemaResolver = yup.object().shape({
-    name: yup.string().required("hello"),
+    dipositDate: yup.string().required("Diposit Date is required"),
+    depositAmount: yup
+      .number()
+      .required("Deposite Amount is required")
+      .typeError("Must be greter then 0"),
+    border: yup.string().required("Border is required"),
   });
+
+  const { data: border } = useGetBorderQuery();
+
+  const [createDeposit, { isLoading, isError, isSuccess }] =
+    useCreateDepositMutation();
 
   const methods = useForm({
     mode: "all",
@@ -40,9 +45,19 @@ const DepositCreateUpdateModal = ({ toggle, modal, setModal }) => {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
+    const createData = data;
+    createDeposit(createData);
+    // console.log(data);
   };
-  const { handleSubmit, control } = methods;
+  const { handleSubmit, control, reset } = methods;
+
+  useEffect(() => {
+    if (isSuccess) {
+      setModal(false);
+      // reset(defaultValues);
+    }
+  }, [isSuccess]);
+
   return (
     <div className="z-1">
       <Modal
@@ -53,7 +68,7 @@ const DepositCreateUpdateModal = ({ toggle, modal, setModal }) => {
         size="lg"
       >
         <Modal.Header onHide={toggle} closeButton>
-          <h4>Modal header</h4>
+          <h4>{createDeposit ? "Create Deposit" : "Add Deposit"}</h4>
         </Modal.Header>
 
         <Modal.Body>
@@ -72,8 +87,10 @@ const DepositCreateUpdateModal = ({ toggle, modal, setModal }) => {
                             {...field}
                             type={item.type}
                             placeholder={item.placeholder}
-                            //   isInvalid={!!error}
                             autoComplete="off"
+                            className={
+                              error ? "form-control is-invalid" : "form-control"
+                            }
                           />
 
                           {error && (
@@ -87,7 +104,36 @@ const DepositCreateUpdateModal = ({ toggle, modal, setModal }) => {
                   </Form.Group>
                 </div>
               ))}
-              <div className="w-50">
+
+              <span className="w-50">
+                <Form.Group>
+                  <Form.Label htmlFor="border">Border</Form.Label>
+                  <Controller
+                    name="border"
+                    control={control}
+                    render={({ field, fieldState: { error } }) => (
+                      <>
+                        <Form.Select {...field} isInvalid={!!error}>
+                          <option value="">Select Status</option>
+                          {border.map((type) => (
+                            <option key={type?._id} value={type?._id}>
+                              {type?.name}
+                            </option>
+                          ))}
+                        </Form.Select>
+
+                        {error && (
+                          <Form.Control.Feedback type="invalid">
+                            {error.message}
+                          </Form.Control.Feedback>
+                        )}
+                      </>
+                    )}
+                  />
+                </Form.Group>
+              </span>
+
+              {/* <div className="w-50">
                 <label htmlFor="" className="py-1">
                   Date and Time
                 </label>
@@ -98,16 +144,13 @@ const DepositCreateUpdateModal = ({ toggle, modal, setModal }) => {
                     editable={false}
                   />
                 </div>
-              </div>
+              </div> */}
               <div className="mt-3 text-end">
                 <Button
                   type="submit"
                   // disabled={isLoading || updateLoad}
                 >
-                  Submit{" "}
-                  {/* {(isLoading || updateLoad) && (
-                    <Spinner animation="border" size="sm" />
-                  )} */}
+                  Submit {isLoading && <Spinner animation="border" size="sm" />}
                 </Button>
               </div>
             </div>

@@ -50,13 +50,11 @@ const BazarCreatUpdateModal = ({
     resolver: yupResolver(schemaResolver),
   });
 
-  const { data: border, isLoading, isSuccess, isError } = useGetBorderQuery();
+  const { data: border } = useGetBorderQuery();
   const { handleSubmit, control, reset } = methods;
 
-  const [
-    createBazar,
-    { isError: creatBazarError, isLoading: createBazarLoading },
-  ] = useCreateBazarMutation();
+  const [createBazar, { isLoading, isError, isSuccess }] =
+    useCreateBazarMutation();
 
   const onSubmit = (data) => {
     const creatData = data;
@@ -67,7 +65,7 @@ const BazarCreatUpdateModal = ({
   useEffect(() => {
     if (isSuccess) {
       setModal(false);
-      reset(defaultValues);
+      // reset(defaultValues);
     }
   }, [isSuccess]);
 

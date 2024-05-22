@@ -2,9 +2,9 @@ import { apiService } from "../../api/apiService";
 
 export const userService = apiService.injectEndpoints({
   endpoints: (builder) => ({
-    userList: builder.query({
+    userGet: builder.query({
       query: () => ({
-        url: `users`,
+        url: "border",
         method: "GET",
       }),
       transformResponse: ({ data }) => data || [],
@@ -52,4 +52,4 @@ export const userService = apiService.injectEndpoints({
     }),
   }),
 });
-export const { useUserCreateMutation, useUserListQuery } = userService;
+export const { useUserGetQuery } = userService;

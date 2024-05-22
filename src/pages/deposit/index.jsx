@@ -1,34 +1,27 @@
-import React, { useMemo, useState } from 'react';
-import CustomTable from '../../components/app/table';
-import { Card } from 'react-bootstrap';
-import DepositCreateUpdateModal from './DepositCreateUpdateModal';
-
+import React, { useMemo, useState } from "react";
+import CustomTable from "../../components/app/table";
+import { Card } from "react-bootstrap";
+import DepositCreateUpdateModal from "./DepositCreateUpdateModal";
+import { useGetDepositQuery } from "../../redux/service/auth/depositService";
+import LoadingData from "../../components/common/LoadingData";
+import ErrorPage from "../../components/common/ErrorPage";
 
 const Deposit = () => {
+  const [modal, setModal] = useState(false);
 
-    const [modal , setModal] = useState(false);
+  const { data, isLoading, isError } = useGetDepositQuery();
+  console.log(data);
 
-    const addShowModal = () =>{
-        setModal(true)
-    };
+  const addShowModal = () => {
+    setModal(true);
+  };
 
+  const toggle = () => {
+    setModal(!toggle);
+  };
 
-    const toggle = () =>{
-        setModal(!toggle)
-    }
-
-     const ActionColumn =() =>{
-
-     }
-    
-     const columns = useMemo(
+  const columns = useMemo(
     () => [
-      {
-        Header: "Action",
-        accessor: "action",
-        classes: "table-action",
-        Cell: ActionColumn,
-      },
       {
         Header: "#",
         accessor: "sl",
@@ -36,21 +29,26 @@ const Deposit = () => {
         classes: "table-user",
       },
       {
-        Header: "Name",
+        Header: "Border Name",
         accessor: "name",
         Cell: ({ value }) => value || "n/a",
         classes: "table-user",
       },
       {
-        Header: "Email",
-        accessor: "email",
+        Header: "Deposit Amount",
+        accessor: "depositAmount",
         Cell: ({ value }) => value || "n/a",
         classes: "table-user",
       },
       {
-        Header: "Gender",
-        accessor: "gender",
-        Cell: ({ value }) => value || "n/a",
+        Header: "Date",
+        accessor: "createdAt",
+        Cell: ({ value }) => {
+          if (!value) return "n/a";
+          const date = new Date(value);
+          return date.toDateString();
+        },
+        // value || "n/a",
         classes: "table-user",
       },
       {
@@ -74,22 +72,39 @@ const Deposit = () => {
     ],
     []
   );
-    return (
-        <div className='mx-2'>
-            <Card.Body>
-                <CustomTable
-                columns={columns}
-                addShowModal={addShowModal}
-                />
 
-            <DepositCreateUpdateModal
-                toggle={toggle}
-                modal={modal}
-                setModal={setModal}
-            />
-            </Card.Body>
-        </div>
+  if (isLoading) {
+    return (
+      <div>
+        <LoadingData />
+      </div>
     );
+  } else if (isError) {
+    return (
+      <div>
+        <ErrorPage />
+      </div>
+    );
+  } else {
+    return (
+      <div className="mx-2">
+        <Card.Body>
+          <CustomTable
+            data={data}
+            columns={columns}
+            addShowModal={addShowModal}
+            tableInfo={{ addTitle: "Deposit" }}
+          />
+
+          <DepositCreateUpdateModal
+            toggle={toggle}
+            modal={modal}
+            setModal={setModal}
+          />
+        </Card.Body>
+      </div>
+    );
+  }
 };
 
 export default Deposit;

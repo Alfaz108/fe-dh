@@ -1,10 +1,10 @@
 import DashboardIcon from "@rsuite/icons/legacy/Dashboard";
 import DocPassIcon from "@rsuite/icons/DocPass";
-import PeoplesCostomizeIcon from '@rsuite/icons/PeoplesCostomize';
+import PeoplesCostomizeIcon from "@rsuite/icons/PeoplesCostomize";
 import MemberIcon from "@rsuite/icons/Peoples";
-import PeopleSpeakerIcon from '@rsuite/icons/PeopleSpeaker';
-import WaitIcon from '@rsuite/icons/Wait';
-import SentToUserIcon from '@rsuite/icons/SentToUser';
+import PeopleSpeakerIcon from "@rsuite/icons/PeopleSpeaker";
+import WaitIcon from "@rsuite/icons/Wait";
+import SentToUserIcon from "@rsuite/icons/SentToUser";
 
 import TagAuthorizeIcon from "@rsuite/icons/TagAuthorize";
 const MENU_ITEMS = () => {
@@ -50,10 +50,10 @@ const MENU_ITEMS = () => {
     },
 
     {
-      key: "reports",
-      label: "Reports",
+      key: "user",
+      label: "User",
       icon: DocPassIcon,
-      url: "/",
+      url: "/user",
     },
   ];
 };

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Card } from "react-bootstrap";
 import CustomTable from "../../components/app/table";
 import BazarCreatUpdateModal from "./BazarCreatUpdateModal";
@@ -9,6 +9,8 @@ import {
 import LoadingData from "../../components/common/LoadingData";
 import ErrorPage from "../../components/common/ErrorPage";
 import Swal from "sweetalert2";
+import { getURL } from "../../helpers/qs";
+import { useDispatch, useSelector } from "react-redux";
 
 export const DEFAULT_BAZAR_VALUE = {
   bazarDate: "",
@@ -21,7 +23,35 @@ const Bazar = () => {
   const [defaultValue, setDefaultValues] = useState(DEFAULT_BAZAR_VALUE);
   const [editBazar, setEditBazar] = useState(false);
 
-  const { data, isLoading, isError } = useGetBazarQuery();
+  const dispatch = useDispatch();
+  const { totalPage, page, limit, totalItems } = useSelector(
+    (state) => state.pagination
+  );
+
+  // const { data, isLoading, pagination, isError } = useGetBazarQuery(
+  //   getURL(``),
+  //   {
+  //     selectFromResult: (data) => {
+  //       // console.log(data, "maruf");
+  //       return {
+  //         pagination: data?.data?.pagination,
+  //         data: data?.data?.data,
+  //         isLoading: data?.isLoading,
+  //         isError: data?.isError,
+  //       };
+  //     },
+  //   }
+  // );
+
+  const { data, isLoading, pagination, isError } = useGetBazarQuery();
+
+  // console.log("maruf", pagination);s
+
+  useEffect(() => {
+    if (pagination && Object.keys(pagination).length > 0) {
+      dispatch(handlePagination(pagination));
+    }
+  }, [pagination]);
 
   const [deleteBazar] = useDeleteBazarMutation();
 
@@ -54,8 +84,6 @@ const Bazar = () => {
         deleteBazar({ id: row?.original._id });
       }
     });
-
-    console.log({ id: row?.original._id });
   };
   const ActionColumn = ({ row }) => {
     const edit = () => {
@@ -116,6 +144,20 @@ const Bazar = () => {
     },
   ]);
 
+  const sizePerPageList = [
+    {
+      text: "5",
+      value: 5,
+    },
+    {
+      text: "10",
+      value: 10,
+    },
+    {
+      text: "50",
+      value: 50,
+    },
+  ];
   if (isLoading) {
     return (
       <div>
@@ -137,6 +179,9 @@ const Bazar = () => {
             data={data}
             addShowModal={addShowModal}
             tableInfo={{ addTitle: "Bazar" }}
+            pagination={pagination}
+            pageSize={5}
+            sizePerPageList={sizePerPageList}
           />
           <BazarCreatUpdateModal
             modal={modal}

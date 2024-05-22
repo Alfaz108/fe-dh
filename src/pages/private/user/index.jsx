@@ -1,14 +1,11 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Card } from "react-bootstrap";
 import CustomTable from "../../../components/app/table/index";
-import UserCreateUpdate from "./UserCreateUpdateModal";
+// import UserCreateUpdate from "./UserCreateUpdateModal";
 import { handlePagination } from "../../../redux/features/paginationReducer";
+import { useUserGetQuery } from "../../../redux/service/auth/userService";
 
-import {
-  useUserDeleteMutation,
-  useUserListQuery,
-} from "../../../redux/service/user/userService";
-import LoadingData from "../../../components/common/loadingData";
+import LoadingData from "../../../components/common/LoadingData";
 import { useDispatch, useSelector } from "react-redux";
 import { getURL } from "../../../helpers/qs";
 
@@ -39,7 +36,7 @@ const User = () => {
     (state) => state.pagination
   );
 
-  const { userList, pagination, isLoading, isError } = useUserListQuery(
+  const { userList, pagination, isLoading, isError } = useUserGetQuery(
     getURL(``),
     {
       selectFromResult: (data) => {
@@ -52,7 +49,7 @@ const User = () => {
       },
     }
   );
-  const [userDelete] = useUserDeleteMutation();
+  // const [userDelete] = useUserDeleteMutation();
 
   useEffect(() => {
     if (pagination && Object.keys(pagination).length > 0) {
@@ -85,7 +82,8 @@ const User = () => {
         <span role="button" className="action-icon text-danger ms-2">
           <i
             className="mdi mdi-delete"
-            onClick={() => userDelete({ id: row?.original?._id })}></i>
+            onClick={() => userDelete({ id: row?.original?._id })}
+          ></i>
         </span>
       </>
     );
@@ -183,13 +181,13 @@ const User = () => {
             }}
           />
 
-          <UserCreateUpdate
+          {/* <UserCreateUpdate
             modal={modal}
             setModal={setModal}
             toggle={toggle}
             defaultValues={defaultValues}
             editData={editData}
-          />
+          /> */}
         </Card.Body>
       </Card>
     );

@@ -9,6 +9,7 @@ import Bazar from "../pages/bazar";
 import Deposit from "../pages/deposit";
 import Meal from "../pages/meal";
 import Summary from "../pages/summary";
+import User from "../pages/private/user";
 
 export const route = createBrowserRouter([
   {
@@ -25,15 +26,15 @@ export const route = createBrowserRouter([
       },
       {
         path: "/border",
-        element: <Border/>,
+        element: <Border />,
       },
       {
         path: "/bazar",
-        element: <Bazar/>,
+        element: <Bazar />,
       },
       {
         path: "/deposit",
-        element: <Deposit/>,
+        element: <Deposit />,
       },
       {
         path: "/meal",
@@ -43,7 +44,11 @@ export const route = createBrowserRouter([
         path: "/summary",
         element: <Summary />,
       },
- 
+
+      {
+        path: "/user",
+        element: <User />,
+      },
     ],
   },
   {
